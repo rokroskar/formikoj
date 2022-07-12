@@ -433,7 +433,7 @@ class SeismicRefractionManager(MethodManager):
             self._logger.critical('Geometry file contains byte order mark')
             return -1
             
-        raw = np.genfromtxt(path, delimiter=',')
+        raw = pd.read_csv(path, sep=None, engine='python')
             
         if raw.shape[1] != 7:
             self._logger.critical(
@@ -448,6 +448,7 @@ class SeismicRefractionManager(MethodManager):
         # read geometry information from file
         path = os.path.join(self._geomdir, self._geomfile)
         geom = pd.read_csv(path,
+                           sep=None, engine='python',
                            names=['x', 'y', 'z', 
                                   'geophone', 'shot', 
                                   'first_geophone', 'num_geophones'])
