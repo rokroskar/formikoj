@@ -690,7 +690,9 @@ class SeismicWaveformModeler(DataModeler):
             self._scheme = pg.load(schemefile)
             
         elif schemefile.lower().endswith('.csv'):
-            inp = pd.read_csv(schemefile, names=['x', 'y', 'z', 'g', 's'])
+            inp = pd.read_csv(schemefile, 
+                              sep=None, engine='python',
+                              names=['x', 'y', 'z', 'g', 's'])
             
             self._create_scheme_datacontainer(inp)
         else:
