@@ -21,9 +21,9 @@ cross-plattform usage.
 ## Structure of this repository
 
 The source code of the formikoj library is in the `code` folder.
-Exemplary field data sets used presented in the manuscript are provided in the 
-`data` folder. The sources for the manuscript text are in  the `manuscript`
-folder.
+Data and information to reproduce the exemplary use cases presented in the 
+manuscript are provided in the `examples` folder. 
+The sources for the manuscript text are in  the `manuscript` folder.
 See the `README.md` files in each directory for a full description.
 
 ## Getting the code
@@ -50,7 +50,8 @@ isolation.
 Thus, you can install our dependencies without causing conflicts with your
 setup (even with different Python versions).
 
-Run the following command in the repository folder (where `environment.yml`
+Open a terminal (Linux & Mac) or the Anaconda Prompt (Windows) and run the 
+following command in the repository folder (where `environment.yml`
 is located) to create a separate environment and install all required
 dependencies in it:
 
