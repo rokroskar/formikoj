@@ -33,6 +33,7 @@ class SeismicRefractionManager(MethodManager):
             self._logger = create_logger(self._workdir,
                              os.path.join(self._workdir,
                                           self._logfile))
+            self._pvd = 1
             self._preview_data()
         else:
             if not self._check_directory_structure():
@@ -60,6 +61,7 @@ class SeismicRefractionManager(MethodManager):
                         os.remove(self._dbfile)
                         self._logger.info('Project database deleted')
                 elif cgf == 0:
+                    self._pvd = 2
                     self._preview_data()
     
     def _check_database(self):
@@ -199,7 +201,7 @@ class SeismicRefractionManager(MethodManager):
         self._ftype = 'SEG2'
         self._fext = '.sg2'
         self._data = None
-        self._pvd = False
+        self._pvd = 0
         self._st = None
         
         # data processing
@@ -321,7 +323,7 @@ class SeismicRefractionManager(MethodManager):
 
         # ~ search = self._get_filelist()
         search, self._ftype, self._syndata = get_filelist(
-            self._workdir if self._pvd else self._datadir)
+            self._workdir if self._pvd == 1 else self._datadir)
         numfiles = float(len(glob(search)))
         for i, f in enumerate(sorted(glob(search))):
             with warnings.catch_warnings():
@@ -2724,7 +2726,7 @@ class SeismicRefractionManager(MethodManager):
         
         # set preview flag
         self._logger.info('Starting in data preview mode')
-        self._pvd = True
+        # ~ self._pvd = True
         self._procmode = PROC_MODES.inactive
         
         # read all raw data files
