@@ -13,7 +13,7 @@ PACKAGE = formikoj
 help:
 	@echo "Commands:"
 	@echo ""
-	@echo "  all        runs 'build'"
+	@echo "  all        runs 'clean' and 'build'"
 	@echo "  build      build and install the package"
 	@echo "  clean      clean up the package build"
 	@echo ""
@@ -25,9 +25,7 @@ clean:
 	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache
 
 build:
-	unset PYTHONPATH # to avoid conflicts with local pygimli installations
 	python setup.py install
-
-#results:
-#	make -C scripts/field_case all
-#	make -C scripts/synthetic_case all
+	
+dist:
+	python setup.py bdist_wheel
