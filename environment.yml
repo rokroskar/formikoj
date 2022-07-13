@@ -1,0 +1,15 @@
+name: fmk
+channels:
+    - conda-forge
+    - gimli
+    - defaults
+dependencies:
+    - python=3.8
+    - pygimli=1.2.6
+    - numpy
+    - scipy
+    - jupyter
+    - pandas
+    - obspy
+    - pyvista
+    - pyyaml
