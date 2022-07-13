@@ -2350,6 +2350,10 @@ class SeismicRefractionManager(MethodManager):
         plt.rcParams['xtick.top'] = False
         plt.rcParams['xtick.labeltop'] = True
         
+        if self._fig is not None and self._ax is not None:
+            self._logger.error('Cannot open a second seismogram window')
+            return
+        
         self._fig, self._ax = plt.subplots(1, constrained_layout=True,
                                            figsize=(8, 6))
         # ~ self._procmode = PROC_MODES.pick
