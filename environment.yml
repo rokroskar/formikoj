@@ -12,3 +12,4 @@ dependencies:
     - ipython
     - jupyter
     - pyvistaqt
+    - build
