@@ -3,7 +3,6 @@ from codecs import (BOM_UTF8,
                     BOM_UTF32_BE, BOM_UTF32_LE)
 from datetime import datetime as dt
 from glob import glob
-import h5py
 import itertools
 import logging
 import matplotlib as mpl
