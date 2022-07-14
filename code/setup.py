@@ -5,9 +5,9 @@ from setuptools import find_packages, setup
 
 NAME = 'formikoj'
 FULLNAME = NAME
-AUTHOR = "Matthias Steiner"
+AUTHOR = "Matthias Steiner, Adrián Flores Orozco"
 AUTHOR_EMAIL = 'matthias.steiner@geo.tuwien.ac.at'
-LICENSE = "Lesser General Public License (LGPL)"
+LICENSE = "MIT License"
 URL = ""
 DESCRIPTION = ""
 LONG_DESCRIPTION = DESCRIPTION
@@ -18,7 +18,7 @@ PACKAGES = find_packages()
 SCRIPTS = []
 
 CLASSIFIERS = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
