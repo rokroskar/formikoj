@@ -73,6 +73,9 @@ use the Makefile provided in the `code` folder to run the setup process.
 
 ## License
 
+All source code is made available under the MIT License. See LICENSE.md for 
+the full license text.
+
 ## Credits
 
 The structure of this reprository is based on this [template](https://github.com/pinga-lab/paper-template/blob/master/README.md) 
