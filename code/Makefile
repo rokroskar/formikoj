@@ -25,7 +25,9 @@ clean:
 	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache
 
 build:
-	python setup.py install
+	# python setup.py install
+	pip install .
 	
 dist:
-	python setup.py bdist_wheel
+	# python setup.py bdist_wheel
+	python -m build --wheel
