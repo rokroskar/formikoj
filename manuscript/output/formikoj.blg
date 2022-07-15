@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2022)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: formikoj.aux
+The style file: cas-model2-names.bst
+Database file #1: references.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--empty journal in heimann2017
+Warning--empty pages in wang1995
+You've used 34 entries,
+            2990 wiz_defined-function locations,
+            984 strings with 15248 characters,
+and the built_in function-call counts, 27160 in all, are:
+= -- 2006
+> -- 1379
+< -- 16
++ -- 535
+- -- 491
+* -- 3228
+:= -- 3974
+add.period$ -- 123
+call.type$ -- 34
+change.case$ -- 332
+chr.to.int$ -- 34
+cite$ -- 36
+duplicate$ -- 1857
+empty$ -- 1767
+format.name$ -- 592
+if$ -- 4964
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 398
+newline$ -- 206
+num.names$ -- 138
+pop$ -- 619
+preamble$ -- 1
+purify$ -- 297
+quote$ -- 0
+skip$ -- 523
+stack$ -- 0
+substring$ -- 1076
+swap$ -- 1522
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 306
+warning$ -- 2
+while$ -- 157
+width$ -- 0
+write$ -- 542
+(There were 2 warnings)

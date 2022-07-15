@@ -1,0 +1,378 @@
+\begin{thebibliography}{34}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Manual
+\bibitem[{Ahern et~al.(2012)Ahern, Casey, Barnes, Benson, Knight and
+  Trabant}]{ahern2012}
+\bibinfo{author}{Ahern, T.}, \bibinfo{author}{Casey, R.},
+  \bibinfo{author}{Barnes, D.}, \bibinfo{author}{Benson, R.},
+  \bibinfo{author}{Knight, T.}, \bibinfo{author}{Trabant, C.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{SEED Reference Manual, Version 2.4}.
+\newblock \URLprefix \url{http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf}.
+%Type = Article
+\bibitem[{Beyreuther et~al.(2010)Beyreuther, Barsch, Krischer, Megies, Behr and
+  Wassermann}]{beyreuther2010}
+\bibinfo{author}{Beyreuther, M.}, \bibinfo{author}{Barsch, R.},
+  \bibinfo{author}{Krischer, L.}, \bibinfo{author}{Megies, T.},
+  \bibinfo{author}{Behr, Y.}, \bibinfo{author}{Wassermann, J.},
+  \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Obspy: A python toolbox for seismology}.
+\newblock \bibinfo{journal}{Seismological Research Letters}
+  \bibinfo{volume}{81}, \bibinfo{pages}{530--533}.
+\newblock \DOIprefix\doi{10.1785/gssrl.81.3.530}.
+%Type = Article
+\bibitem[{Blanchy et~al.(2020)Blanchy, Saneiyan, Boyd, McLachlan and
+  Binley}]{blanchy2020}
+\bibinfo{author}{Blanchy, G.}, \bibinfo{author}{Saneiyan, S.},
+  \bibinfo{author}{Boyd, J.}, \bibinfo{author}{McLachlan, P.},
+  \bibinfo{author}{Binley, A.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Resipy, an intuitive open source software for complex
+  geoelectrical inversion/modeling}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{137},
+  \bibinfo{pages}{104423}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0098300419308192},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cageo.2020.104423}.
+%Type = Article
+\bibitem[{B{\"u}cker et~al.(2021)B{\"u}cker, Flores~Orozco, Gallistl, Steiner,
+  Aigner, Hoppenbrock, Glebe, Morales~Barrera, Pita de~la Paz,
+  Garc{\'\i}a~Garc{\'\i}a et~al.}]{buecker2021}
+\bibinfo{author}{B{\"u}cker, M.}, \bibinfo{author}{Flores~Orozco, A.},
+  \bibinfo{author}{Gallistl, J.}, \bibinfo{author}{Steiner, M.},
+  \bibinfo{author}{Aigner, L.}, \bibinfo{author}{Hoppenbrock, J.},
+  \bibinfo{author}{Glebe, R.}, \bibinfo{author}{Morales~Barrera, W.},
+  \bibinfo{author}{Pita de~la Paz, C.},
+  \bibinfo{author}{Garc{\'\i}a~Garc{\'\i}a, C.E.}, et~al.,
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Integrated land and water-borne geophysical surveys
+  shed light on the sudden drying of large karst lakes in southern mexico}.
+\newblock \bibinfo{journal}{Solid Earth} \bibinfo{volume}{12},
+  \bibinfo{pages}{439--461}.
+\newblock \DOIprefix\doi{10.5194/se-12-439-2021}.
+%Type = Article
+\bibitem[{Cockett et~al.(2015)Cockett, Kang, Heagy, Pidlisecky and
+  Oldenburg}]{cockett2015}
+\bibinfo{author}{Cockett, R.}, \bibinfo{author}{Kang, S.},
+  \bibinfo{author}{Heagy, L.J.}, \bibinfo{author}{Pidlisecky, A.},
+  \bibinfo{author}{Oldenburg, D.W.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Simpeg: An open source framework for simulation and
+  gradient based parameter estimation in geophysical applications}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{85},
+  \bibinfo{pages}{142--154}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S009830041530056X},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cageo.2015.09.015}.
+%Type = Techreport
+\bibitem[{Dufour and Foltinek(1996)}]{dufour1996}
+\bibinfo{author}{Dufour, J.}, \bibinfo{author}{Foltinek, D.S.},
+  \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{The Plus-Minus time analysis method and its
+  implementation}.
+\newblock \bibinfo{type}{Technical Report}. The CREWES Research Report.
+%Type = Article
+\bibitem[{Earle and Shearer(1994)}]{earle1994}
+\bibinfo{author}{Earle, P.S.}, \bibinfo{author}{Shearer, P.M.},
+  \bibinfo{year}{1994}.
+\newblock \bibinfo{title}{Characterization of global seismograms using an
+  automatic-picking algorithm}.
+\newblock \bibinfo{journal}{Bulletin of the Seismological Society of America}
+  \bibinfo{volume}{84}, \bibinfo{pages}{366--376}.
+%Type = Article
+\bibitem[{Flores~Orozco et~al.(2015)Flores~Orozco, Velimirovic, Tosco, Kemna,
+  Sapion, Klaas, Sethi and Bastiaens}]{floresorozco2015}
+\bibinfo{author}{Flores~Orozco, A.}, \bibinfo{author}{Velimirovic, M.},
+  \bibinfo{author}{Tosco, T.}, \bibinfo{author}{Kemna, A.},
+  \bibinfo{author}{Sapion, H.}, \bibinfo{author}{Klaas, N.},
+  \bibinfo{author}{Sethi, R.}, \bibinfo{author}{Bastiaens, L.},
+  \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Monitoring the injection of microscale zerovalent
+  iron particles for groundwater remediation by means of complex electrical
+  conductivity imaging}.
+\newblock \bibinfo{journal}{Environmental science \& technology}
+  \bibinfo{volume}{49}, \bibinfo{pages}{5593--5600}.
+\newblock \DOIprefix\doi{10.1021/acs.est.5b00208}.
+%Type = Article
+\bibitem[{Guedes et~al.(2022)Guedes, Maciel and Rocha}]{guedes2022}
+\bibinfo{author}{Guedes, V.J.C.B.}, \bibinfo{author}{Maciel, S.T.R.},
+  \bibinfo{author}{Rocha, M.P.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Refrapy: A python program for seismic refraction data
+  analysis}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{159},
+  \bibinfo{pages}{105020}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0098300421003022},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cageo.2021.105020}.
+%Type = Article
+\bibitem[{Hagedoorn(1959)}]{hagedoorn1959}
+\bibinfo{author}{Hagedoorn, J.}, \bibinfo{year}{1959}.
+\newblock \bibinfo{title}{The plus-minus method of interpreting seismic
+  refraction sections}.
+\newblock \bibinfo{journal}{Geophysical prospecting} \bibinfo{volume}{7},
+  \bibinfo{pages}{158--182}.
+\newblock \DOIprefix\doi{10.1111/j.1365-2478.1959.tb01460.x}.
+%Type = Article
+\bibitem[{Harris et~al.(2020)Harris, Millman, van~der Walt, Gommers, Virtanen,
+  Cournapeau, Wieser, Taylor, Berg, Smith, Kern, Picus, Hoyer, van Kerkwijk,
+  Brett, Haldane, del R{\'{i}}o, Wiebe, Peterson, G{\'{e}}rard-Marchant,
+  Sheppard, Reddy, Weckesser, Abbasi, Gohlke and Oliphant}]{harris2020}
+\bibinfo{author}{Harris, C.R.}, \bibinfo{author}{Millman, K.J.},
+  \bibinfo{author}{van~der Walt, S.J.}, \bibinfo{author}{Gommers, R.},
+  \bibinfo{author}{Virtanen, P.}, \bibinfo{author}{Cournapeau, D.},
+  \bibinfo{author}{Wieser, E.}, \bibinfo{author}{Taylor, J.},
+  \bibinfo{author}{Berg, S.}, \bibinfo{author}{Smith, N.J.},
+  \bibinfo{author}{Kern, R.}, \bibinfo{author}{Picus, M.},
+  \bibinfo{author}{Hoyer, S.}, \bibinfo{author}{van Kerkwijk, M.H.},
+  \bibinfo{author}{Brett, M.}, \bibinfo{author}{Haldane, A.},
+  \bibinfo{author}{del R{\'{i}}o, J.F.}, \bibinfo{author}{Wiebe, M.},
+  \bibinfo{author}{Peterson, P.}, \bibinfo{author}{G{\'{e}}rard-Marchant, P.},
+  \bibinfo{author}{Sheppard, K.}, \bibinfo{author}{Reddy, T.},
+  \bibinfo{author}{Weckesser, W.}, \bibinfo{author}{Abbasi, H.},
+  \bibinfo{author}{Gohlke, C.}, \bibinfo{author}{Oliphant, T.E.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Array programming with {NumPy}}.
+\newblock \bibinfo{journal}{Nature} \bibinfo{volume}{585},
+  \bibinfo{pages}{357--362}.
+\newblock \URLprefix \url{https://doi.org/10.1038/s41586-020-2649-2},
+  \DOIprefix\doi{10.1038/s41586-020-2649-2}.
+%Type = Article
+\bibitem[{Heimann et~al.(2017)Heimann, Kriegerowski, Isken, Cesca, Daout,
+  Grigoli, Juretzek, Megies, Nooshiri, Steinberg, Sudhaus, Vasyura-Bathke,
+  Willey and Dahm}]{heimann2017}
+\bibinfo{author}{Heimann, S.}, \bibinfo{author}{Kriegerowski, M.},
+  \bibinfo{author}{Isken, M.}, \bibinfo{author}{Cesca, S.},
+  \bibinfo{author}{Daout, S.}, \bibinfo{author}{Grigoli, F.},
+  \bibinfo{author}{Juretzek, C.}, \bibinfo{author}{Megies, T.},
+  \bibinfo{author}{Nooshiri, N.}, \bibinfo{author}{Steinberg, A.},
+  \bibinfo{author}{Sudhaus, H.}, \bibinfo{author}{Vasyura-Bathke, H.},
+  \bibinfo{author}{Willey, T.}, \bibinfo{author}{Dahm, T.},
+  \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Pyrocko - an open-source seismology toolbox and
+  library} \DOIprefix\doi{10.5880/GFZ.2.1.2017.001}.
+%Type = Article
+\bibitem[{Hilbich(2010)}]{hilbich2010}
+\bibinfo{author}{Hilbich, C.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Time-lapse refraction seismic tomography for the
+  detection of ground ice degradation}.
+\newblock \bibinfo{journal}{The Cryosphere} \bibinfo{volume}{4},
+  \bibinfo{pages}{243--259}.
+\newblock \DOIprefix\doi{10.5194/tc-4-243-2010}.
+%Type = Article
+\bibitem[{Hunter(2007)}]{hunter2007}
+\bibinfo{author}{Hunter, J.D.}, \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{Matplotlib: A 2d graphics environment}.
+\newblock \bibinfo{journal}{Computing in Science \& Engineering}
+  \bibinfo{volume}{9}, \bibinfo{pages}{90--95}.
+\newblock \DOIprefix\doi{10.1109/MCSE.2007.55}.
+%Type = Article
+\bibitem[{Krautblatter and Draebing(2014)}]{krautblatter2014}
+\bibinfo{author}{Krautblatter, M.}, \bibinfo{author}{Draebing, D.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Pseudo 3-dp wave refraction seismic monitoring of
+  permafrost in steep unstable bedrock}.
+\newblock \bibinfo{journal}{Journal of Geophysical Research: Earth Surface}
+  \bibinfo{volume}{119}, \bibinfo{pages}{287--299}.
+\newblock \DOIprefix\doi{10.1002/2012jf002638}.
+%Type = Article
+\bibitem[{Lawton(1989)}]{lawton1989}
+\bibinfo{author}{Lawton, D.C.}, \bibinfo{year}{1989}.
+\newblock \bibinfo{title}{Computation of refraction static corrections using
+  first-break traveltime differences}.
+\newblock \bibinfo{journal}{Geophysics} \bibinfo{volume}{54},
+  \bibinfo{pages}{1289--1296}.
+%Type = Inproceedings
+\bibitem[{{M}c{K}inney(2010)}]{mckinney2010}
+\bibinfo{author}{{M}c{K}inney, W.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{{D}ata {S}tructures for {S}tatistical {C}omputing in
+  {P}ython}, in: \bibinfo{editor}{{S}t\'efan van~der {W}alt},
+  \bibinfo{editor}{{J}arrod {M}illman} (Eds.),
+  \bibinfo{booktitle}{{P}roceedings of the 9th {P}ython in {S}cience
+  {C}onference}, pp. \bibinfo{pages}{56 -- 61}.
+\newblock \DOIprefix\doi{10.25080/Majora-92bf1922-00a}.
+%Type = Inproceedings
+\bibitem[{Nguyen et~al.(2018)Nguyen, Ghose, Isunza~Manrique, Robert and
+  Dumont}]{nguyen2018}
+\bibinfo{author}{Nguyen, F.}, \bibinfo{author}{Ghose, R.},
+  \bibinfo{author}{Isunza~Manrique, I.}, \bibinfo{author}{Robert, T.},
+  \bibinfo{author}{Dumont, G.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Managing past landfills for future site development:
+  A review of the contribution of geophysical methods}, in:
+  \bibinfo{booktitle}{Proceedings of the 4th International Symposium on
+  Enhanced Landfill Mining}, pp. \bibinfo{pages}{27--36}.
+%Type = Article
+\bibitem[{Parsekian et~al.(2015)Parsekian, Singha, Minsley, Holbrook and
+  Slater}]{parsekian2015}
+\bibinfo{author}{Parsekian, A.}, \bibinfo{author}{Singha, K.},
+  \bibinfo{author}{Minsley, B.J.}, \bibinfo{author}{Holbrook, W.S.},
+  \bibinfo{author}{Slater, L.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Multiscale geophysical imaging of the critical zone}.
+\newblock \bibinfo{journal}{Reviews of Geophysics} \bibinfo{volume}{53},
+  \bibinfo{pages}{1--26}.
+\newblock \DOIprefix\doi{10.1002/2014RG000465}.
+%Type = Article
+\bibitem[{Plattner(2020)}]{plattner2020}
+\bibinfo{author}{Plattner, A.M.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Gprpy: Open-source ground-penetrating radar
+  processing and visualization software}.
+\newblock \bibinfo{journal}{The Leading Edge} \bibinfo{volume}{39},
+  \bibinfo{pages}{332--337}.
+\newblock \DOIprefix\doi{10.1190/tle39050332.1}.
+%Type = Article
+\bibitem[{Ramachandran et~al.(2011)Ramachandran, Bellefleur, Brent, Riedel and
+  Dallimore}]{ramachandran2011}
+\bibinfo{author}{Ramachandran, K.}, \bibinfo{author}{Bellefleur, G.},
+  \bibinfo{author}{Brent, T.}, \bibinfo{author}{Riedel, M.},
+  \bibinfo{author}{Dallimore, S.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Imaging permafrost velocity structure using high
+  resolution 3d seismic tomography}.
+\newblock \bibinfo{journal}{Geophysics} \bibinfo{volume}{76},
+  \bibinfo{pages}{B187--B198}.
+\newblock \DOIprefix\doi{10.1190/geo2010-0353.1}.
+%Type = Article
+\bibitem[{Ringler and Evans(2015)}]{ringler2015}
+\bibinfo{author}{Ringler, A.T.}, \bibinfo{author}{Evans, J.R.},
+  \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{A quick seed tutorial}.
+\newblock \bibinfo{journal}{Seismological Research Letters}
+  \bibinfo{volume}{86}, \bibinfo{pages}{1717--1725}.
+\newblock \DOIprefix\doi{10.1785/0220150043}.
+%Type = Article
+\bibitem[{Romero-Ruiz et~al.(2018)Romero-Ruiz, Linde, Keller and
+  Or}]{romero2019}
+\bibinfo{author}{Romero-Ruiz, A.}, \bibinfo{author}{Linde, N.},
+  \bibinfo{author}{Keller, T.}, \bibinfo{author}{Or, D.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{A review of geophysical methods for soil structure
+  characterization}.
+\newblock \bibinfo{journal}{Reviews of Geophysics} \bibinfo{volume}{56},
+  \bibinfo{pages}{672--697}.
+\newblock \DOIprefix\doi{10.1029/2018RG000611}.
+%Type = Article
+\bibitem[{Ronczka et~al.(2018)Ronczka, Wis{\'e}n and Dahlin}]{ronczka2018}
+\bibinfo{author}{Ronczka, M.}, \bibinfo{author}{Wis{\'e}n, R.},
+  \bibinfo{author}{Dahlin, T.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Geophysical pre-investigation for a stockholm tunnel
+  project: joint inversion and interpretation of geoelectric and seismic
+  refraction data in an urban environment}.
+\newblock \bibinfo{journal}{Near Surface Geophysics} \bibinfo{volume}{16},
+  \bibinfo{pages}{258--268}.
+\newblock \DOIprefix\doi{10.3997/1873-0604.2018009}.
+%Type = Article
+\bibitem[{R{\"u}cker et~al.(2017)R{\"u}cker, G{\"u}nther and
+  Wagner}]{ruecker2017}
+\bibinfo{author}{R{\"u}cker, C.}, \bibinfo{author}{G{\"u}nther, T.},
+  \bibinfo{author}{Wagner, F.M.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{pygimli: An open-source library for modelling and
+  inversion in geophysics}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{109},
+  \bibinfo{pages}{106--123}.
+\newblock \DOIprefix\doi{10.1016/j.cageo.2017.07.011}.
+%Type = Article
+\bibitem[{Samyn et~al.(2012)Samyn, Travelletti, Bitri, Grandjean and
+  Malet}]{samyn2012}
+\bibinfo{author}{Samyn, K.}, \bibinfo{author}{Travelletti, J.},
+  \bibinfo{author}{Bitri, A.}, \bibinfo{author}{Grandjean, G.},
+  \bibinfo{author}{Malet, J.P.}, \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Characterization of a landslide geometry using 3d
+  seismic refraction traveltime tomography: The la valette landslide case
+  history}.
+\newblock \bibinfo{journal}{Journal of Applied Geophysics}
+  \bibinfo{volume}{86}, \bibinfo{pages}{120--132}.
+\newblock \DOIprefix\doi{10.1016/j.jappgeo.2012.07.014}.
+%Type = Article
+\bibitem[{Steiner et~al.(2022)Steiner, Katona, Fellner and {Flores
+  Orozco}}]{steiner2022}
+\bibinfo{author}{Steiner, M.}, \bibinfo{author}{Katona, T.},
+  \bibinfo{author}{Fellner, J.}, \bibinfo{author}{{Flores Orozco}, A.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Quantitative water content estimation in landfills
+  through joint inversion of seismic refraction and electrical resistivity data
+  considering surface conduction}.
+\newblock \bibinfo{journal}{Waste Management} \bibinfo{volume}{149},
+  \bibinfo{pages}{21--32}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0956053X22002793},
+  \DOIprefix\doi{https://doi.org/10.1016/j.wasman.2022.05.020}.
+%Type = Article
+\bibitem[{Steiner et~al.(2021)Steiner, Wagner, Maierhofer, Schöner and
+  Flores~Orozco}]{steiner2021}
+\bibinfo{author}{Steiner, M.}, \bibinfo{author}{Wagner, F.M.},
+  \bibinfo{author}{Maierhofer, T.}, \bibinfo{author}{Schöner, W.},
+  \bibinfo{author}{Flores~Orozco, A.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Improved estimation of ice and water contents in
+  alpine permafrost through constrained petrophysical joint inversion: The
+  hoher sonnblick case study}.
+\newblock \bibinfo{journal}{Geophysics} \bibinfo{volume}{86},
+  \bibinfo{pages}{1--84}.
+\newblock \DOIprefix\doi{10.1190/geo2020-0592.1}.
+%Type = Article
+\bibitem[{Stockwell(1999)}]{stockwell1999}
+\bibinfo{author}{Stockwell, J.W.}, \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{The cwp/su: Seismic unix package}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{25},
+  \bibinfo{pages}{415--419}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0098300498001459},
+  \DOIprefix\doi{10.1016/S0098-3004(98)00145-9}.
+%Type = Article
+\bibitem[{Sullivan and Kaszynski(2019)}]{sullivan2019}
+\bibinfo{author}{Sullivan, C.B.}, \bibinfo{author}{Kaszynski, A.},
+  \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{{PyVista}: 3d plotting and mesh analysis through a
+  streamlined interface for the visualization toolkit ({VTK})}.
+\newblock \bibinfo{journal}{Journal of Open Source Software}
+  \bibinfo{volume}{4}, \bibinfo{pages}{1450}.
+\newblock \URLprefix \url{https://doi.org/10.21105/joss.01450},
+  \DOIprefix\doi{10.21105/joss.01450}.
+%Type = Article
+\bibitem[{Uhlemann et~al.(2016)Uhlemann, Hagedorn, Dashwood, Maurer, Gunn,
+  Dijkstra and Chambers}]{uhlemann2016}
+\bibinfo{author}{Uhlemann, S.}, \bibinfo{author}{Hagedorn, S.},
+  \bibinfo{author}{Dashwood, B.}, \bibinfo{author}{Maurer, H.},
+  \bibinfo{author}{Gunn, D.}, \bibinfo{author}{Dijkstra, T.},
+  \bibinfo{author}{Chambers, J.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Landslide characterization using p- and s-wave
+  seismic refraction tomography — the importance of elastic moduli}.
+\newblock \bibinfo{journal}{Journal of Applied Geophysics}
+  \bibinfo{volume}{134}, \bibinfo{pages}{64--76}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0926985116302439},
+  \DOIprefix\doi{https://doi.org/10.1016/j.jappgeo.2016.08.014}.
+%Type = Inproceedings
+\bibitem[{Uieda et~al.(2013)Uieda, Oliveira~Jr and Barbosa}]{uieda2013}
+\bibinfo{author}{Uieda, L.}, \bibinfo{author}{Oliveira~Jr, V.C.},
+  \bibinfo{author}{Barbosa, V.C.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Modeling the earth with fatiando a terra}, in:
+  \bibinfo{booktitle}{Proceedings of the 12th Python in Science Conference},
+  pp. \bibinfo{pages}{96--103}.
+%Type = Inproceedings
+\bibitem[{Wang and Cheadle(1995)}]{wang1995}
+\bibinfo{author}{Wang, W.}, \bibinfo{author}{Cheadle, S.},
+  \bibinfo{year}{1995}.
+\newblock \bibinfo{title}{Branch point analysis in refraction interpretation},
+  in: \bibinfo{booktitle}{CSEG National Convention, Expanded abstracts}.
+%Type = Article
+\bibitem[{Whiteley et~al.(2020)Whiteley, Chambers, Uhlemann, Boyd, Cimpoiasu,
+  Holmes, Inauen, Watlet, Hawley-Sibbett, Sujitapan et~al.}]{whiteley2020}
+\bibinfo{author}{Whiteley, J.}, \bibinfo{author}{Chambers, J.},
+  \bibinfo{author}{Uhlemann, S.}, \bibinfo{author}{Boyd, J.},
+  \bibinfo{author}{Cimpoiasu, M.}, \bibinfo{author}{Holmes, J.},
+  \bibinfo{author}{Inauen, C.}, \bibinfo{author}{Watlet, A.},
+  \bibinfo{author}{Hawley-Sibbett, L.}, \bibinfo{author}{Sujitapan, C.},
+  et~al., \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Landslide monitoring using seismic refraction
+  tomography--the importance of incorporating topographic variations}.
+\newblock \bibinfo{journal}{Engineering Geology} \bibinfo{volume}{268},
+  \bibinfo{pages}{105525}.
+\newblock \DOIprefix\doi{10.1016/j.enggeo.2020.105525}.
+
+\end{thebibliography}
