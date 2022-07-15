@@ -158,31 +158,26 @@ Accordingly, the \texttt{SeismicWaveformModeler} class provides a flexible way t
     \end{tabular}
     \label{tab:scheme}
 \end{table}
-The required input files need to be provided via the subdirectory \textit{in} of the working directory. The key input file is the measurement scheme, which contains information regarding the distribution of the shot and geophone stations. If provided in the unified data format the measurement scheme is imported directly with pyGIMLi into a \texttt{DataContainer}. In case the measurement scheme is provided as a csv file the \texttt{SeismicWaveformModeler} reads the information and writes it to a pyGIMLi \texttt{DataContainer}. In the csv format the measurement scheme contains a single line for each station in the survey layout, where a station refers to a location that either hosts a geophone or a shot, or both (see Table~\ref{tab:scheme}). The values provided in each line need to be separated by a unique delimiter, preferably a comma (',') as suggested by the file extension csv (comma separated values). Alternatively, tabulator or semicolon separated columns are also possible; for more details regarding separators in csv files we refer to the documentation of the pandas method \texttt{read\_csv}\footnote{https://pandas.pydata.org/docs/reference/api/pandas.read\_csv.html, last accessed on \today}. In the csv format, the measurement scheme must not contain a header in order to be readable by the \texttt{SeismicWaveformManager}.
+The required input files need to be provided via the subdirectory \textit{in} of the working directory. The key input file is the measurement scheme, which contains information regarding the distribution of the shot and geophone stations. If provided in the unified data format the measurement scheme is imported directly with pyGIMLi into a \texttt{DataContainer}. In case the measurement scheme is provided as a csv file the \texttt{SeismicWaveformModeler} reads the information and writes it to a pyGIMLi \texttt{DataContainer}. In the csv format the measurement scheme contains a single line for each station in the survey layout, where a station either hosts a geophone or a shot, or both (see Table~\ref{tab:scheme}). The values provided in each line need to be separated by a unique delimiter, and the file must not contain a header.
 
-For the modeling of the seismic waveforms, we need to provide the properties of the base wavelet, the synthetic subsurface model and the resulting waveform datasets, as presented in Table~\ref{tab:config}. The values for those parameters are provided through a configuration file following the yaml format, e.g.,
+For the modeling of the seismic waveforms, the parameters for the base wavelet, the synthetic subsurface model and the resulting waveform datasets are provided (see Table~\ref{tab:config}) in a configuration file following the yaml format:
 \newline
 \includegraphics[width=.3\textwidth]{./figures/yaml_file.pdf}
 \newline
-A configuration file located in the input directory can be loaded with the \texttt{load} method as follows:
+In the exemplary configuration file shown above, the first block contains information regarding the wavelet, which controls the modeling of the seismic waveforms as described in Table~\ref{tab:config}.
+In the second block, we can set specific names for the datasets to be created and the number of datasets is automatically determined. Alternatively, it is possible to set the number of datasets to be created and the dataset names are automatically generated with the prefix \textit{dataset\_}.
+Various parameters control the random error (\texttt{noise}) and systematic errors in the modeled seismic waveform data (see Table~\ref{tab:config}).
+The number and position of the shot and geophone stations affected by the systematic errors are randomly chosen with a maximum of 5\% of the total number of stations in order to avoid a high number of invalid trace data.
+The third block contains information regarding the synthetic subsurface model. For each layer the corresponding velocity (\texttt{velmap}) and layer thickness (\texttt{layers}) need to be provided and all layers are considered to be parallel to the surface topography (geometrical information regarding the stations in the measurement scheme). The remaining parameters, namely \texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}, define the properties of the mesh to be used for the forward modeling (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
+Alternatively, the user can provide a more complex mesh in the binary mesh format (i.e., a bms file):
+\newline
+\includegraphics[width=.5\textwidth]{./figures/load_mesh.pdf}
+\newline
+The parameters in the final block control the forward modeling of the corresponding seismic traveltimes (see Table~\ref{tab:config}).
+A configuration file located in the input directory can be imported through the \texttt{load} method:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/load_config.pdf}
 \newline
-By calling the \texttt{load} method with the parameter \texttt{config}, the \texttt{SeismicWaveformModeler} searches the input directory for a configuration file. 
-In case a single yaml file is found, the \texttt{SeismicWaveformModeler} automatically loads this file. However, if multiple configuration files are present, e.g., in a project that tests different configurations, the \texttt{SeismicWaveformModeler} issues a warning and asks the user to provide the name of the configuration file to be loaded.
-
-In the exemplary yaml file shown above, the first block of the configuration file contains information regarding the wavelet, which controls the modeling of the seismic waveforms as described in Table~\ref{tab:config}.
-In the second block, we can set specific names for the datasets to be created and the number of datasets is automatically determined. Alternatively, it is possible to set the number of datasets to be created and the dataset names are automatically generated with the prefix \textit{dataset\_}.
-As described in Table~\ref{tab:config}, there are various parameters, which control the random error (\texttt{noise}) and systematic errors in the modeled seismic waveform data (i.e., missing shots, broken geophones, or traces with wrong polarity).
-The number and position of the shot and geophone stations affected by the systematic errors are randomly chosen, yet we set the maximum as 5\% of the total number of stations in order to avoid a high number of invalid trace data.
-The third block contains information regarding the synthetic subsurface model, where for each layer in the model the corresponding velocity (\texttt{velmap}) and layer thickness (\texttt{layers}) need to be provided, where all layers are considered to be parallel to the surface topography (geometrical information regarding the stations in the measurement scheme). The remaining parameters, namely \texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}, define the properties of the mesh to be used for the forward modeling (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
-Alternatively, the user can provide a more complex mesh in the binary mesh format (i.e., a bms file)
-In the same way as for the configuration file, the \texttt{SeismicWaveformModeler} first checks whether a single bms file is located in the input directory. Only in case multiple meshes are found the user has to specify which mesh file needs to be loaded:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/load_mesh.pdf}
-
-The parameters in the final block do not concern the synthetic waveforms but the forward modeling of the corresponding seismic traveltimes (see Table~\ref{tab:config}). Based on the exemplary configuration file shown above, the\\\texttt{SeismicWaveformModeler} would provide undisturbed traveltimes as both the relative and the absolute noise \\(\texttt{noise\_relative} and \texttt{noise\_absolute}) are set to zero. If we provide values for those parameters we can add random noise to modeled traveltimes in order to mimic picking errors observed in manually picked traveltimes.
-
 \begin{table*}[]
     \caption{Description of the parameters, which can be defined in a configuration file used for the modeling of the synthetic seismic data.}
     \centering
@@ -232,17 +227,17 @@ The parameters in the final block do not concern the synthetic waveforms but the
     \end{tabular*}
     \label{tab:config}
 \end{table*}
-
-Once the \texttt{SeismicWaveformModeler} instance is parameterized, we call the \texttt{create} method with the parameter \texttt{waveforms} to create the synthetic seismic waveform data:
+Once the \texttt{SeismicWaveformModeler} instance is parameterized the synthetic seismic waveform data can be created as follows:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/create_syn_data.pdf}
 \newline
-As can be seen from the \texttt{INFO} messages above, the \texttt{SeismicWaveformModeler} loads the measurement scheme located in the input directory and creates the velocity model used for the waveform modeling based on the mesh and the model parameters provided in the configuration file.
-Based on the wavelet parameters provided in the configuration file, the \texttt{SeismicWaveformModeler} creates a Ricker wavelet with the given length and frequency by using the pyGIMLi function \texttt{ricker} provided in the \textit{seismics} module. Subsequently, mesh, velocity model and Ricker wavelet are used to solve the pressure wave equation for each shot station defined in the measurement scheme with the pyGIMLi function \texttt{solvePressureWave}, which is also provided in the \textit{seismics} module. The duration of the waveform modeling depends on the number of shots as well as on the length and resolution of the wavelet.
+The \texttt{SeismicWaveformModeler} loads the measurement scheme 
+and creates the velocity model used for the waveform modeling.
+Based on the wavelet properties a Ricker wavelet is generated through the pyGIMLi function \texttt{ricker}.
+Subsequently, mesh, velocity model and Ricker wavelet are used to solve the pressure wave equation for each shot station defined in the measurement scheme with the pyGIMLi function \texttt{solvePressureWave}.
 The resultant waveforms at the corresponding geophone stations are extracted and stored in an ObsPy \texttt{Stream} data structure.
-
 \clearpage
-For each dataset listed in the configuration file, a subdirectory with the name of the respective dataset will be created in the output directory (\textit{out}):
+A directory for each dataset defined in the configuration file will be created in the output directory (\textit{out}):
 
 \dirtree{%
 .1 working\_directory.
@@ -258,8 +253,8 @@ For each dataset listed in the configuration file, a subdirectory with the name 
 .4 dataset1\_tt.pck.
 .4 info.txt.
 }
-In the subdirectory \textit{data}, the synthetic seismic waveforms are stored in a separate shot file for each shot position in the miniseed format \citep{ahern2012, ringler2015} with the file extension \textit{syn} to identify the forward modeled shot files, e.g., Shot\_1001.syn. 
-The \textit{data} directory also contains the corresponding measurement protocol (protocol.txt) and the station coordinates provided as a csv file (station\_coords.csv). The header of the measurement protocol contains the survey parameters required for the processing of the seismic waveforms, namely sampling rate, recording length, number of geophones and geophone spacing. Moreover, the protocol associates each shot file of the dataset to a specific location within the survey geometry, i.e., with respect to the geophone positions:
+In the subdirectory \textit{data}, the synthetic seismic waveforms are stored in a separate shot file for each shot position in the miniseed format \citep{ahern2012, ringler2015} with the file extension \textit{syn} to identify the forward modeled shot files, e.g., Shot\_1001.syn.
+The measurement protocol (protocol.txt) and the station coordinates provided as a csv file (station\_coords.csv) are also stored in this directory. The header of the measurement protocol contains the survey parameters required for the processing of the seismic waveforms, namely sampling rate, recording length, number of geophones and geophone spacing. Moreover, the protocol associates each shot file of the dataset to a specific location within the survey geometry, i.e., with respect to the geophone positions:
 \newline
 \includegraphics[width=.3\textwidth]{./figures/protocol.pdf}
 \newline
@@ -267,17 +262,17 @@ The auxiliary file info.txt provided in the dataset directory summarizes the par
 \newline
 \includegraphics[width=.3\textwidth]{./figures/info.pdf}
 \newline
-If the corresponding synthetic traveltimes are computed (\texttt{swm.create('traveltimes')}), the resultant values are stored in the dataset directory in an udf file, e.g., dataset1\_tt.pck. The file extension \textit{pck} is an abbreviation of the word 'pick' and refers to the first break traveltimes saved in the file.
+Synthetic traveltimes (\texttt{swm.create('traveltimes')}) are stored in the dataset directory as udf files, e.g., dataset1\_tt.pck. The file extension \textit{pck} is an abbreviation of the word 'pick' and refers to the first break traveltimes saved in the file.
 
 \subsection{Processing of seismic refraction datasets: the \texttt{SeismicRefractionManager}}
 
-The SR method is based on the measurement of the traveltimes of seismic waves determined form the the first onset of the seismic energy recorded by geophones. In the SRT, the inversion of traveltimes gathered from tens to hundreds of seismograms permits the computation of variations in the seismic velocities in an imaging framework. Measuring the traveltimes in seismograms is referred to as first break picking, which is commonly done manually (or semi-automatically) in an iterative process. The signal-to-noise ratio in the recorded seismograms substantially influences the quality of the traveltimes picked in the seismograms, and thus a proper enhancement of the perceptibility of the first onsets is crucial.
+The SR method is based on the measurement of the traveltimes of seismic waves determined from the the first onset of the seismic energy recorded by geophones. In the SRT, the inversion of traveltimes gathered from tens to hundreds of seismograms permits the computation of variations in the seismic velocities in an imaging framework. Measuring the traveltimes in seismograms (i.e., first break picking) is commonly done manually (or semi-automatically) in an iterative process. The signal-to-noise ratio in the recorded seismograms substantially influences the quality of the traveltimes picked in the seismograms, and thus a proper enhancement of the perceptibility of the first onsets is crucial.
 
-Accordingly, the \texttt{SeismicRefractionManager} class provides functionalities that permit the processing of seismic waveform data for a refraction seismic analysis. These functionalities involve the reading of seismic waveform data, combining the data with information about the survey geometry, basic processing of the waveforms (e.g., filtering of high frequency noise, reversal of traces with wrong polarity etc.) as well as the picking of first break traveltimes. Since the first break picking is a highly interactive process, the \texttt{SeismicRefractionManager} is designed primarily for usage from within an ipython shell. Yet, the \texttt{SeismicRefractionManager} also allows to implement python scripts for an automatic picking of first break traveltimes, i.e., without the use of the graphical interface.
+Accordingly, the \texttt{SeismicRefractionManager} class provides functionalities that permit the processing of seismic waveform data for a refraction seismic analysis. These functionalities involve the reading of seismic waveform data, combining the data with information about the survey geometry, processing of the waveforms as well as the picking of first break traveltimes. Since the first break picking is a highly interactive process, the \texttt{SeismicRefractionManager} is designed primarily for usage from within an ipython shell.
 
 \subsubsection{Compiling the survey information and creating a project}
 
-An instance of the \texttt{SeismicRefractionManager} can be created by providing a path to a working directory as the parameter to the constructor. Based on the content of the working directory, the \texttt{SeismicRefractionManager} automatically decides whether (i) to start in the data preview mode, (ii) create a new project, or (iii) load an existing project from disk.
+An instance of the \texttt{SeismicRefractionManager} can be created by providing the path to the working directory as parameter to the constructor. Based on the content of the working directory, the \texttt{SeismicRefractionManager} automatically decides whether (i) to start in the data preview mode, (ii) create a new project, or (iii) load an existing project from disk.
 
 The data preview mode is primarily initiated if the provided working directory contains seismic shot files:
 \newline
@@ -292,9 +287,9 @@ To create or load a project, the working directory needs to contain specific sub
 .2 02\_geom.
 .2 03\_proc.
 }
-In this directory structure, the seismic shot files are stored in \texttt{01\_data/raw} and the geometry file (\texttt{geometry.csv}) is provided in \texttt{02\_geom}, thus making them locatable for the \texttt{SeismicRefractionManager}.
+In this directory structure, the seismic shot files are stored in \textit{01\_data/raw} and the geometry file (\textit{geometry.csv}) is provided in \textit{02\_geom}.
 
-The geometry file is a csv file that provides an abstract representation of the survey layout. The fundamental element for the description of the survey layout is the station, which refers either to a geophone position, a shot position or a position with co-located shot and geophone. For each station the geometric and semantic information described in Table~\ref{tab:geometry} are provided column-wise, i.e., each line in the geometry file corresponds to a single station with a unique position within the survey layout. Similar to the measurement scheme provided to the \texttt{SeismicWaveformManager}, the values in the geometry file are preferably separated by a comma and file must not contain a header in order to be readable by the \texttt{SeismicRefractionManager}.
+The geometry file is a csv file that provides an abstract representation of the survey layout and must not contain a header. The fundamental element for the description of the survey layout is the station, which refers either to a geophone position, a shot position or a position with co-located shot and geophone. For each station the geometric and semantic information described in Table~\ref{tab:geometry} are provided column-wise, i.e., each line in the geometry file corresponds to a single station with a unique position within the survey layout. 
 \begin{table}[pos=h]
     \caption{Description of the information to be provided in the columns of the geometry file.}
     \centering
@@ -319,7 +314,7 @@ In case the shot files as well as the geometry file are provided and a basic san
 \newline
 \includegraphics[width=.5\textwidth]{./figures/create_project.pdf}
 \newline
-Without further interaction with the user, the \texttt{SeismicRefractionManager} creates an SQLite database (prj.db in the working directory) to store the geometry information, whereby the stations are consecutively numbered (see Figure~\ref{fig:statnum}). To allow for an efficient data selection through the user the \texttt{SeismicRefractionManager} links the station numbers to shot index numbers (SIN) and receiver index numbers (RIN) assigned to shot and receiver stations, respectively, as illustrated in Figure~\ref{fig:statnum}. Based on this information, the \texttt{SeismicRefractionManager} can apply the geometry, which generates database tables required for the processing of the seismic waveform data.
+In particular, the \texttt{SeismicRefractionManager} creates an SQLite database (prj.db in the working directory) to store the geometry information, whereby the stations are consecutively numbered (see Figure~\ref{fig:statnum}). To allow for an efficient data selection through the user the \texttt{SeismicRefractionManager} links the station numbers to shot index numbers (SIN) and receiver index numbers (RIN) assigned to shot and receiver stations, respectively (see Figure~\ref{fig:statnum}). Based on this information, the geometry is applied, i.e., the database tables required for the processing of the seismic waveform data are created.
 In particular, the first break traveltimes for each SIN-RIN pair are stored in a dedicated database table \textit{fbpicks} together with the name of the corresponding pickset, i.e., the a common label for an entire set of first break traveltimes. By default, each project contains the default pickset 'picks', which is loaded and activated on startup. Once the database is initialized, the waveform data are read from disk and the project is ready for processing.
 \begin{figure}
 	\centering
@@ -328,7 +323,7 @@ In particular, the first break traveltimes for each SIN-RIN pair are stored in a
 	\label{fig:statnum}
 \end{figure}
 
-If a SQLite database is already present in the provided working directory, i.e., the project already exists, the \texttt{SeismicRefractionManager} will automatically load the project information, the seismic waveforms as well as the default pickset 'picks':
+If a database file is already present in the working directory, the project information, the seismic waveforms as well as the default pickset 'picks' are automatically loaded:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/load_project.pdf}
 
@@ -341,7 +336,7 @@ Calling the \texttt{plot} method without passing any parameter allows for the vi
 \newline
 \includegraphics[width=.5\textwidth]{./figures/plot.pdf}
 \newline
-Once opened, the seismogram plot visualizes the seismic waveforms in a combination of wiggle trace and variable area mode, i.e., the trace data are shown as curves and the area of the curves ('wiggles') is colored according to the sign of the amplitude, i.e., red for negative and blue for positive values, respectively (not shown for brevity). Pressing the up or down arrow key toggles the visualization mode between variable area and variable density. The variable density mode illustrates the amplitudes in the seismograms based on the same red-blue color scheme, yet the strength of the amplitude is reflected by the color saturation, i.e., high amplitudes refer to a stronger shade than low amplitudes (see Figure~\ref{fig:srm_intro}).
+Once opened, the seismogram plot visualizes the seismic waveforms in a combination of wiggle trace and variable area mode, i.e., the trace data are shown as curves. The area of the curves is colored red for negative and blue for positive amplitudes, respectively (not shown for brevity). Pressing the up or down arrow key on the keyboard toggles the visualization mode between variable area and variable density. In variable density mode the strength of the amplitudes is additionally reflected by the color saturation, i.e., high amplitudes refer to a stronger shade than low amplitudes (see Figure~\ref{fig:srm_intro}).
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/pickwindow_intro.pdf}
@@ -349,10 +344,10 @@ Once opened, the seismogram plot visualizes the seismic waveforms in a combinati
 	\label{fig:srm_intro}
 \end{figure}
 
-The active processing mode as well as the data scaling mode and the traveltime at the current cursor position are displayed in the status bar of the seismogram plot window, as shown in Figure~\ref{fig:statusbar_intro}.
-The initial processing mode of the seismogram plot is 'Fb pick', i.e., first break picking is possible, yet the user can switch between the different modes by pressing specific keys on the keyboard. The 'm' key activates the trace mute mode ('Trc mute'), which allows to set the amplitude of a trace to zero by clicking with the left mouse button; clicking again on the same trace restores the amplitude information. The trace reverse mode ('Trc rev') is activated by pressing the 'r' key and enables the user to toggle the polarity of a trace by clicking on it with the left mouse button. 
+The active processing mode and data scaling mode are reported together with the traveltime at the current cursor position in the status bar of the seismogram plot window (see Figure~\ref{fig:statusbar_intro}).
+The initial processing mode is 'Fb pick', i.e., first break picking is possible. The user can switch between the different modes by pressing specific keys on the keyboard. The 'm' key activates the trace mute mode ('Trc mute'), which allows to set the amplitude of a trace to zero by clicking with the left mouse button; clicking again on the same trace restores the amplitude information. The trace reverse mode ('Trc rev') is activated by pressing the 'r' key and enables the user to toggle the polarity of a trace by clicking on it with the left mouse button. 
 The default data scaling mode is 'Zoom', which allows the scaling of the y-axis by turning the mouse wheel. By pressing the 'a' key the amplitude scaling mode ('Amp scal') is activated. Turning the mouse wheel increases or decreases the amplitudes of the traces currently shown in the seismogram plot, and thus might help to enhance the perceptibility of the first onsets.
-By pressing the key of the currently active mode again, the \texttt{SeismicRefractionManager} returns to the default processing or data scaling mode, respectively. As illustrated in Figure~\ref{fig:statusbar_intro}, the different modes can be activated in any arbitrary order, i.e., it is possible to alternately toggle processing and data scaling modes.
+By pressing the key of the currently active mode again, the \texttt{SeismicRefractionManager} returns to the default mode; yet, the different modes can be activated in any arbitrary order (as illustrated in Figure~\ref{fig:statusbar_intro}).
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/status_bar.pdf}
@@ -360,35 +355,35 @@ By pressing the key of the currently active mode again, the \texttt{SeismicRefra
 	\label{fig:statusbar_intro}
 \end{figure}
 
-The user can visualize the frequency spectrum of the currently selected trace data by calling the \texttt{plot} method with the parameter 'spectrum':
+Through the \texttt{plot} method the frequency spectrum of the currently selected trace data can be visualized:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/plot_spectrum.pdf}
 \newline
-Figure~\ref{fig:spectrum} shows the resulting frequency spectrum, which can be used to discriminate the dominating signal frequencies from those associated to the background noise, and thus allows for the definition of adequate filter frequencies.
+A frequency spectrum as shown in Figure~\ref{fig:spectrum} can be used to discriminate the dominating signal frequencies from those associated to the background noise, and thus allows for the definition of adequate filter settings.
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
 	\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise, which can be omitted through the application of corresponding frequency filtering.}
 	\label{fig:spectrum}
 \end{figure}
-To improve the signal-to-noise ratio it is possible to apply filters on the selected traces through the \texttt{filter} method of the \texttt{SeismicRefractionManager}, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
+To improve the signal-to-noise ratio it is possible to apply filters on the selected traces through the \texttt{filter} method, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/filter.pdf}
 \newline
 By default, filters are solely applied to the currently selected traces, yet setting the filter on hold allows the filtering of all subsequently selected traces with the same filter settings.
-Highpass and bandstop filters are applied to the seismic waveforms in a similar way, i.e., \texttt{srm.filter('hp 10')}) or \texttt{srm.filter('bs 45 55')}, respectively. In case the seismogram plot is opened, the effect of the applied filter on the seismic waveforms is interactively visualized.
+In case the seismogram plot is opened, the effect of the applied filter on the seismic waveforms is interactively visualized.
 
 \subsubsection{Analysis of the seismic waveforms and first break traveltime picking}
 
-Based on the visualization of the enhanced seismic waveforms (e.g., after filtering) where the first onsets are perceptible, the data can be analyzed and processed to obtain information about the subsurface conditions. Activating the velocity estimation mode ('Vel est') by pressing the 'v' key on teh keyboard, enables the user to estimate velocities for different wave phases (e.g., originating from a refractor) by pressing the left mouse button and moving the cursor within the seismogram plot. Once the left mouse button is released, a line between the start and end point is drawn and labeled with the corresponding velocity. Such velocity estimation lines can be deleted by clicking with the right mouse button.
+In the seismogram plot, the waveforms can be analyzed and processed to obtain information about the subsurface conditions. Activating the velocity estimation mode ('Vel est') by pressing the 'v' key on the keyboard, enables the user to estimate velocities for different wave phases (e.g., originating from a refractor) by pressing the left mouse button and moving the cursor. Once the left mouse button is released, a line between the start and end point is drawn and labeled with the corresponding velocity (estimates can be deleted by clicking with the right mouse button).
 
-If the processing mode 'Fb pick' is activated, picking of first break traveltimes is done individually by clicking with the left mouse button on the respective trace. Clicking again on the same trace will set the first break pick to the new location as there can only be one traveltime for each SIN-RIN pair. An existing traveltime pick can be deleted by clicking on the corresponding trace with the right mouse button. Alternatively, first break picks can be set for multiple traces by pressing the left mouse button and moving the cursor within the seismogram plot. A line connecting the start point with the current cursor location is drawn and updated upon movement. Once the left mouse button is released, first break picks are defined at the intersections between the line and the seismograms. In the same way, multiple picks can be deleted at the same time if a line is drawn with the right mouse button pressed. The first break traveltimes determined in the seismogram plot are automatically written to the project database when the window is closed. Alternatively, the user can navigate through the datasets by pressing the 'left' or 'right' arrow keys. In this way, the traveltimes for the currently plotted traces are saved in the database and the traces for the next or previous SIN or RIN are automatically selected, respectively.  
+If the processing mode 'Fb pick' is activated, picking of first break traveltimes is done individually by clicking with the left mouse button on the respective trace. Clicking again on the same trace will set the first break pick to the new location as there can only be one traveltime for each SIN-RIN pair; whereas clicking with the right mouse button deletes the pick. Alternatively, first break picks can be set for multiple traces by pressing the left mouse button and moving the cursor. 
+Once the left mouse button is released, first break picks are defined at the intersections between the line and the seismograms. In the same way, multiple picks can be deleted if a line is drawn with the right mouse button pressed. The first break traveltimes determined in the seismogram plot are automatically written to the project database when the window is closed or another set of traces is loaded by pressing the 'left' or 'right' arrow keys on the keyboard. 
 
-Sometimes it can be helpful to visualize all first break traveltimes in a single diagram. The traveltime diagram for the currently active pickset can be created through the \texttt{plot} method of the \texttt{SeismicRefractionManager}:
+The traveltime diagram for the currently active pickset can be created through the \texttt{plot} method:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/plot_traveltimes.pdf}
 \newline
-The traveltime diagram provides a schematic illustration of the survey geometry and plots the first break traveltimes according to their common SIN.
 Figure~\ref{fig:traveltimes_intro} presents an exemplary traveltime diagram, which is a common way to examine the quality of the first break picking. Such illustration of the traveltimes can be used to identify outliers or erroneous measurements, which are commonly associated to traveltimes with substantial deviations from those observed at adjacent stations such as the first break pick for the SIN-RIN pair (23, 11). Outliers can be removed by clicking on the corresponding symbol ('x') in the traveltime diagram, which is instantly synchronized with the project database. If the seismogram plot and the traveltime diagram are used side-by-side, changes made to the first break picks in one window will interactively trigger an update of the other one and vice versa.
 
 \begin{figure}
@@ -398,21 +393,18 @@ Figure~\ref{fig:traveltimes_intro} presents an exemplary traveltime diagram, whi
 	\label{fig:traveltimes_intro}
 \end{figure}
 
-\clearpage
-The \texttt{SeismicRefractionManager} handles first break picks in so-called picksets, which can be organized and manipulated through the \texttt{picksets} method of the \texttt{SeismicRefractionManager}:
+The \texttt{SeismicRefractionManager} handles first break picks in picksets, which can be organized and manipulated through the \texttt{picksets} method of the \texttt{SeismicRefractionManager}:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/picksets.pdf}
 \newline
-Calling the \texttt{pickset} method without parameters shows the status of all picksets in the project. From the above use case, we see that by default, the pickset 'picks' is loaded (available in the workflow) and activated, i.e., modifications of first breaks are stored in this pickset. First break picks provided by another source (as an udf file) can be stored in \textit{03\_proc/picks} and then imported into the current project.
-For the further processing, it is often sufficient to keep only one pickset in the workflow, i.e., not required picksets can be unloaded. A pickset currently not loaded can be deleted permanently, i.e., the corresponding traveltimes are removed from the database. The \texttt{picksets} method can also be used to load picksets from the database:
+Calling the \texttt{pickset} method without parameters shows the status of all picksets in the project. From the above use case, we see that by default, the pickset 'picks' is loaded and activated, i.e., modifications of first breaks are stored in this pickset. First break picks provided by another source (as udf file) can be imported from  \textit{03\_proc/picks}.
+For the first break picking, it is sufficient to keep only one pickset in the workflow, i.e., not required picksets can be unloaded. A pickset currently not loaded can be deleted permanently, i.e., the corresponding traveltimes are removed from the database. The \texttt{picksets} method can also be used to load picksets from the database:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/load_picksets.pdf}
 \newline
 When a pickset is loaded from the database, it does not become the active pickset automatically; whereas by using the parameter \texttt{use} the corresponding pickset is loaded and also becomes the active pickset. The first break traveltimes of a pickset can be exported to an udf file that is stored in \textit{03\_proc/picks} subdirectory with the current timestamp as suffix:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/export_pickset.pdf}
-\newline
-Such exported pick file can then be shared (e.g., with project partners) or used to run an inversion of the corresponding first break traveltimes to solve for a model of the seismic velocities associated to the subsurface materials.
 
 \section{Exemplary use cases}
 
@@ -420,10 +412,11 @@ Such exported pick file can then be shared (e.g., with project partners) or used
 
 To demonstrate the applicability of the \texttt{SeismicWaveformModeler} class, we generate two synthetic seismic waveform datasets assuming two horizontal layers in a half-space without topography and an interface between these layers with a constant depth.
 Table~\ref{tab:syndata} summarizes the parameterization used for the forward modeling of one dataset without noise (Dataset\_1) and another dataset with added random noise and systematic errors (Dataset\_2).
-For the visualization of both synthetic datasets, we provide the corresponding geometry files to the \texttt{SeismicRefractionManager} in order to have full control regarding data selection and processing capabilities. Alternatively, we could omit the geometry file and start the \texttt{SeismicRefractionManager} in the data preview mode.
+For the visualization of both synthetic datasets, we provide the corresponding geometry files to the \texttt{SeismicRefractionManager} in order to have full control regarding data selection and processing capabilities. 
 
 The synthetic seismic waveforms for SIN 24 of Dataset\_1 presented in Figure~\ref{fig:syndata_clean} reveal negative first onsets in all traces. From these seismograms, we can also identify the crossover points, i.e., inflexion points between the first arrivals stemming from the first layer (RIN 17 to 30) and the first onsets associated to the second layer (RIN 1 to 16 and RIN 31 to 48). In Figure~\ref{fig:syndata_noise}, we present the synthetic seismic waveforms from Dataset\_2 for the same shot (SIN 24). In contrast to Dataset\_1, the signal-to-noise ratio is a function of the offset between shot and geophone position, i.e., traces farther away from the shot contain a higher level of random noise. 
-From Figure~\ref{fig:syndata_noise}, we can also identify systematic errors in the dataset, where RIN 6 and 14 refer to broken geophones, and RIN 35 is an example for readings with a wrong polarity.
+Moreover, Figure~\ref{fig:syndata_noise} also shows systematic errors, where RIN 6 and 14 refer to broken geophones, and RIN 35 is an example for readings with a wrong polarity.
+Such datasets might be useful for the evaluation of processing strategies or investigating the effect of complex survey geometries on seismic data.
 \begin{table}[pos=h]
     \caption{Measurement scheme and parameters provided in the yaml files used to create synthetic seismic waveform datasets with (Dataset\_1) and without added noise (Dataset\_2).}
     \centering
@@ -468,37 +461,13 @@ From Figure~\ref{fig:syndata_noise}, we can also identify systematic errors in t
 	\label{fig:syndata_noise}
 \end{figure}
 
-Synthetic datasets as presented in Figures~\ref{fig:syndata_clean} and \ref{fig:syndata_noise} might be useful for the evaluation of processing strategies or investigating the effect of complex survey geometries on the seismic data. The design of the formikoj library and the concept of the \texttt{SeismicRefractionManager} allow the implementation of supplementary functionalities for the visualization and processing of seismic refraction waveform data. 
-Such custom extensions are expected to be implemented either as an internal method or as a function in the utilities module, which should then be called through the \texttt{compute} method based on a new custom keyword. We believe that the possibility for customization can be exploited in class-room activities but might also be relevant for the design of seismic refraction surveys and processing strategies. Accordingly, we demonstrate the flexibility provided within the formikoj library through implementing simplified versions of an automatic first break picking algorithm as well as the Plus-Minus method~\citep{hagedoorn1959}.
-
-\clearpage
-In the first example, we consider an automatic first break picking algorithm, which determines the traveltimes based on the energy ratio method \citep[e.g.,][]{earle1994}. To use this custom implementation we added the keyword \texttt{autopick}, which is passed as the first parameter to the \texttt{compute} method:
+In this regard, the design of the formikoj library and the \texttt{SeismicRefractionManager} allow the implementation of supplementary functionalities. 
+Such custom extensions should be implemented either as an internal method or as a function in the utilities module, which are then executed through the \texttt{compute} method based on a new custom keyword. 
+We illustrate this possibility for customization through the implementation of a simplified version of an automatic first break picking algorithm, which determines the traveltimes based on the energy ratio method \citep[e.g.,][]{earle1994}. The algorithm is added to the \texttt{SeismicRefractionManager} in form of two internal methods \texttt{\_manage\_autopicking} and \texttt{\_compute\_autopicks}, respectively. Additionally, the new keyword \texttt{autopick} is registered in the utils module, which is then passed as the first parameter to the \texttt{compute} method:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/autopicking.pdf}
 \newline
-The second parameter defines whether automatic first break picking should be applied to the entire data (\texttt{all}) or just to the currently selected traces (\texttt{cur}). The third parameter in the example above refers to the name of the pickset that will hold the automatically determined first break traveltimes.
-Once the auto-picking process is finished, we can export the pickset to a pck file.
-The synthetic traveltimes computed with the \texttt{SeismicWaveformModeler} and the auto-picked traveltimes can then be compared, for instance, in form of a scatter plot as shown in Figure~\ref{fig:pick_comparison}. Prior to the comparison we remove outliers from the automatically determined traveltimes, e.g., based on a simple histogram analysis or a more sophisticated approach. In our example, synthetic and auto-picked traveltimes show a strong correlation (R = 0.99), yet we observe a systematic deviation from the perfect correlation (1:1 line). This deviation likely indicates that the implementation of the automatic picking algorithm is sensitive to a different part of the waveform, e.g., the first positive wiggle instead of the first negative one indicated by the synthetic traveltimes. At this point, we could verify such interpretation by plotting the waveform data together with both picksets and try to modify the implementation of the auto-picking algorithm accordingly; however, these steps are not shown or discussed here further.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{./figures/pick_comparison.pdf}
-	\caption{Synthetic seismic datasets used for the performance evaluation of automatic first break picking algorithms. The scatter plot illustrates the correlation between the synthetic traveltimes and the traveltimes automatically picked in the synthetic seismic waveforms (after outlier removal based on the histogram).}
-	\label{fig:pick_comparison}
-\end{figure}
-
-The second example refers to the implementation of the Plus-Minus method \citep{hagedoorn1959}. This algorithm is applied to estimate the depth to the interface between layers as well as the velocities within the layers.
-In particular, we follow \citet{dufour1996} who propose an automatized analysis of the first break traveltimes. The key step in this approach is the automatic determination of the crossover points based on the traveltime difference analysis \citep{lawton1989} and the branchpoint analysis \citep{wang1995}. For adjacent shot gathers we compute the traveltime differences from which we find the location of a specific crossover point as the maximum of the second derivative of the corresponding traveltime differences \citep{dufour1996}. In the same way as the auto-picking method we call the Plus-Minus method through the \texttt{compute} method of the \texttt{SeismicRefractionManager}:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plusminus.pdf}
-\newline
-Without any further input required from the user, the workflow suggested by \citep{dufour1996} solves for the layer velocities and the interface depth. A comparison of the result obtained for the traveltimes associated to Dataset\_1 and the true subsurface conditions is presented in Figure~\ref{fig:pmmethod}. As expected for undisturbed traveltimes, the implemented approach accurately resolves the known properties of the synthetic model. Further tests could investigate the performance of the implemented algorithm for increasing noise levels, complex survey geometries or challenging surface topography; yet, such detailed analysis is not within the scope of this manuscript.
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{./figures/pmmethod_result.pdf}
-	\caption{Synthetic seismic datasets used for the evaluation of an implementation of the Plus-Minus method \citep{hagedoorn1959} based on a two-layered subsurface model without topography. The horizontal solid line illustrates the reconstructed interface depth; true and estimated seismic velocities are superimposed on the respective layers.}
-	\label{fig:pmmethod}
-\end{figure}
+The second parameter defines whether automatic first break picking should be applied to the entire dataset (\texttt{all}) or solely to the currently selected traces (\texttt{cur}). The third parameter defines the name of the pickset for the automatically determined first break traveltimes. Accordingly, the traveltimes are stored in the project database, and thus are available for visualization and processing with existing functionalities or further custom implementations.
 
 \subsection{First break travel time picking for a 2D roll-along field data set: the Danube island example}
 
@@ -511,7 +480,7 @@ The seismic data used in this example were collected at the Danube island (Vienn
 \end{figure}
 
 \begin{table}[pos=h]
-    \caption{Extract from the roll-along survey geometry file showing how the information regarding the first geophone assigns the traces in the shot files to the correct stations.}
+   \caption{Extract from the roll-along survey geometry file showing how the information regarding the first geophone assigns the traces in the shot files to the correct stations.}
     \centering
     \begin{tabular}{rrrcrrr}
         \toprule
@@ -573,8 +542,8 @@ For this example, we select the trace data for SIN 99, which refers to a shot po
 	\label{fig:rollalong_pickwindow}
 \end{figure}
 
-Picking first onsets for the entire dataset, i.e., for SIN-RIN pairs in all segments, will provide a large number of data points. Hence, the traveltime diagram might not be the most efficient way to review the traveltimes prior to the inversion. Alternatively, we can use a pseudosection, which illustrates the apparent seismic velocity determined from the picked traveltimes and the distance between shot and geophone. Those apparent velocity values are assigned to pseudolocations, i.e., the corresponding x- and z-coordinates are determined as the midpoint and as $1/3$ of the absolute offset between the shot and geophone, respectively.
-We can create a pseudosection through the \texttt{plot} method of the \texttt{SeismicRefractionManager}:
+We can use a pseudosection to illustrate the apparent seismic velocity determined from the picked traveltimes and the distance between shot and geophone. Those apparent velocity values are assigned to pseudolocations, i.e., the corresponding x- and z-coordinates are determined as the midpoint and as $1/3$ of the absolute offset between the shot and geophone, respectively.
+Such pseudosection can be created through the \texttt{plot} method of the \texttt{SeismicRefractionManager}:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/plotpseudosection_danube.pdf}
 \newline
@@ -593,7 +562,7 @@ The \texttt{SeismicRefractionManager} also provides the possibility to review th
 \includegraphics[width=.5\textwidth]{./figures/plot_pickperc_danube.pdf}
 \newline
 As can be seen from Figure~\ref{fig:rollalong_pickperc}, the picking percentage is visualized separately for each shot (SIN along the x-axis). In this way, we can easily identify shots affected by a low signal-to-noise ratio based on the correspondingly low picking percentage. For the Danube island dataset, we find a low picking percentage in the first segment, which confirms the lack of datapoints observed in the pseudosection.
-Besides the assessment of the data quality, the picking percentage plot can be used to  track the picking progress. In case of a large dataset, for which the traveltimes cannot be determined in one session, the picking percentage plot provides information where to resume the first break picking in the next session. Moreover, it is possible to identify single shots that might have been forgotten during the first break picking. Hence, it is advisable to have a look at the picking percentage at least before exporting the corresponding traveltimes for the inversion.
+Besides the assessment of the data quality, the picking percentage plot can be used t rack the picking progress. In case of a large dataset, for which the traveltimes cannot be determined in one session, the picking percentage plot provides information where to resume the first break picking in the next session. Moreover, it is possible to identify single shots that might have been forgotten during the first break picking. Hence, it is advisable to have a look at the picking percentage at least before exporting the corresponding traveltimes for the inversion.
 
 \begin{figure}
 	\centering
@@ -623,7 +592,7 @@ Irrespective of the survey geometry in the field, it is possible to determine th
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/sodalakes_sin1_lp100_picks_vd.pdf}
-	\caption{Examplary seismic waveforms from the soda lakes dataset shown for shot index number (SIN) 1 with a 100 Hz lowpass filter applied to suppress high frequency noise. The recorded seismic waveforms clearly reflect the geometry of the geophones  with RIN 1 to 48 deployed along the direction of wave propagation, while RIN 49 to 96 are deployed perpendicular to the propagating wavefront.}
+	\caption{Examplary seismic waveforms from the soda lakes dataset shown for shot index number (SIN) 1 with a 100 Hz lowpass filter applied to suppress high frequency noise. The recorded seismic waveforms clearly reflect the geometry of the geophones with RIN 1 to 48 deployed along the direction of wave propagation, while RIN 49 to 96 are deployed perpendicular to the propagating wavefront.}
 	\label{fig:3d_pickwindow}
 \end{figure}
 
@@ -676,6 +645,8 @@ Hardware requirements: No specific requirements
 Program language: Python
  
 Software required: Anaconda/Miniconda recommended
+
+Total program and dataset size: 250 MB
 
 The source codes and exemplary data sets are available for downloading at the link:
 
