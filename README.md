@@ -18,6 +18,8 @@ changes regarding the market shares of operating systems within the last two
 decades, the library is specifically implemented and tested for 
 cross-plattform usage.
 
+![Graphical abstract](./manuscript/figures/graphical_abstract/grpabs.svg)
+
 ## Structure of this repository
 
 The source code of the formikoj library is in the `code` folder.
