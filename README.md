@@ -8,6 +8,7 @@ Matthias Steiner and Adrián Flores Orozco
 
 [![Python: 3.7](https://img.shields.io/badge/Python-3.7-blue.svg)](#)
 [![Build Status](https://travis-ci.org/GeorgiosGoniotakis/python-hierarchy.svg?branch=master)](https://travis-ci.org/GeorgiosGoniotakis/python-hierarchy)
+[![License](https://img.shields.io/badge/license-MIT%20License-green)](LICENSE.md)
 
 ## Abstract
 
@@ -35,7 +36,7 @@ You can download a copy of all the files in this repository by cloning the
 
     git clone https://git.geo.tuwien.ac.at/msteine1/formikoj.git
 
-or [download a zip archive](https://git.geo.tuwien.ac.at/msteine1/formikoj/archive/main.zip).
+or [download a zip archive](https://git.geo.tuwien.ac.at/msteine1/formikoj/-/archive/main/formikoj-main.zip).
 
 ## Dependencies
 
@@ -80,7 +81,7 @@ the full license text.
 
 ## Credits
 
-The structure of this reprository is based on this [template](https://github.com/pinga-lab/paper-template/blob/master/README.md) 
+The structure of this reprository is based on this [template](https://github.com/pinga-lab/paper-template) 
 for reproducible papers by Leonardo Uieda as well as the adaptions implemented
 in [this](https://github.com/florian-wagner/four-phase-inversion) repository by 
 Florian Wagner.
