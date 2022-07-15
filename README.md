@@ -7,7 +7,6 @@ Matthias Steiner and Adrián Flores Orozco
 ![formikoj logo](../media/logo/formikoj_logo.svg "formikoj logo")
 
 [![Python: 3.7](https://img.shields.io/badge/Python-3.7-blue.svg)](#)
-[![Build Status](https://travis-ci.org/GeorgiosGoniotakis/python-hierarchy.svg?branch=master)](https://travis-ci.org/GeorgiosGoniotakis/python-hierarchy)
 [![License](https://img.shields.io/badge/license-MIT%20License-green)](LICENSE.md)
 
 ## Abstract
