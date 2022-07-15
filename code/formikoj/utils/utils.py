@@ -341,23 +341,14 @@ def get_filelist(directory, method='seismic'):
     if method == 'seismic':
         search = os.path.join(directory, '*' + '.sg2')
         if len(glob(search)) > 0:
-            # ~ self._logger.info('Raw data with supported file ' \
-                # ~ 'extension found (dmt summit)')
             return search, 'SEG2', False
         
         search = os.path.join(directory, '*' + '.dat')
         if len(glob(search)) > 0:
-            # ~ self._logger.info('Raw data with supported file ' \
-                # ~ 'extension found (geometric geode)')
             return search, 'SEG2', False
                 
         search = os.path.join(directory, '*' + '.syn')
         if len(glob(search)) > 0:
-            # ~ self._ftype = 'MSEED'
-            # ~ self._syndata = True
-            # ~ self._logger.info('Raw data with supported file ' \
-                # ~ 'extension found (synthetic)')
             return search, 'MSEED', True
     
     return '', '', False
-    # ~ self._logger.warning('No supported data found')

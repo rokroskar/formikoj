@@ -1,7 +1,3 @@
-# ~ import numpy as np
-# ~ import os
-
-# ~ from .exceptions import UseisError
 from formikoj.utils import *
 
 class MethodManager():
@@ -36,7 +32,6 @@ class MethodManager():
         self._datadir = os.path.join(self._workdir, '01_data/raw')
         self._geomdir = os.path.join(self._workdir, '02_geom')
         self._procdir = os.path.join(self._workdir, '03_proc')
-        # ~ self._check_directory_structure()
 
     def _check_directory_structure(self):
         """Check if the directory structure is valid."""

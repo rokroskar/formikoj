@@ -390,8 +390,6 @@ class SeismicWaveformModeler(DataModeler):
         
         t = np.arange(0, self._cfg['wavelet']['length'], 
                       1. / self._cfg['wavelet']['sampling_rate'])
-        # ~ wl = ricker(self._cfg['wavelet']['frequency'], t, 
-                    # ~ 1. / self._cfg['wavelet']['frequency'])
         
         # determine pretrigger
         pretrigger = self._cfg['wavelet'].get(
@@ -487,8 +485,7 @@ class SeismicWaveformModeler(DataModeler):
             # add pre-trigger
             if self._check_wavelet_parameters():
                 pretrigger = self._cfg['wavelet'].get(
-                    'pretrigger', self._cfg['wavelet']['length']*.02)# - \
-                        #1./self._cfg['wavelet']['frequency']
+                    'pretrigger', self._cfg['wavelet']['length'] * .02)
                 t = np.array(ttdata['t']) + pretrigger
                 ttdata.set('t', t)
                 

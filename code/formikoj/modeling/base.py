@@ -71,9 +71,7 @@ class DataModeler():
         geom = pg.Mesh(dim=2, isGeometry=True)
         for i, l in enumerate(self._cfg['model']['layers']):
             model.append(model[i].copy())
-            
-            # ~ thk = l[1] + (1*dx if i+1 == len(self._cfg['model']['layers']) 
-                             # ~ else 0)
+
             thk = l[1]
             model[i+1][:, 1] -= thk
             poly = mt.createPolygon(np.vstack((model[i], model[i+1][::-1])),
@@ -86,18 +84,9 @@ class DataModeler():
             area=self._cfg['model'].get('area', 2), 
             smooth=self._cfg['model'].get('smooth', [1, 10]))
         
-        # ~ self.mesh = mesh
-        
         self.mesh = mt.appendTriangleBoundary(mesh, marker=2,
                                               xbound=100*dx, ybound=100*dx,
                                               isSubSurface=True)
-        
-        # ~ for b in self.mesh.boundaries():
-            # ~ if b.norm()[2] != 1.0:
-                # ~ b.setMarker(pg.core.MARKER_BOUND_MIXED)
-                # ~ b.setMarker(pg.core.MARKER_BOUND_HOMOGEN_NEUMANN)
-                # ~ b.setMarker(pg.core.MARKER_BOUND_HOMOGEN_DIRICHLET)
-                # ~ b.setMarker(pg.core.MARKER_BOUND_DIRICHLET)
 
         self._logger.info('Created a 2D mesh')
         return 1

@@ -23,7 +23,6 @@ class SeismicRefractionManager(MethodManager):
             mpl.rcParams['keymap.back'].remove('left')
         if 'right' in mpl.rcParams['keymap.forward']:
             mpl.rcParams['keymap.forward'].remove('right')
-        # ~ self._logger.info('Created instance of SeismicRefractionManager')
         
         # check whether the working directory contains shot files and start in
         # data preview mode
@@ -40,7 +39,6 @@ class SeismicRefractionManager(MethodManager):
                 print('\033[31mDIRECTORY STRUCTURE INVALID\033[0;0m')
                 return
             
-            # ~ self._logger = create_logger('useis.SeismicRefractionManager',
             self._logger = create_logger(self._workdir,
                                          os.path.join(self._procdir,
                                                       self._logfile))
@@ -263,7 +261,6 @@ class SeismicRefractionManager(MethodManager):
         if self._geomapp:
             self._read_data()
             self._activate_pickset(['picks'])
-            # ~ self._load_picks()
 
     def _copy_header_info(self, f, idx):
         """Copy relevant geometry information from the project file to the
@@ -321,7 +318,6 @@ class SeismicRefractionManager(MethodManager):
                                          FROM geometry
                                          WHERE shot > -1""")
 
-        # ~ search = self._get_filelist()
         search, self._ftype, self._syndata = get_filelist(
             self._workdir if self._pvd == 1 else self._datadir)
         numfiles = float(len(glob(search)))
@@ -463,8 +459,6 @@ class SeismicRefractionManager(MethodManager):
         self._logger.info('Read geometry information from file')
         
         # extract receivers
-        # ~ recs = pd.DataFrame(
-            # ~ geom[geom.geophone > 0].sort_values(by=['x'])['station_id'])
         recs = pd.DataFrame(geom[geom.geophone > 0]['station_id'])
         recs.insert(0, 'receiver_index_number', np.arange(len(recs)) + 1)
         recs['polarity'] = 1
@@ -474,7 +468,6 @@ class SeismicRefractionManager(MethodManager):
         # extract shots
         shots = pd.DataFrame(
             geom[geom.shot > 0].sort_values(
-                # ~ by=['first_geophone', 'x'])['station_id'])
                 by=['first_geophone', 'station_id'])['station_id'])
         
         search, _, _ = get_filelist(
@@ -519,21 +512,16 @@ class SeismicRefractionManager(MethodManager):
             self._cosst = Stream()
             
             for i, uao in enumerate(self._aoffs):
-                # ~ print('aoffset', uao)
                 # select traces with given absolute offset
                 self.select('aoffset %d' % (uao), auto=True)
             
                 tmp = self._st.copy()
-                # ~ print(len(tmp))
                 if len(tmp) > 1:
                     # stack traces
                     stacked_data = np.zeros_like(tmp[0].data, dtype=float)
                     for tr in tmp:
-                        # ~ print('RIN', tr.stats.RIN)
                         state = int(recs[recs.rin == tr.stats.RIN].polarity)
-                        # ~ print('state', state)
                         stacked_data += (tr.data * state)
-                        # ~ print(stacked_data)
                     stacked_data /= len(tmp)
                 else:
                     stacked_data = np.array([0] * self._npts)
@@ -546,7 +534,7 @@ class SeismicRefractionManager(MethodManager):
                 
                 # add stacked trace to constant offset stream
                 self._cosst += stacked_trace.copy()
-                # ~ print(np.max(stacked_data))
+                
                 # progress bar
                 print_progressbar(i + 1, len(self._aoffs))
             print('')
@@ -582,10 +570,6 @@ class SeismicRefractionManager(MethodManager):
         # normalize trace data in stream object
         st.normalize()
         
-        # ~ # detrend trace data
-        # ~ for i, tr in enumerate(st):
-            # ~ st[i].data -= np.median(tr.data)
-            
         # determine first break picks
         with self.slh.dbc:
             for i, tr in enumerate(st):
@@ -621,8 +605,6 @@ class SeismicRefractionManager(MethodManager):
                 self.slh.dbc.execute(cmd)
                 
                 print_progressbar(i + 1 + offset, numfb)
-
-        # ~ return fbs
 
     def _manage_autopicking(self, params):
         """Mange the autopicking process.
@@ -967,7 +949,6 @@ class SeismicRefractionManager(MethodManager):
             self._load_pickset(params)
             
         self._activeps = params[0]
-        # ~ self._picking = True
         self._procmode = PROC_MODES.pick
         self._logger.info('\'%s\' set as active pickset' % (params[0]))
 
@@ -1004,8 +985,6 @@ class SeismicRefractionManager(MethodManager):
         
         self._logger.info('Copied pickset \'%s\' to \'%s\'' % 
             (params[0], params[1]))
-            
-        # ~ self._load_picks()
 
     def _create_pickset(self, params):
         """Create a new pickset in the project file.
@@ -1046,7 +1025,6 @@ class SeismicRefractionManager(MethodManager):
         self.slh.write_data('fbpicks', fbpicks)
             
         self._logger.info('Created new pickset \'%s\'' % (params[0]))
-        # ~ self._load_pickset(params)
         self._activate_pickset(params)
         
         return 1
@@ -1491,7 +1469,6 @@ class SeismicRefractionManager(MethodManager):
 
         self._ppax.set_xlabel('SIN')
         self._ppax.set_ylabel('(%)')
-        # ~ self._ppax.set_title('Picking percentage', fontsize=self._fontsize)
 
         plt.tight_layout()
         plt.show(block=False)
@@ -1539,10 +1516,8 @@ class SeismicRefractionManager(MethodManager):
         
         vmin = kwargs.pop('vmin', 
             kwargs.pop('vMin', psec.vapp.quantile(.05)))
-            # ~ kwargs.pop('vMin', psec.vapp.min()))
         vmax = kwargs.pop('vmax', 
             kwargs.pop('vMax', psec.vapp.quantile(.95)))
-            # ~ kwargs.pop('vMax', psec.vapp.max()))
         ymax = psec.pd.max()
 
         # find unique mp-pd pairs
@@ -1572,7 +1547,6 @@ class SeismicRefractionManager(MethodManager):
             
             # colorbar format
             cbargs = dict(
-                # ~ title=r'Apparent velocity (m/s)\n',
                 title="""Apparent velocity (m/s)
                       """,
                 title_font_size=self._fontsize + 4,
@@ -1673,7 +1647,6 @@ class SeismicRefractionManager(MethodManager):
         """Draw the velocity estimation lines."""
         
         if self._vellines is not None:
-            # ~ self._vellines.remove()
             for a in self._vellinetext:
                 a.remove()
             self._vellinetext = []
@@ -1763,34 +1736,6 @@ class SeismicRefractionManager(MethodManager):
             the matplotlib, e.g., 'fontsize', 'color'
         """
         
-        # ~ print(self._pickscatter)
-        
-        # ~ picks = self._picks[self._picks.pickset==self._activeps]
-        # ~ if self._pickscatter is None:
-            # ~ print('first time')
-            # ~ self._pickscatter = self._ax.scatter(
-                             # ~ np.arange(len(picks.traveltime)), 
-                             # ~ picks.traveltime,
-                             # ~ marker=self._marker,
-                             # ~ color='g',
-                             # ~ label=self._activeps,
-                             # ~ picker=True,
-                             # ~ animated=True,
-                             # ~ **kwargs)
-            # ~ self._ax.legend(loc='lower right')
-        # ~ else:
-            # ~ print('on pick')
-            # ~ self._fig.canvas.restore_region(self._bg)
-            # ~ self._pickscatter.set_offsets(np.vstack((
-                                            # ~ np.arange(len(picks.traveltime)),
-                                            # ~ picks.traveltime
-                                            # ~ )).T)
-        
-        
-            # ~ self._ax.draw_artist(self._pickscatter)
-            # ~ self._fig.canvas.blit(self._fig.bbox)
-            # ~ self._fig.canvas.flush_events()
-        
         if self._pickscatter is not None:
             for e in self._pickscatter: 
                 e.remove()
@@ -1812,7 +1757,6 @@ class SeismicRefractionManager(MethodManager):
                                  color=c,
                                  label=ps,
                                  picker=True,
-                                 # ~ animated=True,
                                  **kwargs))
         
         self._ax.legend(loc='lower right')
@@ -1856,11 +1800,7 @@ class SeismicRefractionManager(MethodManager):
         for i, tr in enumerate(st):
 			# prepare trace data for plotting
             trd = tr.data.copy()
-            
-            # ~ f = np.exp(1/1000 * t)
-            # ~ trd *= (f.max() - f)
-            # ~ trd /= (max(pg.abs(trd)))
-            
+                        
             if not self._pvd:
                 pol = int(recs[recs.rin==tr.stats.RIN].polarity)
                 trd *= pol
@@ -1913,12 +1853,6 @@ class SeismicRefractionManager(MethodManager):
                                      linewidths=.5)
         seismograms.set_picker(True)
         self._ax.add_collection(seismograms)
-        
-        # ~ self._psg_sg = LineCollection((list(zip(x, y)) for x, y in zip(X, Y)),
-                                     # ~ colors='k', linestyles='-',
-                                     # ~ linewidths=.5)
-        # ~ self._psg_sg.set_picker(True)
-        # ~ self._ax.add_collection(self._psg_sg)
         
         # show variable density information
         if self._plotmode == PLOT_MODES.var_dens:
@@ -1981,7 +1915,6 @@ class SeismicRefractionManager(MethodManager):
         self._vellines = None
         self._velline = None
         self._vellinetext = []
-        # ~ self._procmode = PROC_MODES.inactive
         self._fig = None
         self._ax = None
         
@@ -2117,9 +2050,6 @@ class SeismicRefractionManager(MethodManager):
     def _onpick_seismograms(self, event):
         """Process picking in seismogram figure."""
         
-        # ~ bg = self._fig.canvas.copy_from_bbox(self._fig.bbox)
-        # ~ self._fig.canvas.blit(self._fig.bbox)
-        
         if (self._fig.canvas.manager.toolbar.mode == "" and
             len(event.ind) == 1):
             ind = int(event.ind)
@@ -2180,8 +2110,6 @@ class SeismicRefractionManager(MethodManager):
                         self._ax.cla()
                         self._draw_seismograms()
                         
-            # ~ self._fig.canvas.blit(self._fig.bbox)
-            # ~ self._fig.canvas.flush_events()
             self._fig.canvas.draw()
 
     def _onpress_seismograms(self, event):
@@ -2276,7 +2204,6 @@ class SeismicRefractionManager(MethodManager):
     def _onscroll_seismograms(self, event):
         """Process scrolling in the seismogram figure."""
         
-        # ~ if self._amplitude:
         if self._scrollmode == SCROLL_MODES.amplitude:
             if event.button == 'up':
                 self._scaling *= 2
@@ -2284,15 +2211,6 @@ class SeismicRefractionManager(MethodManager):
                 self._scaling /= 2
             
             self._ylim = event.inaxes.get_ylim()
-            
-            # ~ for line in self._psg_sg:
-                # ~ print(line.get_ydata())
-                # ~ line.set_ydata(line.get_ydata() * self._scaling)
-            
-            
-            # ~ self._fig.canvas.restore_region(self._bg)
-            # ~ self._fig.canvas.blit(self._fig.bbox)
-            # ~ self._fig.canvas.flush_events()
             
             self._ax.cla()
             self._draw_seismograms()
@@ -2356,24 +2274,17 @@ class SeismicRefractionManager(MethodManager):
         
         self._fig, self._ax = plt.subplots(1, constrained_layout=True,
                                            figsize=(8, 6))
-        # ~ self._procmode = PROC_MODES.pick
         self._draw_seismograms(**kwargs)
-        
-        # ~ if not self._pvd:
-            # ~ self._draw_estimated_velocities()
-            
-        # ~ if not self._cos and not self._pvd:
-            # ~ self._draw_picks(**kwargs)
         
         # register pick event handler
         self._fig.canvas.mpl_connect('pick_event',
                                        self._onpick_seismograms)
         
-        # ~ # register onclick event handler
+        # register onclick event handler
         self._fig.canvas.mpl_connect('button_release_event',
                                      self._onrelease_seismograms)
         
-        # ~ # register onpress event handler
+        # register onpress event handler
         self._fig.canvas.mpl_connect('button_press_event',
                                      self._onpress_seismograms)
         
@@ -2393,30 +2304,9 @@ class SeismicRefractionManager(MethodManager):
         self._fig.canvas.mpl_connect('key_release_event',
                                      self._onkeyrelease_seismograms)
         
-        # ~ fig_manager = plt.get_current_fig_manager()
-        #~ if hasattr(fig_manager, 'window'):
-            #~ fig_manager.window.showMaximized()
-        #~ self._fig.tight_layout(rect=[0, 0.03, 1, 0.95])
-        
         self._ax.format_coord = self._set_statusbartext
         
         plt.show(block=False)
-        
-        # ~ plt.pause(0.1)
-        
-        # ~ self._bg = self._fig.canvas.copy_from_bbox(self._fig.bbox)
-        # ~ if self._psg_sg != None: self._ax.draw_artist(self._psg_sg)
-        # ~ if self._psg_fb != []: 
-            # ~ for fb in self._psg_fb:
-                # ~ self._ax.draw_artist(fb[0])
-                # ~ self._ax.draw_artist(fb[1])
-        # ~ if self._psg_isvd != None: self._ax.draw_artist(self._psg_isvd)
-        
-        # ~ self._fig.canvas.blit(self._fig.bbox)
-        
-        # ~ self._draw_seismograms(**kwargs)
-        
-        # ~ self._fig.canvas.blit(self._fig.bbox)
 
     def _plot_spectrum(self, **kwargs):
         """Plot the (stacked) frequency content of a currently selected traces.
@@ -2496,7 +2386,6 @@ class SeismicRefractionManager(MethodManager):
         
         me = event.mouseevent
         rsid = round(me.xdata, 0)
-        # ~ ind = event.ind
         sin = int(float(event.artist.properties()['label']))
         
         cmd = """SELECT first_geophone fg
@@ -2509,18 +2398,13 @@ class SeismicRefractionManager(MethodManager):
                  FROM receivers
                  WHERE station_id == %d""" % (rsid)
         rin = int(self.slh.read_data(cmd).rin)
-        
-        # ~ print('RSIN', rsid)
-        # ~ print('RIN', rin)
-        # ~ print('FG', fg)
-        # ~ print('RIN', ind + fg)
+
         cmd = """UPDATE fbpicks
                  SET traveltime = -1
                  WHERE pickset == \'%s\' AND
                        shot_index_number == %d AND
                        receiver_index_number == %d AND
                        traveltime >= 0""" % (self._activeps, sin, rin)
-                       # ~ traveltime >= 0""" % (self._activeps, sin, ind+fg)
         with self.slh.dbc:
             self.slh.dbc.execute(cmd)
         
@@ -2578,7 +2462,6 @@ class SeismicRefractionManager(MethodManager):
         cmap = plt.cm.tab10(np.arange(10))
 
         # initialize station array
-        # ~ stations = np.array([])
         cmd = """SELECT station_id
                  FROM geometry"""
         stations = self.slh.read_data(cmd)
@@ -2602,18 +2485,13 @@ class SeismicRefractionManager(MethodManager):
         recs = self.slh.read_data(cmd)
         
         for i, r in recs.iterrows():
-            # ~ if not r[1] in shts.iloc[:, 1].values:
             if not r[2] in shts.iloc[:, 2].values:
-                # ~ self._ttax[0].plot(r[1], 0,
                 self._ttax[0].plot(r[2], 0,
                                    marker='v', c='k',
                                    markersize=8,
                                    markeredgecolor='k')
-                # ~ stations = np.append(stations, r[1])
-                # ~ stations = np.append(stations, r[2])
                 
             self._ttax[0].annotate(str(int(r[0])),
-                                  # ~ (r[1], 0),
                                   (r[2], 0),
                                   xytext=(0, -20),
                                   textcoords='offset pixels',
@@ -2625,16 +2503,11 @@ class SeismicRefractionManager(MethodManager):
         # plot traveltime diagram
         for i, s in shts.iterrows():
             # draw station symbol
-            # ~ if s[1] in recs.iloc[:, 1].values:
             if s[2] in recs.iloc[:, 2].values:
                 marker = 'o'
-                # ~ stations = np.append(stations, s[1])
-                # ~ stations = np.append(stations, s[2])
             else:
                 marker = '*'
-                # ~ stations = np.append(stations, s[2])
                 
-            # ~ self._ttax[0].plot(s[1], 0,
             self._ttax[0].plot(s[2], 0,
                                marker=marker,
                                c=cmap[int(s[0]) % 10],
@@ -2642,7 +2515,6 @@ class SeismicRefractionManager(MethodManager):
                                markeredgecolor='k')
             
             self._ttax[0].annotate(str(int(s[0])),
-                                   # ~ (s[1], 0),
                                    (s[2], 0),
                                    xytext=(0, 10), textcoords='offset pixels',
                                    ha='center',
@@ -2650,16 +2522,13 @@ class SeismicRefractionManager(MethodManager):
             
             # draw traveltime curve
             tt = fbpicks[fbpicks.sin == s[0]].tt
-            # ~ rx = fbpicks[fbpicks.sin == s[0]].rx
             rsid = fbpicks[fbpicks.sin == s[0]].rsid
             
             if len(tt) > 0:
-                # ~ X.append(list(rx))
                 X.append(list(rsid))
                 Y.append(list(tt))
                 colors.append(cmap[int(s[0]) % 10])
             
-                # ~ self._ttax[1].scatter(rx, tt,
                 self._ttax[1].scatter(rsid, tt,
                                       color=cmap[int(s[0]) % 10],
                                       marker=self._marker,
@@ -2681,8 +2550,6 @@ class SeismicRefractionManager(MethodManager):
                                zorder=0)
         
         # format plot
-        # ~ xmin = np.min([shts.sx.min(), recs.rx.min()])
-        # ~ xmax = np.max([shts.sx.max(), recs.rx.max()])
         xmin = np.min([shts.sid.min(), recs.sid.min()])
         xmax = np.max([shts.sid.max(), recs.sid.max()])
         dx = xmax - xmin
@@ -2728,9 +2595,8 @@ class SeismicRefractionManager(MethodManager):
         the raw data files.
         """
         
-        # set preview flag
+        # disable processing
         self._logger.info('Starting in data preview mode')
-        # ~ self._pvd = True
         self._procmode = PROC_MODES.inactive
         
         # read all raw data files
