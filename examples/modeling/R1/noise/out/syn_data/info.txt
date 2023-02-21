@@ -1,0 +1,10 @@
+Number of geophones: 48
+Number of shots: 48
+Recording length (s): 1.024
+Sampling frequency (Hz): 2000
+Wavelet type: Ricker
+Frequency of the wavelet (Hz): 100
+
+Missing shot(s): 32, 18
+Broken geophone(s): 45, 3
+Wrong polarity geophone(s): 34
