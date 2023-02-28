@@ -4,4 +4,5 @@ swm = SeismicWaveformModeler('.')
 
 swm.load('mesh')
 swm.load('config')
-swm.create('waveforms')
+# ~ swm.create('waveforms')
+swm.create('traveltimes')

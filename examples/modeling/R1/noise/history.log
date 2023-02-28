@@ -71,3 +71,11 @@
 2023/02/21 14:57:38 INFO     Measurement scheme loaded
 2023/02/21 14:57:38 INFO     Wavelet created
 2023/02/21 15:47:56 INFO     Dataset syn_data created
+2023/02/28 10:20:26 INFO     Created instance of SeismicWaveformModeller
+2023/02/28 10:20:26 INPUT    set mesh
+2023/02/28 10:20:26 INFO     Mesh loaded
+2023/02/28 10:20:26 INPUT    set config
+2023/02/28 10:20:26 INFO     Configuration loaded
+2023/02/28 10:20:26 INPUT    create traveltimes
+2023/02/28 10:20:26 INFO     Velocity model created
+2023/02/28 10:20:26 INFO     Measurement scheme loaded

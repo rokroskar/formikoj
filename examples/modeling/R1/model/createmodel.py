@@ -42,7 +42,7 @@ for p in stations:
 mesh = mt.createMesh(geom, quality=34)
 mesh.save('mesh.bms')
 
-# assign velocity values to the different model regions
+# define velocity values for the different model regions
 velmap = [[1, 750],
           [2, 2500],
           [3, 4000]]

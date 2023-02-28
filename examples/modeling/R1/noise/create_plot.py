@@ -61,11 +61,11 @@ fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap),
              cax=ax[0, 1], orientation='vertical', label='P-wave velocity (m/s)')
         
 ax[0, 0].plot(stations[:23, 0], stations[:23, 1], ls='',
-           marker='v', color='k', markersize=6)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 ax[0, 0].plot(stations[23, 0], stations[23, 1],
-           marker='*', color='k', markersize=10)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 ax[0, 0].plot(stations[24:, 0], stations[24:, 1], ls='',
-           marker='v', color='k', markersize=6)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 
 ax[0, 0].set_yticklabels(np.arange(0, 20, 5)[::-1])
 
@@ -79,10 +79,14 @@ srtData = pg.DataContainer("./out/syn_data/syn_data_tt.pck",
                            sensorTokens="s g",
                            removeInvalid=True)
                            
-sgt = np.vstack((srtData['s'], srtData['g'], srtData['t'])).T
+sgt = np.vstack((srtData['s'].copy(), srtData['g'].copy(), srtData['t'].copy())).T
 
 sgt[:, 0] *= spc
 sgt[:, 1] *= spc
+
+sgt[sgt[:, 1]==4., 2] = np.nan
+sgt[sgt[:, 1]==88., 2] = np.nan
+sgt[sgt[:, 1]==70., 2] += .025
 
 # plot seismograms
 X, Y = [], []
@@ -118,9 +122,17 @@ ax[1, 0].imshow(vd,
           interpolation='bicubic')
 
 idx = sgt[:, 0] == 23*spc
-ax[1, 0].scatter(sgt[idx, 1], sgt[idx, 2], s=20, marker='x', c='g')
-          
-ax[1, 0].set_ylim((.11, 0))
+ax[1, 0].scatter(sgt[idx, 1], sgt[idx, 2], s=30, marker='X', c='g',
+                 zorder=100, edgecolor='k')
+
+ax[1, 0].plot(stations[:23, 0], stations[:23, 1]-.005, ls='',
+           marker='v', color='w', markersize=6, markeredgecolor='k', zorder=100)
+ax[1, 0].plot(stations[23, 0], stations[23, 1]-.005,
+           marker='*', color='w', markersize=8, markeredgecolor='k', zorder=100)
+ax[1, 0].plot(stations[24:, 0], stations[24:, 1]-.005, ls='',
+           marker='v', color='w', markersize=6, markeredgecolor='k', zorder=100)
+
+ax[1, 0].set_ylim((.11, -.01))
 
 # PLOT PSEUDOSECTION
 
@@ -162,7 +174,9 @@ for i in np.arange(np.max(cnt)) + 1:
                      c=av[mi], s=40 / i ** 3,
                      cmap=cmap, 
                      norm=norm)
-                     
+
+ax[2, 0].plot(stations[:, 0], stations[:, 1]-.75, ls='',
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 ax[2, 0].invert_yaxis()
 
 # PLOT INVERSION RESULT
@@ -170,7 +184,7 @@ ax[2, 0].invert_yaxis()
 srtData = pg.DataContainer("./out/syn_data/syn_data_tt.pck", 
                            sensorTokens="s g",
                            removeInvalid=True)
-abserr = 0.0035 # absolute error of traveltimes (s)
+abserr = 0.0003 # absolute error of traveltimes (s)
 srtData.set('err', np.ones(srtData.size()) * abserr)
 srtData.set('t', srtData['t']-.02)
 srtData.markInvalid(srtData['t'] <= 0.)
@@ -185,7 +199,7 @@ plc = mt.createParaMeshPLC(srtData.sensorPositions(),
                            paraDepth=15, # model depth (m) (0 --> estimated)
                            paraBoundary=2, # margin for parameter domain 
                                            # (sensor spacing)
-                           paraMaxCellSize=.5, # maximum cell area (m^2)
+                           paraMaxCellSize=.25, # maximum cell area (m^2)
                            boundary=0) # boundary around the parameter domain
                                        # no need to worry about this here
 invmesh = mt.createMesh(plc,
@@ -200,7 +214,7 @@ mgr.setMesh(invmesh,
 
 # define the inversion parameters
 lam = 10 # use different values
-zWeight = 1 # isotropic smoothing
+zWeight = .5 # isotropic smoothing
                         
 # run inversion
 vest = mgr.invert(vTop=500, # velocity at the top of the initial model (m/s)
@@ -234,13 +248,13 @@ _, cb = pg.show(invmesh, # mesh
 pg.show(geom, ax=ax[3, 0], fillRegion=False, regionMarker=False, fitView=False)
 
 ax[3, 0].plot(stations[:23, 0], stations[:23, 1], ls='',
-           marker='v', color='k', markersize=6)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 ax[3, 0].plot(stations[23, 0], stations[23, 1],
-           marker='*', color='k', markersize=10)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 ax[3, 0].plot(stations[24:, 0], stations[24:, 1], ls='',
-           marker='v', color='k', markersize=6)
+           marker='v', color='w', markersize=6, markeredgecolor='k')
 
-# ~ ax[0, 0].set_yticklabels(np.arange(0, 20, 5)[::-1])
+ax[0, 0].set_yticklabels(np.arange(0, 20, 5)[::-1])
 
 cmap = mpl.cm.Spectral
 norm = mpl.colors.Normalize(vmin=cMin, vmax=cMax)
@@ -263,8 +277,13 @@ ax[2, 0].set_ylabel('Pseudodepth (m)')
 ax[3, 0].set_ylabel('Depth (m)')
 
 ax[1, 1].set_visible(False)
-# ~ ax[2, 1].set_visible(False)
+
+ax[0, 0].set_title('a)', loc='left')
+ax[1, 0].set_title('b)', loc='left')
+ax[2, 0].set_title('c)', loc='left')
+ax[3, 0].set_title('d)', loc='left')
 
 plt.tight_layout()
 # ~ plt.show()
-plt.savefig('synthetic_data_example.png', dpi=300)
+# ~ plt.savefig('synthetic_data_example.png', dpi=300)
+plt.savefig('synthetic_data_example.pdf')
