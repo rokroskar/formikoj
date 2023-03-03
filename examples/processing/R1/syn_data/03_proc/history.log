@@ -1,0 +1,96 @@
+2023/03/01 10:16:55 INFO     Project database created
+2023/03/01 10:16:55 INFO     Read geometry information from file
+2023/03/01 10:16:55 INFO     Extracted receiver geometry
+2023/03/01 10:16:55 INFO     Extracted shot geometry
+2023/03/01 10:16:55 INFO     Applied geometry
+2023/03/01 10:16:55 INFO     Standard pickset 'picks' created
+2023/03/01 10:16:55 INFO     Pickset 'picks' loaded
+2023/03/01 10:16:55 INFO     'picks' set as active pickset
+2023/03/01 10:16:57 INFO     Read 46 files
+2023/03/01 10:17:30 INPUT    picksets 
+2023/03/01 10:17:47 INPUT    picksets import syn_data_tt.pck picks
+2023/03/01 10:17:47 ERROR    Number of picks to import exceeds the geometry based number of picks
+2023/03/01 10:20:10 INPUT    picksets import syn_data_tt.pck picks
+2023/03/01 10:20:38 INPUT    picksets import syn_data_tt.pck picks
+2023/03/01 10:20:38 ERROR    Number of picks to import exceeds the geometry based number of picks
+2023/03/01 10:22:13 INPUT    picksets import syn_data_tt.pck picks
+2023/03/01 10:22:13 CRITICAL Cannot create pickset with the name of the default pickset ('picks')
+2023/03/01 10:22:21 INPUT    picksets import syn_data_tt.pck pick
+2023/03/01 10:22:21 INFO     Created new pickset 'pick'
+2023/03/01 10:22:21 INFO     Pickset 'pick' loaded
+2023/03/01 10:22:21 INFO     'pick' set as active pickset
+2023/03/01 10:22:21 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/01 10:22:34 INPUT    picksets unload picks
+2023/03/01 10:22:34 INFO     Pickset 'picks' removed from workflow
+2023/03/01 10:22:41 INPUT    select sin 24
+2023/03/01 10:22:41 INFO     48 traces selected
+2023/03/01 10:22:41 AUTO     filter remove
+2023/03/01 10:22:41 INFO     No filter settings to remove
+2023/03/01 10:22:43 INPUT    plot 
+2023/03/01 10:23:35 INPUT    filter lp 120
+2023/03/01 10:23:35 INFO     Applied 120.0 Hz lowpass filter
+2023/03/01 10:24:55 AUTO     select sin 23
+2023/03/01 10:24:55 INFO     48 traces selected
+2023/03/01 10:24:55 AUTO     filter remove
+2023/03/01 10:24:55 INFO     Filter settings removed
+2023/03/01 10:25:35 INPUT    filter lp 120
+2023/03/01 10:25:35 INFO     Applied 120.0 Hz lowpass filter
+2023/03/03 16:44:39 INPUT    plot traveltimes
+2023/03/03 16:53:32 INPUT    plot traveltimes
+2023/03/03 17:55:44 INFO     Project database created
+2023/03/03 17:55:44 INFO     Read geometry information from file
+2023/03/03 17:55:44 INFO     Extracted receiver geometry
+2023/03/03 17:55:44 ERROR    Number of shots in geometry file exceeds the number of shot files
+2023/03/03 17:55:44 INFO     Project database deleted
+2023/03/03 17:56:17 INFO     Project database created
+2023/03/03 17:56:17 INFO     Read geometry information from file
+2023/03/03 17:56:17 INFO     Extracted receiver geometry
+2023/03/03 17:56:17 INFO     Extracted shot geometry
+2023/03/03 17:56:17 INFO     Applied geometry
+2023/03/03 17:56:17 INFO     Standard pickset 'picks' created
+2023/03/03 17:56:17 INFO     Pickset 'picks' loaded
+2023/03/03 17:56:17 INFO     'picks' set as active pickset
+2023/03/03 17:56:19 INFO     Read 47 files
+2023/03/03 17:56:37 INPUT    picksets import syn_data_tt.pck pick
+2023/03/03 17:56:37 ERROR    Number of picks to import exceeds the geometry based number of picks
+2023/03/03 18:02:51 INPUT    picksets import syn_data_tt.pck pick
+2023/03/03 18:02:51 INFO     Created new pickset 'pick'
+2023/03/03 18:02:51 INFO     Pickset 'pick' loaded
+2023/03/03 18:02:51 INFO     'pick' set as active pickset
+2023/03/03 18:02:52 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/03 18:03:00 INPUT    picksets unload picks
+2023/03/03 18:03:00 INFO     Pickset 'picks' removed from workflow
+2023/03/03 18:03:05 INPUT    plot traveltimes
+2023/03/03 18:09:37 INPUT    picksets import syn_data_tt.pck pick
+2023/03/03 18:09:37 ERROR    Pickset 'pick' already exists
+2023/03/03 18:09:39 INPUT    picksets import syn_data_tt.pck pick1
+2023/03/03 18:09:39 INFO     Created new pickset 'pick1'
+2023/03/03 18:09:39 INFO     Pickset 'pick1' loaded
+2023/03/03 18:09:39 INFO     'pick1' set as active pickset
+2023/03/03 18:09:40 INFO     Imported 'syn_data_tt.pck' to pickset 'pick1'
+2023/03/03 18:09:44 INPUT    picksets unload pick
+2023/03/03 18:09:44 INFO     Pickset 'pick' removed from workflow
+2023/03/03 18:09:46 INPUT    plot traveltimes
+2023/03/03 18:16:56 INPUT    picksets import syn_data_tt.pck pick2
+2023/03/03 18:17:07 INPUT    picksets import syn_data_tt.pck pick2
+2023/03/03 18:17:07 INFO     Created new pickset 'pick2'
+2023/03/03 18:17:07 INFO     Pickset 'pick2' loaded
+2023/03/03 18:17:07 INFO     'pick2' set as active pickset
+2023/03/03 18:17:07 INFO     Imported 'syn_data_tt.pck' to pickset 'pick2'
+2023/03/03 18:17:12 INPUT    plot traveltimes
+2023/03/03 18:20:12 INFO     Project database created
+2023/03/03 18:20:12 INFO     Read geometry information from file
+2023/03/03 18:20:12 INFO     Extracted receiver geometry
+2023/03/03 18:20:12 INFO     Extracted shot geometry
+2023/03/03 18:20:12 INFO     Applied geometry
+2023/03/03 18:20:12 INFO     Standard pickset 'picks' created
+2023/03/03 18:20:12 INFO     Pickset 'picks' loaded
+2023/03/03 18:20:12 INFO     'picks' set as active pickset
+2023/03/03 18:20:14 INFO     Read 47 files
+2023/03/03 18:20:18 INPUT    picksets import syn_data_tt.pck pick
+2023/03/03 18:20:18 INFO     Created new pickset 'pick'
+2023/03/03 18:20:18 INFO     Pickset 'pick' loaded
+2023/03/03 18:20:18 INFO     'pick' set as active pickset
+2023/03/03 18:20:18 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/03 18:20:23 INPUT    plot traveltimes
+2023/03/03 18:20:34 INPUT    plot traveltimes

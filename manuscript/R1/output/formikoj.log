@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.13)  28 FEB 2023 18:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.13)  3 MAR 2023 18:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1073,115 +1073,52 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.572 
-      ]
-<./figures/plot.pdf, id=227, 357.58594pt x 34.73584pt>
-File: ./figures/plot.pdf Graphic file (type pdf)
-<use ./figures/plot.pdf>
-Package pdftex.def Info: ./figures/plot.pdf  used on input line 613.
-(pdftex.def)             Requested size: 234.1662pt x 22.74709pt.
- [12 <./figures/plot.pdf>]
-<./figures/plot_spectrum.pdf, id=249, 357.58594pt x 34.73584pt>
-File: ./figures/plot_spectrum.pdf Graphic file (type pdf)
-<use ./figures/plot_spectrum.pdf>
-Package pdftex.def Info: ./figures/plot_spectrum.pdf  used on input line 636.
-(pdftex.def)             Requested size: 234.1662pt x 22.74709pt.
-<./figures/filter.pdf, id=253, 357.58594pt x 159.22685pt>
-File: ./figures/filter.pdf Graphic file (type pdf)
-<use ./figures/filter.pdf>
-Package pdftex.def Info: ./figures/filter.pdf  used on input line 647.
-(pdftex.def)             Requested size: 234.1662pt x 104.27126pt.
- [13 <./figures/plot_spectrum.pdf> <./figures/filter.pdf
+l.593 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.593 
+      ] [12] [13] [14]
 
-pdfTeX warning: pdflatex (file ./figures/filter.pdf): PDF inclusion: multiple p
-dfs with page group included in a single page
->]
-<./figures/plot_traveltimes.pdf, id=263, 357.58594pt x 34.73584pt>
-File: ./figures/plot_traveltimes.pdf Graphic file (type pdf)
-<use ./figures/plot_traveltimes.pdf>
-Package pdftex.def Info: ./figures/plot_traveltimes.pdf  used on input line 661
-.
-(pdftex.def)             Requested size: 234.1662pt x 22.74709pt.
-<./figures/picksets.pdf, id=265, 357.58594pt x 480.16908pt>
-File: ./figures/picksets.pdf Graphic file (type pdf)
-<use ./figures/picksets.pdf>
-Package pdftex.def Info: ./figures/picksets.pdf  used on input line 674.
-(pdftex.def)             Requested size: 234.1662pt x 314.44345pt.
-<./figures/load_picksets.pdf, id=266, 357.58594pt x 308.25078pt>
-File: ./figures/load_picksets.pdf Graphic file (type pdf)
-<use ./figures/load_picksets.pdf>
-Package pdftex.def Info: ./figures/load_picksets.pdf  used on input line 679.
-(pdftex.def)             Requested size: 234.1662pt x 201.86104pt.
-<./figures/export_pickset.pdf, id=267, 391.4625pt x 57.17143pt>
-File: ./figures/export_pickset.pdf Graphic file (type pdf)
-<use ./figures/export_pickset.pdf>
-Package pdftex.def Info: ./figures/export_pickset.pdf  used on input line 683.
-(pdftex.def)             Requested size: 234.1662pt x 34.1993pt.
- [14 <./figures/plot_traveltimes.pdf>] [15 <./figures/picksets.pdf>]
+LaTeX Warning: Reference `tab:rollalong_geometry' on page 15 undefined on input
+ line 904.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./figures/plotcos_danube.pdf, id=283, 357.58594pt x 70.77255pt>
-File: ./figures/plotcos_danube.pdf Graphic file (type pdf)
-<use ./figures/plotcos_danube.pdf>
-Package pdftex.def Info: ./figures/plotcos_danube.pdf  used on input line 825.
-(pdftex.def)             Requested size: 234.1662pt x 46.34608pt.
-
-Overfull \hbox (17.9067pt too wide) in paragraph at lines 821--829
+Overfull \hbox (17.9067pt too wide) in paragraph at lines 915--916
 []\T1/stix/m/n/10 Based on the shot files and the ge-om-e-try file stored in th
 e re-quired di-rec-tory struc-ture the \T1/cmtt/m/n/10 SeismicRefractionManager
 
  []
 
-[16 <./figures/load_picksets.pdf> <./figures/export_pickset.pdf
-
-pdfTeX warning: pdflatex (file ./figures/export_pickset.pdf): PDF inclusion: mu
-ltiple pdfs with page group included in a single page
->]
-<./figures/plotsin99_danube.pdf, id=296, 357.58594pt x 138.6551pt>
-File: ./figures/plotsin99_danube.pdf Graphic file (type pdf)
-<use ./figures/plotsin99_danube.pdf>
-Package pdftex.def Info: ./figures/plotsin99_danube.pdf  used on input line 833
-.
-(pdftex.def)             Requested size: 234.1662pt x 90.79965pt.
-<./figures/plotpseudosection_danube.pdf, id=298, 357.58594pt x 34.73584pt>
-File: ./figures/plotpseudosection_danube.pdf Graphic file (type pdf)
-<use ./figures/plotpseudosection_danube.pdf>
-Package pdftex.def Info: ./figures/plotpseudosection_danube.pdf  used on input 
-line 846.
-(pdftex.def)             Requested size: 234.1662pt x 22.74709pt.
- [17
-pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.848 
-       <./figures/plotcos_danube.pdf> <./figures/plotsin99_danube.pdf
-
-pdfTeX warning: pdflatex (file ./figures/plotsin99_danube.pdf): PDF inclusion: 
-multiple pdfs with page group included in a single page
->]
-<./figures/plot_pickperc_danube.pdf, id=312, 357.58594pt x 34.73584pt>
+<./figures/plot_pickperc_danube.pdf, id=285, 357.58594pt x 34.73584pt>
 File: ./figures/plot_pickperc_danube.pdf Graphic file (type pdf)
 <use ./figures/plot_pickperc_danube.pdf>
 Package pdftex.def Info: ./figures/plot_pickperc_danube.pdf  used on input line
- 867.
+ 955.
 (pdftex.def)             Requested size: 234.1662pt x 22.74709pt.
- [18 <./figures/plotpseudosection_danube.pdf> <./figures/plot_pickperc_danube.p
-df
+[15
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.960 
+       <./figures/plot_pickperc_danube.pdf>] [16] [17]
 
-pdfTeX warning: pdflatex (file ./figures/plot_pickperc_danube.pdf): PDF inclusi
-on: multiple pdfs with page group included in a single page
->] [19] [20] [21] (output//formikoj.bbl [22])
-AED endfloat: Processing end Figures and Tables [23] (output//formikoj.lof
-[24
+LaTeX Warning: Reference `fig:map_danube' on page 18 undefined on input line 10
+41.
 
-
-])
+[18] (output//formikoj.bbl [19])
+AED endfloat: Processing end Figures and Tables [20] (output//formikoj.lof)
 \tf@lof=\write6
 \openout6 = `formikoj.lof'.
 
- [25] (output//formikoj.fff
+
+[21
+
+
+] (output//formikoj.fff
 Package epstopdf Info: Source file: <figures/package_structure.eps>
 (epstopdf)                    date: 2022-04-12 16:22:11
 (epstopdf)                    size: 202193 bytes
@@ -1193,14 +1130,14 @@ Package epstopdf Info: Source file: <figures/package_structure.eps>
 eps-converted-to.pdf figures/package_structure.eps>
 (epstopdf)             \includegraphics on input line 3.
 Package epstopdf Info: Output file is already uptodate.
-<figures/package_structure-eps-converted-to.pdf, id=559, 901.3675pt x 292.09125
+<figures/package_structure-eps-converted-to.pdf, id=503, 901.3675pt x 292.09125
 pt>
 File: figures/package_structure-eps-converted-to.pdf Graphic file (type pdf)
 <use figures/package_structure-eps-converted-to.pdf>
 Package pdftex.def Info: figures/package_structure-eps-converted-to.pdf  used o
 n input line 3.
 (pdftex.def)             Requested size: 351.2493pt x 113.82597pt.
- [26
+ [22
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
@@ -1209,14 +1146,14 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.7 \efloatseparator
                      <./figures/package_structure-eps-converted-to.pdf>]
-<figures/workflow_modeling-crop.pdf, id=566, 2220.295pt x 743.77875pt>
+<figures/workflow_modeling-crop.pdf, id=510, 2220.295pt x 743.77875pt>
 File: figures/workflow_modeling-crop.pdf Graphic file (type pdf)
 <use figures/workflow_modeling-crop.pdf>
 Package pdftex.def Info: figures/workflow_modeling-crop.pdf  used on input line
  11.
 (pdftex.def)             Requested size: 351.2493pt x 117.65648pt.
 
-[27
+[23
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
@@ -1225,13 +1162,13 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.15 \efloatseparator
                       <./figures/workflow_modeling-crop.pdf>]
-<figures/workflow_processing-crop.pdf, id=595, 2435.0975pt x 779.91376pt>
+<figures/workflow_processing-crop.pdf, id=540, 2435.0975pt x 779.91376pt>
 File: figures/workflow_processing-crop.pdf Graphic file (type pdf)
 <use figures/workflow_processing-crop.pdf>
 Package pdftex.def Info: figures/workflow_processing-crop.pdf  used on input li
 ne 19.
 (pdftex.def)             Requested size: 351.2493pt x 112.49551pt.
- [28
+ [24
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
@@ -1240,13 +1177,13 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.23 \efloatseparator
                       <./figures/workflow_processing-crop.pdf>]
-<figures/synthetic_data_example.pdf, id=625, 578.16pt x 722.7pt>
+<figures/synthetic_data_example.pdf, id=569, 578.16pt x 722.7pt>
 File: figures/synthetic_data_example.pdf Graphic file (type pdf)
 <use figures/synthetic_data_example.pdf>
 Package pdftex.def Info: figures/synthetic_data_example.pdf  used on input line
  27.
 (pdftex.def)             Requested size: 351.2493pt x 439.05989pt.
- [29
+ [25
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
@@ -1265,13 +1202,13 @@ Package epstopdf Info: Source file: <figures/srm_erd.eps>
 ted-to.pdf figures/srm_erd.eps>
 (epstopdf)             \includegraphics on input line 35.
 Package epstopdf Info: Output file is already uptodate.
-<figures/srm_erd-eps-converted-to.pdf, id=690, 465.74pt x 127.47626pt>
+<figures/srm_erd-eps-converted-to.pdf, id=633, 465.74pt x 127.47626pt>
 File: figures/srm_erd-eps-converted-to.pdf Graphic file (type pdf)
 <use figures/srm_erd-eps-converted-to.pdf>
 Package pdftex.def Info: figures/srm_erd-eps-converted-to.pdf  used on input li
 ne 35.
 (pdftex.def)             Requested size: 351.2493pt x 96.14186pt.
- [30
+ [26
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
@@ -1280,12 +1217,12 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.39 \efloatseparator
                       <./figures/srm_erd-eps-converted-to.pdf>]
-<figures/station_numbering.pdf, id=699, 946.32863pt x 383.5913pt>
+<figures/station_numbering.pdf, id=642, 946.32863pt x 383.5913pt>
 File: figures/station_numbering.pdf Graphic file (type pdf)
 <use figures/station_numbering.pdf>
 Package pdftex.def Info: figures/station_numbering.pdf  used on input line 43.
 (pdftex.def)             Requested size: 351.2493pt x 142.37724pt.
- [31
+ [27
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
@@ -1294,12 +1231,12 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.47 \efloatseparator
                       <./figures/station_numbering.pdf>]
-<figures/pickwindow_intro.pdf, id=706, 578.16pt x 433.62pt>
-File: figures/pickwindow_intro.pdf Graphic file (type pdf)
-<use figures/pickwindow_intro.pdf>
-Package pdftex.def Info: figures/pickwindow_intro.pdf  used on input line 51.
-(pdftex.def)             Requested size: 351.2493pt x 263.43594pt.
- [32
+<figures/spectrum.pdf, id=650, 578.16pt x 289.08pt>
+File: figures/spectrum.pdf Graphic file (type pdf)
+<use figures/spectrum.pdf>
+Package pdftex.def Info: figures/spectrum.pdf  used on input line 51.
+(pdftex.def)             Requested size: 351.2493pt x 175.62395pt.
+ [28
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
@@ -1307,13 +1244,13 @@ s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.55 \efloatseparator
-                      <./figures/pickwindow_intro.pdf>]
-<figures/status_bar.pdf, id=749, 849.80156pt x 553.32822pt>
-File: figures/status_bar.pdf Graphic file (type pdf)
-<use figures/status_bar.pdf>
-Package pdftex.def Info: figures/status_bar.pdf  used on input line 59.
-(pdftex.def)             Requested size: 351.2493pt x 228.70662pt.
- [33
+                      <./figures/spectrum.pdf>]
+<figures/srm_intro.pdf, id=688, 466.8642pt x 265.2309pt>
+File: figures/srm_intro.pdf Graphic file (type pdf)
+<use figures/srm_intro.pdf>
+Package pdftex.def Info: figures/srm_intro.pdf  used on input line 59.
+(pdftex.def)             Requested size: 351.2493pt x 199.55402pt.
+ [29
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
@@ -1321,13 +1258,13 @@ s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.63 \efloatseparator
-                      <./figures/status_bar.pdf>]
-<figures/spectrum.pdf, id=756, 578.16pt x 289.08pt>
-File: figures/spectrum.pdf Graphic file (type pdf)
-<use figures/spectrum.pdf>
-Package pdftex.def Info: figures/spectrum.pdf  used on input line 67.
-(pdftex.def)             Requested size: 351.2493pt x 175.62395pt.
- [34
+                      <./figures/srm_intro.pdf>]
+<figures/status_bar.pdf, id=734, 849.80156pt x 553.32822pt>
+File: figures/status_bar.pdf Graphic file (type pdf)
+<use figures/status_bar.pdf>
+Package pdftex.def Info: figures/status_bar.pdf  used on input line 67.
+(pdftex.def)             Requested size: 351.2493pt x 228.70662pt.
+ [30
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
@@ -1335,13 +1272,13 @@ s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.71 \efloatseparator
-                      <./figures/spectrum.pdf>]
-<figures/traveltimes_intro.pdf, id=794, 867.24pt x 650.43pt>
-File: figures/traveltimes_intro.pdf Graphic file (type pdf)
-<use figures/traveltimes_intro.pdf>
-Package pdftex.def Info: figures/traveltimes_intro.pdf  used on input line 75.
+                      <./figures/status_bar.pdf>]
+<figures/traveltimes_syn.pdf, id=741, 867.24pt x 650.43pt>
+File: figures/traveltimes_syn.pdf Graphic file (type pdf)
+<use figures/traveltimes_syn.pdf>
+Package pdftex.def Info: figures/traveltimes_syn.pdf  used on input line 75.
 (pdftex.def)             Requested size: 351.2493pt x 263.44255pt.
- [35
+ [31
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
@@ -1349,13 +1286,18 @@ as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.79 \efloatseparator
-                      <./figures/traveltimes_intro.pdf>]
-<./figures/map_danube.pdf, id=857, 632.3625pt x 358.33875pt>
-File: ./figures/map_danube.pdf Graphic file (type pdf)
-<use ./figures/map_danube.pdf>
-Package pdftex.def Info: ./figures/map_danube.pdf  used on input line 83.
-(pdftex.def)             Requested size: 351.2493pt x 199.04439pt.
- [36
+                      <./figures/traveltimes_syn.pdf>]
+<./figures/map_sodalakes.pdf, id=826, 632.3625pt x 628.3475pt>
+File: ./figures/map_sodalakes.pdf Graphic file (type pdf)
+<use ./figures/map_sodalakes.pdf>
+Package pdftex.def Info: ./figures/map_sodalakes.pdf  used on input line 83.
+(pdftex.def)             Requested size: 351.2493pt x 349.02463pt.
+LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
+84.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/ts1cmss.fd
+File: ts1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+) [32
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
@@ -1363,14 +1305,14 @@ as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.87 \efloatseparator
-                      <./figures/map_danube.pdf>]
-<figures/danube_island_cos_lp120.pdf, id=970, 472.6458pt x 397.485pt>
-File: figures/danube_island_cos_lp120.pdf Graphic file (type pdf)
-<use figures/danube_island_cos_lp120.pdf>
-Package pdftex.def Info: figures/danube_island_cos_lp120.pdf  used on input lin
-e 91.
-(pdftex.def)             Requested size: 351.2493pt x 295.4019pt.
- [37
+                      <./figures/map_sodalakes.pdf>]
+<figures/rollalong_pickperc.pdf, id=1374, 578.16pt x 144.54pt>
+File: figures/rollalong_pickperc.pdf Graphic file (type pdf)
+<use figures/rollalong_pickperc.pdf>
+Package pdftex.def Info: figures/rollalong_pickperc.pdf  used on input line 91.
+
+(pdftex.def)             Requested size: 351.2493pt x 87.81197pt.
+ [33
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
@@ -1378,14 +1320,14 @@ as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.95 \efloatseparator
-                      <./figures/danube_island_cos_lp120.pdf>]
-<figures/danube_island_sin99_lp120_picks_vd.pdf, id=1027, 578.16pt x 433.62pt>
-File: figures/danube_island_sin99_lp120_picks_vd.pdf Graphic file (type pdf)
-<use figures/danube_island_sin99_lp120_picks_vd.pdf>
-Package pdftex.def Info: figures/danube_island_sin99_lp120_picks_vd.pdf  used o
-n input line 99.
+                      <./figures/rollalong_pickperc.pdf>]
+<figures/sodalakes_sin1_lp100_picks_vd.pdf, id=1397, 578.16pt x 433.62pt>
+File: figures/sodalakes_sin1_lp100_picks_vd.pdf Graphic file (type pdf)
+<use figures/sodalakes_sin1_lp100_picks_vd.pdf>
+Package pdftex.def Info: figures/sodalakes_sin1_lp100_picks_vd.pdf  used on inp
+ut line 99.
 (pdftex.def)             Requested size: 351.2493pt x 263.43594pt.
- [38
+ [34
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
@@ -1393,94 +1335,32 @@ as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.103 \efloatseparator
-                       <./figures/danube_island_sin99_lp120_picks_vd.pdf>]
-<figures/rollalong_pseudosection.pdf, id=1072, 722.7pt x 325.215pt>
-File: figures/rollalong_pseudosection.pdf Graphic file (type pdf)
-<use figures/rollalong_pseudosection.pdf>
-Package pdftex.def Info: figures/rollalong_pseudosection.pdf  used on input lin
-e 107.
-(pdftex.def)             Requested size: 351.2493pt x 158.06155pt.
-
-[39
+                       <./figures/sodalakes_sin1_lp100_picks_vd.pdf>]
+<figures/3d_pseudosection.pdf, id=1444, 1128.215pt x 940.51375pt>
+File: figures/3d_pseudosection.pdf Graphic file (type pdf)
+<use figures/3d_pseudosection.pdf>
+Package pdftex.def Info: figures/3d_pseudosection.pdf  used on input line 107.
+(pdftex.def)             Requested size: 351.2493pt x 292.8048pt.
+) [35
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.111 \efloatseparator
-                       <./figures/rollalong_pseudosection.pdf>]
-<figures/rollalong_pickperc.pdf, id=1130, 578.16pt x 144.54pt>
-File: figures/rollalong_pickperc.pdf Graphic file (type pdf)
-<use figures/rollalong_pickperc.pdf>
-Package pdftex.def Info: figures/rollalong_pickperc.pdf  used on input line 115
-.
-(pdftex.def)             Requested size: 351.2493pt x 87.81197pt.
- [40
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.119 \efloatseparator
-                       <./figures/rollalong_pickperc.pdf>]
-<./figures/map_sodalakes.pdf, id=1153, 632.3625pt x 628.3475pt>
-File: ./figures/map_sodalakes.pdf Graphic file (type pdf)
-<use ./figures/map_sodalakes.pdf>
-Package pdftex.def Info: ./figures/map_sodalakes.pdf  used on input line 123.
-(pdftex.def)             Requested size: 351.2493pt x 349.02463pt.
-LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
-124.
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/base/ts1cmss.fd
-File: ts1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [41
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.127 \efloatseparator
-                       <./figures/map_sodalakes.pdf>]
-<figures/sodalakes_sin1_lp100_picks_vd.pdf, id=1702, 578.16pt x 433.62pt>
-File: figures/sodalakes_sin1_lp100_picks_vd.pdf Graphic file (type pdf)
-<use figures/sodalakes_sin1_lp100_picks_vd.pdf>
-Package pdftex.def Info: figures/sodalakes_sin1_lp100_picks_vd.pdf  used on inp
-ut line 131.
-(pdftex.def)             Requested size: 351.2493pt x 263.43594pt.
- [42
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.135 \efloatseparator
-                       <./figures/sodalakes_sin1_lp100_picks_vd.pdf>]
-<figures/3d_pseudosection.pdf, id=1749, 1128.215pt x 940.51375pt>
-File: figures/3d_pseudosection.pdf Graphic file (type pdf)
-<use figures/3d_pseudosection.pdf>
-Package pdftex.def Info: figures/3d_pseudosection.pdf  used on input line 139.
-(pdftex.def)             Requested size: 351.2493pt x 292.8048pt.
-) [43
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{figure.18}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1020 \end{document}
+l.1094 \end{document}
                       <./figures/3d_pseudosection.pdf>] (output//formikoj.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `formikoj.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 23402 strings out of 478238
- 408492 string characters out of 5843947
- 1034472 words of memory out of 5000000
- 41057 multiletter control sequences out of 15000+600000
+ 23318 strings out of 478238
+ 405216 string characters out of 5843947
+ 1033211 words of memory out of 5000000
+ 40980 multiletter control sequences out of 15000+600000
  587370 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,77p,1076b,2359s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1528,10 +1408,10 @@ ve/2022/texmf-dist/fonts/type1/public/stix/stix-mathex.pfb></usr/local/texlive/
 e/2022/texmf-dist/fonts/type1/public/stix/stix-mathit.pfb></usr/local/texlive/2
 022/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb></usr/local/texlive/2022
 /texmf-dist/fonts/type1/public/stix/stix-mathscr.pfb>
-Output written on output//formikoj.pdf (45 pages, 11602212 bytes).
+Output written on output//formikoj.pdf (37 pages, 8670527 bytes).
 PDF statistics:
- 1881 PDF objects out of 2073 (max. 8388607)
- 1104 compressed objects within 12 object streams
- 185 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1577 PDF objects out of 1728 (max. 8388607)
+ 963 compressed objects within 10 object streams
+ 192 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

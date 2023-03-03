@@ -430,7 +430,7 @@ The measurement protocol (protocol.txt) and the station coordinates provided as 
  #############################
    Line: SYN_syn_data             
    Sampling rate: 2000 Hz    
-   Recording length: 1.024 s 
+   Recording length: 0.512 s 
    Number of geophones: 48   
    Geophone spacing: 2 m     
  #############################
@@ -449,14 +449,14 @@ The auxiliary file info.txt provided in the dataset directory summarizes the par
 \begin{verbatim}
 Number of geophones: 48
 Number of shots: 48
-Recording length (s): 1.024
+Recording length (s): 0.512
 Sampling frequency (Hz): 2000
 Wavelet type: Ricker
 Frequency of the wavelet (Hz): 100
 
-Missing shot(s): 32, 18
-Broken geophone(s): 45, 3
-Wrong polarity geophone(s): 34
+Missing shot(s): 11
+Broken geophone(s): 13
+Wrong polarity geophone(s): 26
 \end{verbatim}
 \end{footnotesize}
 %\newline
@@ -465,7 +465,7 @@ Wrong polarity geophone(s): 34
 %Synthetic traveltimes (\texttt{swm.create('traveltimes')}) are stored in the dataset directory as udf files with the file extension \textit{pck}, e.g., syn\_data\_tt.pck.
 %The file extension \textit{pck} is an abbreviation of the word 'pick' and refers to the first break traveltimes saved in the file.
 
-In Figure~\ref{fig:syndataexample}b, we present the seismic waveform data forward modeled for a shot point located in the center of the profile. This plot visualizes the seismograms by combining the wiggle trace mode, i.e., the data are shown as curves, and the variable density mode, where the strength of the amplitudes is additionally reflected by the color saturation, i.e., high amplitudes refer to a stronger shade than low amplitudes. The presented seismograms show clear first onsets along the entire profile, yet receivers 3 and 45 were modeled to be broken. Crosses overlaid on the valid seismograms at the respective first onset indicate the first break traveltimes $tt$ between the shot and the receiver. In addition to the missing first break traveltimes for the broken receivers, we manually added a systematic error, i.e., we set an erroneous traveltime for receiver 36.
+Figure~\ref{fig:syndataexample}b presents the seismic waveform data forward modeled for a shot point located in the center of the profile. The seismograms are shown as curves, whereas the strength of the amplitudes is added as color-coded information. In the seismograms we see clear first onsets along the entire profile, yet receivers 3 and 45 were modeled as broken geophones, i.e., the corresponding seismograms contain solely noise. Crosses overlaid on the valid seismograms at the respective first onset indicate the first break traveltimes $tt$ between the shot and the receiver. In addition to the missing first break traveltimes for the broken receivers, we manually added a systematic error, i.e., we set an erroneous traveltime for receiver 36.
 
 A pseudosection as presented in Figure~\ref{fig:syndataexample}c, illustrates apparent velocity ($v_{app}$) values computed as
 \begin{equation}
@@ -525,6 +525,27 @@ The geometry file is a csv file that provides an abstract representation of the 
     \label{tab:geometry}
 \end{table}
 
+\begin{table}
+   \caption{Excerpt from the geometry file describing the survey geometry of the synthetic dataset generated in this study.}
+    \centering
+    \begin{tabular}{rrrcrrr}
+        \toprule
+        \textbf{x (m)} & \textbf{y (m)} & \textbf{z (m)} & \textbf{Geo} & \textbf{Shot} & \textbf{1st Geo} & \textbf{\# Geo} \\
+        \midrule
+		0.0 & 0.0 & 0.0 & 1 & 1001 & 1 & 48 \\
+		2.0 & 0.0 & 0.0 & 1 & 1002 & 1 & 48 \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+		20.0 & 0.0 & 0.0 & 1 & -1 & 1 & 48 \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+        74.0 & 0.0 & 0.0 & 0 & 1038 & 1 & 48 \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+		92.0 & 0.0 & 0.0 & 1 & 1047 & 1 & 48 \\
+		94.0 & 0.0 & 0.0 & 1 & 1048 & 1 & 48 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:syn_geometry}
+\end{table}
+
 An instance of the \texttt{SeismicRefractionManager} can be created by providing the path to the working directory as parameter to the constructor. Based on the content of the working directory, the \texttt{SeismicRefractionManager} automatically decides whether (i) to start in the data preview mode (first break picking not possible), (ii) create a new project, or (iii) load an existing project from disk.
 %The data preview mode is primarily initiated if the provided working directory contains seismic shot files:
 %\newline
@@ -575,7 +596,7 @@ In the last step, the database table \textit{fbpicks} is created, which stores t
 %\includegraphics[width=.5\textwidth]{./figures/load_project.pdf}
 
 \subsubsection{Selecting and visualizing seismic waveform data}
-Once the geometry is applied the \texttt{select} method of the \texttt{SeismicRefractionManager} allows to gather the seismic waveform data based on a common absolute offset (\texttt{aoffset})
+Once the geometry is applied the \texttt{select} method of the \texttt{SeismicRefractionManager} allows to gather the seismic waveform data based on a common absolute offset (\texttt{aoffset}), a common RIN (\texttt{rin}), or a common SIN (\texttt{sin})
 \begin{lstlisting}[language=Python, firstnumber=6]
 # Select traces with common absolute offset
 srm.select(by='aoffset', num=6)
@@ -585,7 +606,6 @@ srm.select(by='aoffset', num=6)
 INFO    : 90 traces selected
 \end{verbatim}
 \end{footnotesize}
-a common RIN (\texttt{rin}),
 \begin{lstlisting}[language=Python, firstnumber=8]
 # Select traces with receiver
 srm.select(by='rin', num=10)
@@ -595,10 +615,9 @@ srm.select(by='rin', num=10)
 INFO    : 24 traces selected
 \end{verbatim}
 \end{footnotesize}
-or a common SIN (\texttt{sin})
 \begin{lstlisting}[language=Python, firstnumber=10]
 # Select traces with receiver
-srm.select(by='sin', num=24)
+srm.select(by='sin', num=23)
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
@@ -608,14 +627,62 @@ INFO    : 24 traces selected
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/select.pdf}
 
-The selected traces can be visualized by calling the \texttt{plot} method without passing any parameter:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plot.pdf}
-\newline
-Once opened, the seismogram plot visualizes the seismic waveforms in a combination of wiggle trace and variable area mode, i.e., the trace data are shown as curves. The area of the curves is colored red for negative and blue for positive amplitudes, respectively (not shown for brevity). Pressing the up or down arrow key on the keyboard toggles the visualization mode between variable area and variable density. In variable density mode the strength of the amplitudes is additionally reflected by the color saturation, i.e., high amplitudes refer to a stronger shade than low amplitudes (see Figure~\ref{fig:srm_intro}).
+For the currently selected trace data the frequency spectrum can be computed and visualized through the \texttt{plot} method:
+\begin{lstlisting}[language=Python, firstnumber=12]
+# Plot the frequency spectrum
+srm.plot(type='spectrum')
+\end{lstlisting}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plot_spectrum.pdf}
+%\newline
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{figures/pickwindow_intro.pdf}
+	\includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
+	\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise, which can be omitted through the application of corresponding frequency filtering.}
+	\label{fig:spectrum}
+\end{figure}
+Examining a frequency spectrum as shown in Figure~\ref{fig:spectrum} provides information regarding the dominating signal frequencies. Discriminating signal and noise frequency ranges is critical for the selection of adequate filter types and settings in order to enhance the signal-to-noise ratio of the seismograms. 
+%A frequency spectrum  allows for discriminating the dominating signal frequencies from those associated to the background noise, which is critical for the definition of adequate filter settings.
+Filters can be applied to the currently selected traces 
+%To improve the signal-to-noise ratio it is possible to apply filters on the selected traces 
+through the \texttt{filter} method, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
+\begin{lstlisting}[language=Python, firstnumber=14]
+# Apply bandpass filter
+srm.filter(type='bandpass', freqmin=10, freqmax=120)
+\end{lstlisting}
+\begin{footnotesize}
+\begin{verbatim}
+INFO    : Applied bandpass filter (10.0 to 120.0 Hz)
+\end{verbatim}
+\end{footnotesize}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/filter.pdf}
+%\newline
+By default, filters are solely applied to the currently selected traces, yet setting the filter to hold on automatically filters all subsequently selected traces with the same settings:
+\begin{lstlisting}[language=Python, firstnumber=16]
+# Apply lowpass filter
+srm.filter(type='lowpass', freq=120, onhold=True)
+\end{lstlisting}
+\begin{footnotesize}
+\begin{verbatim}
+INFO    : Applied 120.0 Hz lowpass filter
+INFO    : Set filter hold on
+\end{verbatim}
+\end{footnotesize}
+%In case the seismogram plot is opened, the effect of the applied filter on the seismic waveform data is interactively visualized.
+
+The currently selected traces can be visualized by calling the \texttt{plot} method without passing any parameter:
+\begin{lstlisting}[language=Python, firstnumber=18]
+# Plot selected traces
+srm.plot()
+\end{lstlisting}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plot.pdf}
+%\newline
+By default, the seismogram plot visualizes the seismic waveforms in a combination of wiggle trace and variable area mode, i.e., the trace data are shown as curves. The area of the curves is colored red for negative and blue for positive amplitudes, respectively (not shown for brevity). Pressing the up or down arrow key on the keyboard toggles between variable area and variable density mode, with the latter reflecting the strength of the amplitudes by the color saturation, i.e., high amplitudes refer to a stronger shade than low amplitudes (see Figure~\ref{fig:srm_intro}).
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{figures/srm_intro.pdf}
 	\caption{The seismogram plot presents the currently selected traces along the x axis, where the sort order is determined through the geometry. The corresponding trace data are illustrated as a function of time along the y axis (solid curves), with positive and negative amplitudes depicted in blue and red, respectively. The selection criterion and the applied filter are shown in the upper left corner of the plot. Green crosses refer to the picked traveltimes stored in the currently active pickset.}
 	\label{fig:srm_intro}
 \end{figure}
@@ -631,24 +698,6 @@ By pressing the key of the currently active mode again, the \texttt{SeismicRefra
 	\label{fig:statusbar_intro}
 \end{figure}
 
-Through the \texttt{plot} method the frequency spectrum of the currently selected trace data can be visualized:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plot_spectrum.pdf}
-\newline
-A frequency spectrum as shown in Figure~\ref{fig:spectrum} can be used to discriminate the dominating signal frequencies from those associated to the background noise, and thus allows for the definition of adequate filter settings.
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
-	\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise, which can be omitted through the application of corresponding frequency filtering.}
-	\label{fig:spectrum}
-\end{figure}
-To improve the signal-to-noise ratio it is possible to apply filters on the selected traces through the \texttt{filter} method, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/filter.pdf}
-\newline
-By default, filters are solely applied to the currently selected traces, yet setting the filter on hold allows the filtering of all subsequently selected traces with the same filter settings.
-In case the seismogram plot is opened, the effect of the applied filter on the seismic waveforms is interactively visualized.
-
 \subsubsection{Analysis of the seismic waveforms and first break traveltime picking}
 
 In the seismogram plot, the waveforms can be analyzed and processed to obtain information about the subsurface conditions. Activating the velocity estimation mode ('Vel est') by pressing the 'v' key on the keyboard, enables the user to estimate velocities for different wave phases (e.g., originating from a refractor) by pressing the left mouse button and moving the cursor. Once the left mouse button is released, a line between the start and end point is drawn and labeled with the corresponding velocity (estimates can be deleted by clicking with the right mouse button).
@@ -657,30 +706,42 @@ If the processing mode 'Fb pick' is activated, picking of first break traveltime
 Once the left mouse button is released, first break picks are defined at the intersections between the line and the seismograms. In the same way, multiple picks can be deleted if a line is drawn with the right mouse button pressed. The first break traveltimes determined in the seismogram plot are automatically written to the project database when the window is closed or another set of traces is loaded by pressing the 'left' or 'right' arrow keys on the keyboard. 
 
 The traveltime diagram for the currently active pickset can be created through the \texttt{plot} method:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plot_traveltimes.pdf}
-\newline
-Figure~\ref{fig:traveltimes_intro} presents an exemplary traveltime diagram, which is a common way to examine the quality of the first break picking. Such illustration of the traveltimes can be used to identify outliers or erroneous measurements, which are commonly associated to traveltimes with substantial deviations from those observed at adjacent stations such as the first break pick for the SIN-RIN pair (23, 11). Outliers can be removed by clicking on the corresponding symbol ('x') in the traveltime diagram, which is instantly synchronized with the project database. If the seismogram plot and the traveltime diagram are used side-by-side, changes made to the first break picks in one window will interactively trigger an update of the other one and vice versa.
-
+\begin{lstlisting}[language=Python, firstnumber=20]
+# Plot traveltime diagram
+srm.plot(type='traveltimes')
+\end{lstlisting}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plot_traveltimes.pdf}
+%\newline
+Figure~\ref{fig:traveltimes_intro} presents an exemplary traveltime diagram, which is a common way to examine the quality of the first break picking. Such illustration of the traveltimes can be used to identify outliers or erroneous measurements, which are commonly associated to traveltimes with substantial deviations from those observed at adjacent stations such as the first break pick for the SIN-RIN pair (23, 11). Outliers can be removed by clicking on the respective data point in the traveltime diagram, which is instantly synchronized with the project database. If the seismogram plot and the traveltime diagram are used side-by-side, changes made to the first break picks in one window will interactively trigger an update of the other one and vice versa.
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{figures/traveltimes_intro.pdf}
+	\includegraphics[width=.75\textwidth]{figures/traveltimes_syn.pdf}
 	\caption{The traveltime diagram shows the first break traveltimes stored in the currently active pickset along the y axis (x symbols), where solid lines connect traveltimes assigned to a common shot. The sort order of the stations along the x axis reflects the geometry. Filled circles indicate stations with co-located shot and geophone (receiver), triangles refer to receiver stations (no shot) and stars refer to shot stations (no geophone).}
 	\label{fig:traveltimes_intro}
 \end{figure}
-
-The \texttt{SeismicRefractionManager} handles first break picks in picksets, which can be organized and manipulated through the \texttt{picksets} method of the \texttt{SeismicRefractionManager}:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/picksets.pdf}
-\newline
-Calling the \texttt{pickset} method without parameters shows the status of all picksets in the project. From the above use case, we see that by default, the pickset 'picks' is loaded and activated, i.e., modifications of first breaks are stored in this pickset. First break picks provided by another source (as udf file) can be imported from  \textit{03\_proc/picks}.
-For the first break picking, it is sufficient to keep only one pickset in the workflow, i.e., not required picksets can be unloaded. A pickset currently not loaded can be deleted permanently, i.e., the corresponding traveltimes are removed from the database. The \texttt{picksets} method can also be used to load picksets from the database:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/load_picksets.pdf}
-\newline
-When a pickset is loaded from the database, it does not become the active pickset automatically; whereas by using the parameter \texttt{use} the corresponding pickset is loaded and also becomes the active pickset. The first break traveltimes of a pickset can be exported to an udf file that is stored in \textit{03\_proc/picks} subdirectory with the current timestamp as suffix:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/export_pickset.pdf}
+%The \texttt{SeismicRefractionManager} handles first break picks in picksets, which can be organized and manipulated through the \texttt{picksets} method of the \texttt{SeismicRefractionManager}:
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/picksets.pdf}
+%\newline
+%Calling the \texttt{pickset} method without parameters shows the status of all picksets in the project. From the above use case, we see that by default, the pickset 'picks' is loaded and activated, i.e., modifications of first breaks are stored in this pickset. First break picks provided by another source (as udf file) can be imported from  \textit{03\_proc/picks}.
+%For the first break picking, it is sufficient to keep only one pickset in the workflow, i.e., not required picksets can be unloaded. A pickset currently not loaded can be deleted permanently, i.e., the corresponding traveltimes are removed from the database. The \texttt{picksets} method can also be used to load picksets from the database:
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/load_picksets.pdf}
+%\newline
+%When a pickset is loaded from the database, it does not become the active pickset automatically; whereas by using the parameter \texttt{use} the corresponding pickset is loaded and also becomes the active pickset. 
+Once the user is satisfied with the quality of the first break traveltimes, the data points of the pickset can be exported in the unified data format, which is compatible with the pyGIMLi framework. In particular, the udf file is stored in the subdirectory \textit{03\_proc/picks} with the current timestamp as suffix:
+\begin{lstlisting}[language=Python, firstnumber=22]
+# Export first break traveltimes
+srm.picksets(do='export', name='pick')
+\end{lstlisting}
+\begin{footnotesize}
+\begin{verbatim}
+INFO    : Pickset 'pick' saved to pick_20230303T140447'
+\end{verbatim}
+\end{footnotesize}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/export_pickset.pdf}
 
 %\subsection{Modeling and use of synthetic seismic waveform data}
 %
@@ -761,115 +822,140 @@ When a pickset is loaded from the database, it does not become the active pickse
 \section{Application to field data: Processing a 3D seismic refraction dataset}
 %\subsection{First break travel time picking for a 2D roll-along field data set: the Danube island example}
 
-The seismic data used in this example were collected at the Danube island (Vienna) in June 2021, using 48 geophones deployed with 2\,m spacing between them and shot locations located between the geophone positions. As illustrated in Figure~\ref{fig:map_danube}, the survey geometry refers to a roll-along geometry, i.e., the geophone spread was moved along a profile with 50\% overlap yielding a total of five segments. The objective of the survey was to define the contact between different sediments within the tertiary and quarternary deposits used to build the man-made Danube island. Additionally, the survey aimed to identify lateral changes that might indicate the position of a fault, which has been inferred from sediments recovered from drillings. 
+The \texttt{SeismicRefractionManager} allows also the visualization and processing of data collected with a 3D survey layout. To illustrate these capabilities, we present in Figure~\ref{fig:map_sodalakes} the geometry of a 3D survey conducted in a soda lake located close to Vienna. The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
+The seismic survey aims to support the interpretation of the electrical and electromagnetic models obtained in a monitoring framework. 
+Accordingly, the survey geometry shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines. The seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of 2\,m between the geophones. Shots were generated with an 8\,kg sledgehammer at the geophone positions as well as at positions along the diagonals to obtain a sufficient coverage, as indicated in Figure~\ref{fig:map_sodalakes}.
+
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{./figures/map_danube.pdf}
-	\caption{The Danube island field dataset was collected along a single line with a roll-along survey layout; the filled triangles indicate the direction of the measurements. The five segments have an overlap of 50\% to ensure an adequate data coverage along the entire profile.}
-	\label{fig:map_danube}
+	\includegraphics[width=.75\textwidth]{./figures/map_sodalakes.pdf}
+	\caption{The soda lakes field dataset was collected in a 3D survey layout with stations (co-located geophones and shots indicated by filled dots) deployed in form of a cross. Additional shots (yellow stars) were conducted in from of a cross rotated by 45° to increase the coverage of the dataset.}
+	\label{fig:map_sodalakes}
 \end{figure}
 
-\begin{table}[pos=h]
-   \caption{Extract from the roll-along survey geometry file showing how the information regarding the first geophone assigns the traces in the shot files to the correct stations.}
+%The seismic data used in this example were collected at the Danube island (Vienna) in June 2021, using 48 geophones deployed with 2\,m spacing between them and shot locations located between the geophone positions. As illustrated in Figure~\ref{fig:map_danube}, the survey geometry refers to a roll-along geometry, i.e., the geophone spread was moved along a profile with 50\% overlap yielding a total of five segments. The objective of the survey was to define the contact between different sediments within the tertiary and quarternary deposits used to build the man-made Danube island. Additionally, the survey aimed to identify lateral changes that might indicate the position of a fault, which has been inferred from sediments recovered from drillings. 
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.75\textwidth]{./figures/map_danube.pdf}
+%	\caption{The Danube island field dataset was collected along a single line with a roll-along survey layout; the filled triangles indicate the direction of the measurements. The five segments have an overlap of 50\% to ensure an adequate data coverage along the entire profile.}
+%	\label{fig:map_danube}
+%\end{figure}
+
+\begin{table}
+   \caption{Excerpt from the 3D survey geometry file.}
     \centering
     \begin{tabular}{rrrcrrr}
         \toprule
         \textbf{x (m)} & \textbf{y (m)} & \textbf{z (m)} & \textbf{Geo} & \textbf{Shot} & \textbf{1st Geo} & \textbf{\# Geo} \\
         \midrule
-        0.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-        2.0 & 0.0 & 163.5 & 0 & 1001 & \textbf{1} & 48 \\
+        40336.056 & 292470.692 & 120.0 & 1 & 1001	 & 1 & 96 \\
+        40334.751 & 292469.177 & 120.0 & 1 & 1002 & 	1 & 96 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-        94.0 & 0 & 163.5 & 0 & 1024 & \textbf{1} & 48 \\
-		96.0 & 0 & 163.5 & 1 & -1 & -1 & -1 \\
-        98.0 & 0.0 & 163.5 & 0 & 1037 & \textbf{25} & 48 \\
+		40284.472 & 292455.431 & 120.0 & 1 & 1058 & 1 & 96 \\
+		40285.896 & 292454.027 & 120.0 & 1 & 1059 & 1 & 96 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-		194.0 & 0.0 & 163.5 & 0 & 1049 & \textbf{25} & 48 \\		
-		196.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\        
-        198.0 & 0.0 & 163.5 & 0 & 1073 & \textbf{49} & 48 \\
-        200.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-        202.0 & 0.0 & 163.5 & 0 & 1050 & \textbf{25} & 48 \\
+        40339.421 & 292402.681 & 120.0 & 1 & 1096 & 1 & 96 \\
+		40305.228 & 292445.050 & 120.0 & 0 & 1097 & 1 & 96 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-        286.0 & 0.0 & 163.5 & 0 & 1084 & \textbf{49} & 48 \\
-        288.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-        290.0 & 0.0 & 163.5 & 0 & 1097 & \textbf{73} & 48 \\
-        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-		386.0 & 0.0 & 163.5 & 0 & 1109 & \textbf{73} & 48 \\
-        388.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-		390.0 & 0.0 & 163.5 & 0 & 2025 & \textbf{97} & 48 \\
-		\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-		570.0 & 0.0 & 163.5 & 0 & 2048 & \textbf{97} & 48 \\		
-		572.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+        40265.415 & 292431.957 & 0 & 0 & 1115 & 1 & 96 \\
+		40255.453 & 292431.395 & 0 & 0 & 1116 & 1 & 96 \\
         \bottomrule
     \end{tabular}
-    \label{tab:rollalong_geometry}
+    \label{tab:3d_geometry}
 \end{table}
+%\begin{table}[pos=h]
+%   \caption{Extract from the roll-along survey geometry file showing how the information regarding the first geophone assigns the traces in the shot files to the correct stations.}
+%    \centering
+%    \begin{tabular}{rrrcrrr}
+%        \toprule
+%        \textbf{x (m)} & \textbf{y (m)} & \textbf{z (m)} & \textbf{Geo} & \textbf{Shot} & \textbf{1st Geo} & \textbf{\# Geo} \\
+%        \midrule
+%        0.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+%        2.0 & 0.0 & 163.5 & 0 & 1001 & \textbf{1} & 48 \\
+%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+%        94.0 & 0 & 163.5 & 0 & 1024 & \textbf{1} & 48 \\
+%		96.0 & 0 & 163.5 & 1 & -1 & -1 & -1 \\
+%        98.0 & 0.0 & 163.5 & 0 & 1037 & \textbf{25} & 48 \\
+%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+%		194.0 & 0.0 & 163.5 & 0 & 1049 & \textbf{25} & 48 \\		
+%		196.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\        
+%        198.0 & 0.0 & 163.5 & 0 & 1073 & \textbf{49} & 48 \\
+%        200.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+%        202.0 & 0.0 & 163.5 & 0 & 1050 & \textbf{25} & 48 \\
+%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+%        286.0 & 0.0 & 163.5 & 0 & 1084 & \textbf{49} & 48 \\
+%        288.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+%        290.0 & 0.0 & 163.5 & 0 & 1097 & \textbf{73} & 48 \\
+%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+%		386.0 & 0.0 & 163.5 & 0 & 1109 & \textbf{73} & 48 \\
+%        388.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+%		390.0 & 0.0 & 163.5 & 0 & 2025 & \textbf{97} & 48 \\
+%		\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+%		570.0 & 0.0 & 163.5 & 0 & 2048 & \textbf{97} & 48 \\		
+%		572.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
+%        \bottomrule
+%    \end{tabular}
+%    \label{tab:rollalong_geometry}
+%\end{table}
 
 In the field, each segment was measured separately, yet for the processing all measurements are combined in a single profile. %, i.e., the stations of all segments are consecutively numbered.
 We can implement such measurement layout in a geometry file 
 %of the \texttt{SeismicRefractionManager} 
 as illustrated in Table~\ref{tab:rollalong_geometry}. %To describe a roll-along survey 
-The key parameter is '1st Geo' as it indicates the first active geophone along the profile for each shot file. For the first segment in a roll-along survey geometry, the first active geophone is always geophone 1. Considering the number of geophones used in each segment, and an overlap of 50\%, the first geophone for segments two to five are 25, 49, 73 and 97, respectively.
+%The key parameter is '1st Geo' as it indicates the first active geophone along the profile for each shot file. For the first segment in a roll-along survey geometry, the first active geophone is always geophone 1. Considering the number of geophones used in each segment, and an overlap of 50\%, the first geophone for segments two to five are 25, 49, 73 and 97, respectively.
 %By providing these values in the geometry file as shown in Table~\ref{tab:rollalong_geometry}, the \texttt{SeismicRefractionManager} can apply the geometry information in the project database.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/danube_island_cos_lp120.pdf}
-	\caption{The common offset stack computed for the Danube island dataset clearly showing a two-layered subsurface. The seismic velocities within the layer can be estimated from the gradient of the lines drawn along the corresponding first onsets of the seismic waves.}
-	\label{fig:fieldcos}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.75\textwidth]{figures/danube_island_cos_lp120.pdf}
+%	\caption{The common offset stack computed for the Danube island dataset clearly showing a two-layered subsurface. The seismic velocities within the layer can be estimated from the gradient of the lines drawn along the corresponding first onsets of the seismic waves.}
+%	\label{fig:fieldcos}
+%\end{figure}
 
 Based on the shot files and the geometry file stored in the required directory structure the \texttt{SeismicRefractionManager} creates the project database.
-%Once the geometry is applied, i.e., the project is ready for processing, we can obtain 
-A first illustration of the subsurface conditions can be obtained by computing a common offset stack (COS):
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plotcos_danube.pdf}
-\newline
-%For the common offset stack, all traces with the same absolute offset from a shot point are stacked, i.e., compute the mean of the summed trace data. In this way, we can reduce the influence of the incoherent noise and thus improve the signal-to-noise ratio. 
-The COS for the Danube island dataset presented in Figure~\ref{fig:fieldcos} shows first onsets for absolute offsets up to approximately 150\,m, which suggest a two-layered subsurface model. By using the velocity estimation functionality we can approximate the seismic velocity in the corresponding layers.
 
-%After getting a first impression of the subsurface conditions, we can start 
-For the first break picking a set of traces is selected, filtered if necessary and visualized:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plotsin99_danube.pdf}
-\newline
-In this example, the trace data for SIN 99 are used, which refers to a shot position located in segment four. 
-%We can easily verify this in the seismogram plot presented in Figure~\ref{fig:rollalong_pickwindow}, where the lowest RIN (along the x-axis) is 73, corresponding to the first active geophone defined for this segment.
-As can be seen in Figure~\ref{fig:rollalong_pickwindow}, the first onsets are easily identifiable despite the substantial seismic background noise at large offsets (RIN 73 to 90).
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/danube_island_sin99_lp120_picks_vd.pdf}
-	\caption{Examplary seismic waveforms from the Danube island dataset shown for shot index number (SIN) 99 with a 120 Hz lowpass filter applied to suppress high frequency noise. The receiver index numbers (RIN) start at 73, thus indicating that the data were collected with a roll-along survey geometry.}
-	\label{fig:rollalong_pickwindow}
-\end{figure}
-A pseudosection provides an illustration of the corresponding apparent seismic velocity values computed from the picked traveltimes and the distance between shots and geophones:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plotpseudosection_danube.pdf}
+%A first illustration of the subsurface conditions can be obtained by computing a common offset stack (COS):
 %\newline
+%\includegraphics[width=.5\textwidth]{./figures/plotcos_danube.pdf}
+%\newline
+%The COS for the Danube island dataset presented in Figure~\ref{fig:fieldcos} shows first onsets for absolute offsets up to approximately 150\,m, which suggest a two-layered subsurface model. By using the velocity estimation functionality we can approximate the seismic velocity in the corresponding layers.
 
-%Such pseudosection can be created through the \texttt{plot} method of the \texttt{SeismicRefractionManager}:
-In a pseudosection, as presented in Figure~\ref{fig:rollalong_pseudosection} for the Danube island dataset, the apparent velocity values are assigned to pseudolocations, with the corresponding x- and z-coordinates determined as the midpoint and as $1/3$ of the absolute offset between the shot and geophone, respectively.
-Accordingly, such plot allows for the identification of outliers in the data, e.g., stark velocity contrasts for adjacent points, or systematic errors, e.g., velocities erroneously influenced by a single shot or receiver. The main assumption here is that the pseudosection should reveal smooth transitions between lateral and vertical neighbors, considering that the data were collected with gradual changes in the position of the source (i.e., hammer blow) and the receiver (i.e., geophone). The pseudosection will reveal large variations in case of abrupt changes in the topography or the geometry of the array, yet this can be taken into account by the user 
-%during the evaluation of the pseudosection aiming at 
-during the identification of outliers and possible systematic errors.
-For the Danube island dataset, the pseudosection suggests an increase in the seismic velocity along profile direction in deeper subsurface regions (i.e., larger pseudodepth). Such pattern could be related to a fault expected in this area of the Danube island, thus indicating that the geophysical survey was sufficiently designed to detect such feature.
-%conducted in an appropriate location to detect the fault.
-Moreover, the pseudosection presented in Figure~\ref{fig:rollalong_pseudosection} shows a low number of data points in the first segment of the Danube island survey. This lack of data points at large pseudodepths is due to a low number of picked traveltimes at large offsets, and thus might indicate a low signal-noise ratio.
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/rollalong_pseudosection.pdf}
-	\caption{Pseudosection showing the apparent seismic velocities determined from the first break traveltimes obtained from the Danube island dataset and the corresponding absolute offset between the shot and receiver stations. The apparent velocity for each shot-receiver pair is illustrated at the corresponding midpoint and pseudodepth (1/3 of the absolute offset).}
-	\label{fig:rollalong_pseudosection}
-\end{figure}
+%For the first break picking a set of traces is selected, filtered if necessary and visualized:
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plotsin99_danube.pdf}
+%\newline
+%In this example, the trace data for SIN 99 are used, which refers to a shot position located in segment four. 
+%As can be seen in Figure~\ref{fig:rollalong_pickwindow}, the first onsets are easily identifiable despite the substantial seismic background noise at large offsets (RIN 73 to 90).
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.75\textwidth]{figures/danube_island_sin99_lp120_picks_vd.pdf}
+%	\caption{Examplary seismic waveforms from the Danube island dataset shown for shot index number (SIN) 99 with a 120 Hz lowpass filter applied to suppress high frequency noise. The receiver index numbers (RIN) start at 73, thus indicating that the data were collected with a roll-along survey geometry.}
+%	\label{fig:rollalong_pickwindow}
+%\end{figure}
+%A pseudosection provides an illustration of the corresponding apparent seismic velocity values computed from the picked traveltimes and the distance between shots and geophones:
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plotpseudosection_danube.pdf}
 
-%The \texttt{SeismicRefractionManager} also provides the possibility to 
+%In a pseudosection, as presented in Figure~\ref{fig:rollalong_pseudosection} for the Danube island dataset, the apparent velocity values are assigned to pseudolocations, with the corresponding x- and z-coordinates determined as the midpoint and as $1/3$ of the absolute offset between the shot and geophone, respectively.
+%Accordingly, such plot allows for the identification of outliers in the data, e.g., stark velocity contrasts for adjacent points, or systematic errors, e.g., velocities erroneously influenced by a single shot or receiver. The main assumption here is that the pseudosection should reveal smooth transitions between lateral and vertical neighbors, considering that the data were collected with gradual changes in the position of the source (i.e., hammer blow) and the receiver (i.e., geophone). The pseudosection will reveal large variations in case of abrupt changes in the topography or the geometry of the array, yet this can be taken into account by the user 
+%%during the evaluation of the pseudosection aiming at 
+%during the identification of outliers and possible systematic errors.
+%For the Danube island dataset, the pseudosection suggests an increase in the seismic velocity along profile direction in deeper subsurface regions (i.e., larger pseudodepth). Such pattern could be related to a fault expected in this area of the Danube island, thus indicating that the geophysical survey was sufficiently designed to detect such feature.
+%%conducted in an appropriate location to detect the fault.
+%Moreover, the pseudosection presented in Figure~\ref{fig:rollalong_pseudosection} shows a low number of data points in the first segment of the Danube island survey. This lack of data points at large pseudodepths is due to a low number of picked traveltimes at large offsets, and thus might indicate a low signal-noise ratio.
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.75\textwidth]{figures/rollalong_pseudosection.pdf}
+%	\caption{Pseudosection showing the apparent seismic velocities determined from the first break traveltimes obtained from the Danube island dataset and the corresponding absolute offset between the shot and receiver stations. The apparent velocity for each shot-receiver pair is illustrated at the corresponding midpoint and pseudodepth (1/3 of the absolute offset).}
+%	\label{fig:rollalong_pseudosection}
+%\end{figure}
+
 To review the data quality along the entire profile it is possible to visualize the picking percentage, i.e., the ratio of actually picked traveltimes and total number of SIN-RIN pairs:
 \newline
 \includegraphics[width=.5\textwidth]{./figures/plot_pickperc_danube.pdf}
 \newline
 Figure~\ref{fig:rollalong_pickperc} shows that the picking percentage is visualized separately for each SIN. In this way, a low picking percentage indicates shots affected by a low signal-to-noise ratio. For the Danube island dataset, the picking percentage is low in the first segment, which confirms the lack of datapoints observed in the pseudosection. Moreover, the picking percentage plot can be used to track the picking progress, for instance 
-%. In case of a large dataset, for which the 
 if the traveltimes cannot be determined in one session or 
-%, the picking percentage plot provides information where to resume the first break picking in the next session. Moreover, it is possible 
 to identify single shots that might have been forgotten during the first break picking. Accordingly, it is advisable to check the picking percentage prior to exporting the traveltimes for the inversion.
 
 \begin{figure}
@@ -877,18 +963,6 @@ to identify single shots that might have been forgotten during the first break p
 	\includegraphics[width=.75\textwidth]{figures/rollalong_pickperc.pdf}
 	\caption{Picking percentage for each shot in the Danube island roll-along dataset. Low values in the first third of the dataset indicate a low signal-to-noise ratio in the seismograms hindering the picking of first break traveltimes for each shot-receiver pair.}
 	\label{fig:rollalong_pickperc}
-\end{figure}
-%\subsection{Processing of a 3D seismic refraction dataset: the soda lake example}
-
-The \texttt{SeismicRefractionManager} allows also the visualization and processing of data collected with a 3D survey layout. To illustrate these capabilities, we present in Figure~\ref{fig:map_sodalakes} the geometry of a 3D survey conducted in a soda lake located close to Vienna. The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
-The seismic survey aims to support the interpretation of the electrical and electromagnetic models obtained in a monitoring framework. 
-Accordingly, the survey geometry shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines. The seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of 2\,m between the geophones. Shots were generated with an 8\,kg sledgehammer at the geophone positions as well as at positions along the diagonals. % to obtain a sufficient coverage, as indicated in Figure~\ref{fig:map_sodalakes}.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{./figures/map_sodalakes.pdf}
-	\caption{The soda lakes field dataset was collected in a 3D survey layout with stations (co-located geophones and shots indicated by filled dots) deployed in form of a cross. Additional shots (yellow stars) were conducted in from of a cross rotated by 45° to increase the coverage of the dataset.}
-	\label{fig:map_sodalakes}
 \end{figure}
 
 The geometry file contains the 3D coordinates for each shot or receiver station, and thus the\\ \texttt{SeismicRefractionManager} %infers the 3D survey layout and 

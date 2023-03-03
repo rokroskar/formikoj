@@ -1,14 +1,14 @@
 wavelet:
-    length: 1.024
+    length: 0.512
     frequency: 100
     sampling_rate: 2000
-    pretrigger: 0.02
+    pretrigger: 0.01
     
 dataset:
     number: 1
     names: [syn_data]
     noise: 1
-    noise_level: 0.00001
+    noise_level: 0.0001
     missing_shots: 1
     broken_geophones: 1
     wrong_polarity: 1
@@ -21,5 +21,5 @@ model:
     sec_nodes: 2
     
 traveltimes:
-    noise_relative: 0.
+    noise_relative: 0.01
     noise_absolute: 0.

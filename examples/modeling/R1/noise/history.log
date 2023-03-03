@@ -79,3 +79,97 @@
 2023/02/28 10:20:26 INPUT    create traveltimes
 2023/02/28 10:20:26 INFO     Velocity model created
 2023/02/28 10:20:26 INFO     Measurement scheme loaded
+2023/03/03 17:03:34 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:03:34 INPUT    set mesh
+2023/03/03 17:03:35 INFO     Mesh loaded
+2023/03/03 17:03:35 INPUT    set config
+2023/03/03 17:03:35 INFO     Configuration loaded
+2023/03/03 17:03:35 INPUT    create waveforms
+2023/03/03 17:03:35 INFO     Velocity model created
+2023/03/03 17:03:35 INFO     Measurement scheme loaded
+2023/03/03 17:03:35 INFO     Wavelet created
+2023/03/03 17:05:50 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:05:50 INPUT    set mesh
+2023/03/03 17:05:51 INFO     Mesh loaded
+2023/03/03 17:05:51 INPUT    set config
+2023/03/03 17:05:51 INFO     Configuration loaded
+2023/03/03 17:05:51 INPUT    create waveforms
+2023/03/03 17:05:51 INFO     Velocity model created
+2023/03/03 17:05:51 INFO     Measurement scheme loaded
+2023/03/03 17:05:51 INFO     Wavelet created
+2023/03/03 17:08:34 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:08:34 INPUT    set mesh
+2023/03/03 17:08:34 INFO     Mesh loaded
+2023/03/03 17:08:34 INPUT    set config
+2023/03/03 17:08:34 INFO     Configuration loaded
+2023/03/03 17:08:34 INPUT    create waveforms
+2023/03/03 17:08:34 INFO     Velocity model created
+2023/03/03 17:08:34 INFO     Measurement scheme loaded
+2023/03/03 17:08:34 INFO     Wavelet created
+2023/03/03 17:10:32 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:10:32 INPUT    set mesh
+2023/03/03 17:10:33 INFO     Mesh loaded
+2023/03/03 17:10:33 INPUT    set config
+2023/03/03 17:10:33 INFO     Configuration loaded
+2023/03/03 17:10:33 INPUT    create waveforms
+2023/03/03 17:10:33 INFO     Velocity model created
+2023/03/03 17:10:33 INFO     Measurement scheme loaded
+2023/03/03 17:10:33 INFO     Wavelet created
+2023/03/03 17:35:10 INFO     Dataset syn_data created
+2023/03/03 17:35:10 INPUT    create traveltimes
+2023/03/03 17:39:45 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:39:45 INPUT    set mesh
+2023/03/03 17:39:46 INFO     Mesh loaded
+2023/03/03 17:39:46 INPUT    set config
+2023/03/03 17:39:46 INFO     Configuration loaded
+2023/03/03 17:39:46 INPUT    create traveltimes
+2023/03/03 17:39:46 INFO     Velocity model created
+2023/03/03 17:39:46 INFO     Measurement scheme loaded
+2023/03/03 17:40:45 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:40:45 INPUT    set mesh
+2023/03/03 17:40:45 INFO     Mesh loaded
+2023/03/03 17:40:45 INPUT    set config
+2023/03/03 17:40:45 INFO     Configuration loaded
+2023/03/03 17:40:45 INPUT    create traveltimes
+2023/03/03 17:40:45 INFO     Velocity model created
+2023/03/03 17:40:45 INFO     Measurement scheme loaded
+2023/03/03 17:41:21 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 17:41:21 INPUT    set mesh
+2023/03/03 17:41:22 INFO     Mesh loaded
+2023/03/03 17:41:22 INPUT    set config
+2023/03/03 17:41:22 INFO     Configuration loaded
+2023/03/03 17:41:22 INPUT    create traveltimes
+2023/03/03 17:41:22 INFO     Velocity model created
+2023/03/03 17:41:22 INFO     Measurement scheme loaded
+2023/03/03 18:05:06 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 18:05:06 INPUT    set mesh
+2023/03/03 18:05:06 INFO     Mesh loaded
+2023/03/03 18:05:06 INPUT    set config
+2023/03/03 18:05:06 INFO     Configuration loaded
+2023/03/03 18:05:06 INPUT    create traveltimes
+2023/03/03 18:05:06 INFO     Velocity model created
+2023/03/03 18:05:07 INFO     Measurement scheme loaded
+2023/03/03 18:10:10 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 18:10:10 INPUT    set mesh
+2023/03/03 18:10:10 INFO     Mesh loaded
+2023/03/03 18:10:10 INPUT    set config
+2023/03/03 18:10:10 INFO     Configuration loaded
+2023/03/03 18:10:10 INPUT    create traveltimes
+2023/03/03 18:10:10 INFO     Velocity model created
+2023/03/03 18:10:10 INFO     Measurement scheme loaded
+2023/03/03 18:10:36 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 18:10:36 INPUT    set mesh
+2023/03/03 18:10:37 INFO     Mesh loaded
+2023/03/03 18:10:37 INPUT    set config
+2023/03/03 18:10:37 INFO     Configuration loaded
+2023/03/03 18:10:37 INPUT    create traveltimes
+2023/03/03 18:10:37 INFO     Velocity model created
+2023/03/03 18:10:37 INFO     Measurement scheme loaded
+2023/03/03 18:10:51 INFO     Created instance of SeismicWaveformModeller
+2023/03/03 18:10:51 INPUT    set mesh
+2023/03/03 18:10:51 INFO     Mesh loaded
+2023/03/03 18:10:51 INPUT    set config
+2023/03/03 18:10:51 INFO     Configuration loaded
+2023/03/03 18:10:51 INPUT    create traveltimes
+2023/03/03 18:10:51 INFO     Velocity model created
+2023/03/03 18:10:51 INFO     Measurement scheme loaded
