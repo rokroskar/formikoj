@@ -5,45 +5,45 @@ The style file: cas-model2-names.bst
 Database file #1: references.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--empty journal in heimann2017
-You've used 22 entries,
+You've used 26 entries,
             2990 wiz_defined-function locations,
-            901 strings with 12315 characters,
-and the built_in function-call counts, 18196 in all, are:
-= -- 1334
-> -- 963
-< -- 10
-+ -- 372
-- -- 344
-* -- 2185
-:= -- 2667
-add.period$ -- 80
-call.type$ -- 22
-change.case$ -- 224
-chr.to.int$ -- 22
-cite$ -- 23
-duplicate$ -- 1227
-empty$ -- 1156
-format.name$ -- 405
-if$ -- 3325
+            930 strings with 13026 characters,
+and the built_in function-call counts, 20663 in all, are:
+= -- 1546
+> -- 1019
+< -- 14
++ -- 396
+- -- 362
+* -- 2434
+:= -- 3018
+add.period$ -- 94
+call.type$ -- 26
+change.case$ -- 250
+chr.to.int$ -- 26
+cite$ -- 27
+duplicate$ -- 1413
+empty$ -- 1359
+format.name$ -- 435
+if$ -- 3795
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 266
-newline$ -- 139
-num.names$ -- 90
-pop$ -- 402
+missing$ -- 299
+newline$ -- 161
+num.names$ -- 106
+pop$ -- 460
 preamble$ -- 1
-purify$ -- 201
+purify$ -- 223
 quote$ -- 0
-skip$ -- 354
+skip$ -- 412
 stack$ -- 0
-substring$ -- 689
-swap$ -- 1029
+substring$ -- 853
+swap$ -- 1152
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 198
+type$ -- 234
 warning$ -- 1
-while$ -- 103
+while$ -- 123
 width$ -- 0
-write$ -- 359
+write$ -- 419
 (There was 1 warning)

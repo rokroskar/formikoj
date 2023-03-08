@@ -533,7 +533,40 @@
   year      = {2016},
   pages     = {136--152},
   volume    = {155},
+  doi       = {https://doi.org/10.1016/j.earscirev.2016.02.006},
   publisher = {Elsevier},
+}
+
+@Article{dijkstra1959,
+  author  = {Dijkstra, E W},
+  journal = {Numerische Mathematik},
+  title   = {A Note on Two Problems in Connexion with Graphs},
+  year    = {1959},
+  pages   = {269--271},
+  doi     = {10.1007/bf01386390},
+}
+
+@Article{duan2020,
+  author    = {Duan, Xudong and Zhang, Jie},
+  journal   = {Geophysics},
+  title     = {Multitrace first-break picking using an integrated seismic and machine learning methodPicking based on machine learning},
+  year      = {2020},
+  number    = {4},
+  pages     = {WA269--WA277},
+  volume    = {85},
+  doi       = {10.1190/GEO2019-0422.1},
+  publisher = {GeoScienceWorld},
+}
+
+@Article{allen1978,
+  author    = {Allen, Rex V},
+  journal   = {Bulletin of the seismological society of America},
+  title     = {Automatic earthquake recognition and timing from single traces},
+  year      = {1978},
+  number    = {5},
+  pages     = {1521--1532},
+  volume    = {68},
+  publisher = {The Seismological Society of America},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{26}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -20,6 +20,14 @@
   \bibinfo{year}{2012}.
 \newblock \bibinfo{title}{SEED Reference Manual, Version 2.4}.
 \newblock \URLprefix \url{http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf}.
+%Type = Article
+\bibitem[{Allen(1978)}]{allen1978}
+\bibinfo{author}{Allen, R.V.}, \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{Automatic earthquake recognition and timing from
+  single traces}.
+\newblock \bibinfo{journal}{Bulletin of the seismological society of America}
+  \bibinfo{volume}{68}, \bibinfo{pages}{1521--1532}.
+\newblock \DOIprefix\doi{10.1785/bssa0680051521}.
 %Type = Article
 \bibitem[{Beyreuther et~al.(2010)Beyreuther, Barsch, Krischer, Megies, Behr and
   Wassermann}]{beyreuther2010}
@@ -74,6 +82,12 @@
   \url{https://www.sciencedirect.com/science/article/pii/S009830041530056X},
   \DOIprefix\doi{https://doi.org/10.1016/j.cageo.2015.09.015}.
 %Type = Article
+\bibitem[{Dijkstra(1959)}]{dijkstra1959}
+\bibinfo{author}{Dijkstra, E.W.}, \bibinfo{year}{1959}.
+\newblock \bibinfo{title}{A note on two problems in connexion with graphs}.
+\newblock \bibinfo{journal}{Numerische Mathematik} ,
+  \bibinfo{pages}{269--271}\DOIprefix\doi{10.1007/bf01386390}.
+%Type = Article
 \bibitem[{Draebing(2016)}]{draebing2016}
 \bibinfo{author}{Draebing, D.}, \bibinfo{year}{2016}.
 \newblock \bibinfo{title}{Application of refraction seismics in alpine
@@ -81,6 +95,22 @@
 \newblock \bibinfo{journal}{Earth-Science Reviews} \bibinfo{volume}{155},
   \bibinfo{pages}{136--152}.
 \newblock \DOIprefix\doi{https://doi.org/10.1016/j.earscirev.2016.02.006}.
+%Type = Article
+\bibitem[{Duan and Zhang(2020)}]{duan2020}
+\bibinfo{author}{Duan, X.}, \bibinfo{author}{Zhang, J.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Multitrace first-break picking using an integrated
+  seismic and machine learning methodpicking based on machine learning}.
+\newblock \bibinfo{journal}{Geophysics} \bibinfo{volume}{85},
+  \bibinfo{pages}{WA269--WA277}.
+\newblock \DOIprefix\doi{10.1190/GEO2019-0422.1}.
+%Type = Article
+\bibitem[{Earle and Shearer(1994)}]{earle1994}
+\bibinfo{author}{Earle, P.S.}, \bibinfo{author}{Shearer, P.M.},
+  \bibinfo{year}{1994}.
+\newblock \bibinfo{title}{Characterization of global seismograms using an
+  automatic-picking algorithm}.
+\newblock \bibinfo{journal}{Bulletin of the Seismological Society of America}
+  \bibinfo{volume}{84}, \bibinfo{pages}{366--376}.
 %Type = Article
 \bibitem[{Guedes et~al.(2022)Guedes, Maciel and Rocha}]{guedes2022}
 \bibinfo{author}{Guedes, V.J.C.B.}, \bibinfo{author}{Maciel, S.T.R.},

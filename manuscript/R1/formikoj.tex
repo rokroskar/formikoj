@@ -152,16 +152,12 @@ solely for Windows operating systems. Moreover, RefraPy does not offer the possi
 
 The formikoj library presented here is an open-source framework for creating synthetic datasets, as well as for managing and processing numerical and field data independently from the operating system and without licensing costs; thus, overcoming limitations associated to existing solutions. The design of the library follows the multi-method concept of pyGIMLi and SimPEG, which allows for the implementation of custom designed tools for different geophysical methods. 
 The usage of transparent file formats, e.g., the unified data format (udf\footnote{http://resistivity.net/bert/data\_format.html, last accessed on \today}), and data management concepts (SQLite database) within the formikoj framework facilitates a simple data exchange between partners in research projects and academia, which is required to guarantee the repeatability of results and good research practices.
-Considering the diverse applications of the SR method we demonstrate the applicability of the proposed library based on tools implemented within the formikoj framework for the modeling and processing seismic waveform data. 
-In particular, we present here a series of illustrative use cases based on the formikoj library referring to (i) the modeling of synthetic seismic refraction (SR) waveform data, (ii) the processing of a 2D SR field dataset collected with a roll-along survey geometry, and (iii) the processing of a 3D SR field data set. 
+Considering the diverse applications of the SR method we demonstrate the applicability of the proposed library based on tools implemented within the formikoj framework for the modeling and processing seismic waveform data. In particular, we present a carefully designed synthetic study highlighting the capabilities of the formikoj library for the modeling and processing of 2D seismic refraction datasets. Based on a 3D field dataset we illustrate that the formikoj library also allows for the processing of complex survey geometries, where the obtained first break traveltimes can be inverted with third party open-source libraries to solve for 3D subsurface models expressed in terms of the seismic P-wave velocity.
+%In particular, we present here a series of illustrative use cases based on the formikoj library referring to (i) the modeling of synthetic seismic refraction (SR) waveform data, (ii) the processing of a 2D SR field dataset collected with a roll-along survey geometry, and (iii) the processing of a 3D SR field data set. 
 
 \section{Design and structure of the \texttt{formikoj} library}
 
 As illustrated in Figure~\ref{fig:scheme}, the formikoj library comprises a modeling and a processing module, which both rely on a common utilities module. The \texttt{DataModeler} and the \texttt{MethodManager} class provide the basis to add modeling or processing functionalities for any kind of geophysical methods.
-In this manuscript, we present the application of the formikoj library for the modeling and processing of seismic refraction data based on the fundamental use cases presented in Figure~\ref{fig:modworkflow} and \ref{fig:procworkflow}, respectively. These diagrams aim at illustrating the corresponding workflows as well as the required interactions between the user, the formikoj library and third-party packages. 
-The \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} classes implement these fundamental use cases, yet their actual capabilities are continuously expanded, e.g., to address specific modeling or processing requirements as well as to enhance the user experience.
-Similar to RefraPy, these classes are built upon the functionalities of existing packages such as ObsPy for the processing of seismological data \citep[][]{beyreuther2010} and pyGIMLi for the modeling and inversion of different geophysical data \citep{ruecker2017}. Other important third party dependencies refer to NumPy \citep{harris2020} and Pandas \citep{mckinney2010} for general data handling, as well as matplotlib \citep{hunter2007} and PyVista \citep{sullivan2019} for data visualization. In the current version, we implemented and tested formikoj primarily on Linux machines, yet the library has been successfully tested and used on all major operating systems, i.e., Linux, MacOS and Windows.
-
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/package_structure}
@@ -169,20 +165,26 @@ Similar to RefraPy, these classes are built upon the functionalities of existing
 	\label{fig:scheme}
 \end{figure}
 
+The formikoj library provides a well thought out data management concept based on the SQLite database engine that does not require \footnote{https://www.sqlite.org/index.html, last accessed on \today}. In particular, the information for each (processing) project, such as survey geometry and first break travel times, are stored in a SQLite database file. Using this application file format facilitates the cross-platform design of the formikoj library, and provides fast I/O operations through concise SQL queries. The portability of the application file allows for an easy exchange of projects between partners across institutions with different IT infrastructures. Accordingly, the formikoj library aims at providing a transparent and customizable framework for the collaborative design of reproducible workflows.
+
+In this manuscript, we present the application of the formikoj library for the modeling and processing of seismic refraction data based on the fundamental use cases presented in Figure~\ref{fig:modworkflow} and \ref{fig:procworkflow}, respectively.
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{figures/workflow_modeling-crop.pdf}
+	\includegraphics[width=\textwidth]{figures/workflow_modeling-crop.pdf}
 	\caption{Fundamental use case illustrating the processing of seismic refraction data within the formikoj ecosystem.}
 	\label{fig:modworkflow}
 \end{figure}
-
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\textwidth]{figures/workflow_processing-crop.pdf}
+	\includegraphics[width=\textwidth]{figures/workflow_processing-crop.pdf}
 	\caption{Typical formikoj workflow for the picking of first break traveltimes from seismic waveform data.}
 	\label{fig:procworkflow}
 \end{figure}
+These flow charts illustrate the corresponding workflows as well as the required interactions between the user, the formikoj library and third-party packages. As can be seen from Figures~\ref{fig:modworkflow} and \ref{fig:procworkflow}, the formikoj library acts as an interface between the user and more complex functionalities of third-party libraries, such as pyGIMLi for modeling and inversion of seismic refraction data.
+The \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} classes implement these fundamental use cases, yet their actual capabilities are continuously expanded, e.g., to address specific modeling or processing requirements as well as to enhance the user experience.
+Similar to RefraPy, these classes are built upon the functionalities of existing packages such as ObsPy for the processing of seismological data \citep[][]{beyreuther2010} and pyGIMLi for the modeling and inversion of different geophysical data \citep{ruecker2017}. Other important third party dependencies refer to NumPy \citep{harris2020} and Pandas \citep{mckinney2010} for general data handling, as well as matplotlib \citep{hunter2007} and PyVista \citep{sullivan2019} for data visualization. In the current version, we implemented and tested formikoj primarily on Linux machines, yet the library has been successfully tested and used on all major operating systems, i.e., Linux, MacOS and Windows.
 
+The comprehensive usage of clear error and log messages aims at supporting the user throughout the modeling and processing workflows. A meticulous exception handling ensures that the data stored in the SQLite project database is not corrupted in case of erroneous input. Moreover, documenting the user input and the respective responses of the formikoj library with the python logging module provides a timestamped command history that further enhances the transparency and repeatability of the conducted workflows. 
 %\section{Exemplary use cases}
 
 \subsection{Generation of seismic waveform data for synthetic subsurface models}
@@ -266,11 +268,20 @@ traveltimes:
 \end{footnotesize}
 
 In this exemplary configuration, the first block (\texttt{wavelet}) contains the parameterization of the base wavelet, which controls the modeling of the seismic waveforms (see Table~\ref{tab:config}).
-The second block (\texttt{model}) contains information regarding the synthetic subsurface model. In the configuration file, the user can define simple models where all layers are considered to be parallel to the surface topography. The topography is inferred from the station geometry provided in the measurement scheme, while the seismic velocity (\texttt{velmap}) and thickness (\texttt{layers}) of the different layers are defined in the configuration file. The remaining parameters (\texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}) refer to the properties of the mesh that is generated for the forward modeling (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
+The second block (\texttt{model}) contains information regarding the synthetic subsurface model. Here, the user can define simple models with all layers considered to be parallel to the surface topography, which is inferred from the station geometry provided in the measurement scheme. The seismic velocity values for the different model regions (\texttt{velmap}) and the corresponding thickness of the different layers (\texttt{layers}) have to be explicitly defined in the configuration file. The remaining parameters (\texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}) refer to the properties of the mesh that is eventually used for the forward modeling of the seismic waveform data and corresponding first break travel times (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
 In the third block of the exemplary configuration file (\texttt{dataset}), the user can set specific names for the datasets to be created (the number of datasets is automatically determined), or set the number of datasets to be created and the dataset names are automatically generated with the prefix \textit{dataset\_}.
-The remaining parameters in this block control the random error (\texttt{noise}) and systematic errors in the modeled seismic waveform data (see Table~\ref{tab:config}).
+The remaining parameters provided in the \texttt{dataset} block control the random error (\texttt{noise} and \texttt{noise\_level}) as well as systematic errors (\texttt{missing\_shots}, \texttt{broken\_geophones} and \texttt{wrong\_polarity}) in the modeled seismic waveform data (see Table~\ref{tab:config} for a detailed description).
 The number and position of the shot and geophone stations affected by the systematic errors are randomly chosen with a maximum of \qty{5}{\%} of the total number of stations in order to avoid a high number of invalid trace data.
-The parameters in the final block (\texttt{traveltimes}) control the forward modeling of the corresponding seismic traveltimes (see Table~\ref{tab:config}). In particular, the user can set the relative and absolute noise that is added to the synthetic seismic traveltimes computed for the given subsurface model.
+The parameters in the final block of the configuration file (\texttt{traveltimes}) the user defines values for the absolute error ($e_{abs}$) and the relative error ($e_{rel}$) considered for the forward modeling of the corresponding first break traveltimes (see Table~\ref{tab:config}). In particular, the error is estimated as
+\begin{equation}
+	\vecmat{e} = e_{abs} + \vecmat{d}\,e_{rel}\,, 
+	\label{eq:esterr}
+\end{equation}
+where $\vecmat{d}$ denotes the forward modeled data not affected by noise, i.e., here the first break travel times obtained through the Dijkstra algorithm \citep{dijkstra1959}. These computed error values are subsequently added to the data to obtain the noisy data as
+\begin{equation}
+	\vecmat{d_{noise}}=\vecmat{d}\left(1 + \vecmat{e}\right)\,.
+	\label{eq:noisydata}
+\end{equation}
 
 \begin{table*}[]
     \caption{Description of the parameters, which can be defined in a configuration file used for the modeling of the synthetic seismic data.}
@@ -341,10 +352,10 @@ The parameters in the final block (\texttt{traveltimes}) control the forward mod
 %\includegraphics[width=.5\textwidth]{./figures/load_mesh.pdf}
 %\newline
 
-If stored in the input directory such a configuration file can be imported through the \texttt{load} method of the \texttt{SeismicWaveformModeler}:
+The configuration file needs to be provided via the input directory from where it can be imported through the \texttt{load} method of the \texttt{SeismicWaveformModeler}:
 \begin{lstlisting}[language=Python, firstnumber=6]
 # Load and parse the configuration file
-swm.load('config')
+swm.load(type='config')
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
@@ -354,21 +365,20 @@ INFO    : Configuration loaded
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/load_config.pdf}
 %\newline
-
-Instead of defining as simple subsurface model in the configuration file, we provide a more complex model in the binary mesh format (e.g., a bms file). In particular, we prepare the model and the corresponding forward modeling mesh based on the mesh tools provided by pyGIMLi and save the mesh in the bms format (a commented version of the python script is presented in the Appendix). Similar to the configuration file, a bms file stored in the input directory can be imported into the workflow through the \texttt{load} method as follows:
+To demonstrate the ability to model seismic waveform data for arbitrary subsurface conditions we do not define a simple subsurface model in the configuration file but provide a more complex model in the binary mesh format (e.g., a bms file). We prepare the model and the corresponding forward modeling mesh based on the mesh tools provided by pyGIMLi and save the mesh in the bms format (a commented version of the corresponding python script can be found in the Appendix). Similar to the configuration file, a bms file stored in the input directory can be imported into the workflow through the \texttt{load} method as follows:
 \begin{lstlisting}[language=Python, firstnumber=8]
 # Load the mesh into the workflow
-swm.load('mesh')
+swm.load(type='mesh')
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
 INFO    : Mesh loaded
 \end{verbatim}
 \end{footnotesize}
-The forward modeling process generating the seismic waveform data is then invoked by passing the string \texttt{'waveforms'} as parameter to the \texttt{create} method:
+The forward modeling process generating the seismic waveform data is then invoked through the \texttt{create} method:
 \begin{lstlisting}[language=Python, firstnumber=10]
 # Start the modeling of the seismic waveform data
-swm.create('waveforms')
+swm.create(type='waveforms')
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
@@ -384,31 +394,29 @@ INFO    : Dataset 'syn_data' created
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/create_syn_data.pdf}
 %\newline
-As can be seen from the log messages, the \texttt{SeismicWaveformModeler} first loads the measurement scheme into the workflow. In the second step, the provided mesh and the seismic velocity values defined in the configuration file are combined to create the seismic velocity model to be used for the waveform modeling.
-Figure~\ref{fig:syndataexample}a presents the subsurface model considered in this study, which consists of a top and a bottom layer with varying thickness characterized by seismic velocity values of \qty{750}{ms^{-1}} and \qty{4000}{ms^{-1}}, respectively. In the center, the model contains an irregularly shaped anomaly associated with a seismic velocity of \qty{2500}{ms^{-1}}.
-
+As can be seen from the log messages, the \texttt{SeismicWaveformModeler} first loads the measurement scheme into the workflow. In the second step, the provided mesh and the seismic velocity values defined in the configuration file are combined to create the seismic velocity model considered for the waveform modeling in this study (see Figure~\ref{fig:syndataexample}a). The model consists of a top and a bottom layer with varying thickness characterized by seismic velocity values of \qty{750}{ms^{-1}} and \qty{4000}{ms^{-1}}, respectively. In the center, the model contains an irregularly shaped anomaly associated with a seismic velocity of \qty{2500}{ms^{-1}}, i.e., the model features vertical and lateral variations in the seismic velocity distribution.
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/synthetic_data_example.pdf}
 	\caption{Synthetic seismic data generated with the \texttt{SeismicWaveformModeler}: \\(a) Two-layered subsurface model without topography characterized by a distinct anomaly in the center. Triangles along the surface indicate the positions of geophones. \\(b) Synthetic seismic waveform data computed from the subsurface model for a shot point (star-shaped symbol) located in the center of the profile. \\(c) Pseudosection illustrating the apparent velocity computed from the seismic travel times based on the survey geometry. \\(d) Subsurface model of the seismic P-wave velocity distribution obtained through the inversion of the synthetic P-wave travel times.}
 	\label{fig:syndataexample}
 \end{figure}
-
-The third step refers to the generation of a Ricker wavelet based on the wavelet properties provided through the configuration file. In particular, the \texttt{SeismicWaveformModeler} uses the pyGIMLi function \texttt{ricker}, which creates the Ricker wavelet given as
+The third step refers to the generation of a Ricker wavelet through the pyGIMLi function \texttt{ricker} as
 \begin{equation}
-	u = \left(1-2\pi^2f^2t^2\right)e^{-\pi^2f^2\left(t-t_0\right)^2}\,.
+	u = \left(1-2\pi^2f^2t^2\right)e^{-\pi^2f^2\left(t-t_0\right)^2}\,
 	\label{eq:ricker}
 \end{equation}
-In Equation~\ref{eq:ricker}, $f$ is the frequency of the wavelet given in \unit{Hz}, $t$ refers to the time base definition, i.e., the length and resolution in the time domain, and $t_0$ is the time offset of the wavelet.
-
+based on the wavelet properties provided in the configuration file. In Equation~\ref{eq:ricker}, $f$ is the frequency of the wavelet given in \unit{Hz}, $t$ refers to the time base definition, i.e., the length and resolution of the wavelet in the time domain, and $t_0$ is the time offset of the wavelet.
 
 %\begin{equation}
 %	\frac{\partial^2 u}{\partial t^2} = \nabla\cdot\nabla u
 %    \label{eq:solvepeq}
 %\end{equation}
-Subsequently, mesh, velocity model and Ricker wavelet are used to solve the pressure wave equation for each shot station defined in the measurement scheme with the pyGIMLi function \texttt{solvePressureWave}.
-The resultant waveforms at the corresponding geophone stations are extracted and saved in the output directory (\textit{out}) as shown here:
-
+Subsequently, mesh, velocity model and Ricker wavelet are used to solve the pressure wave equation for each shot station defined in the measurement scheme with the pyGIMLi function \texttt{solvePressureWave}:
+\begin{equation}
+	\frac{\partial^2u}{\partial t^2}=\nabla\cdot\left(D\nabla c\right)
+\end{equation}
+The resultant seismograms are extracted at the corresponding geophone stations, gathered for each shot position in an obspy \texttt{Stream} object and saved in the output directory (\textit{out}) as shown here:
 \dirtree{%
 .1 working\_directory.
 .2 in.
@@ -423,7 +431,7 @@ The resultant waveforms at the corresponding geophone stations are extracted and
 .4 syn\_data\_tt.pck.
 .4 info.txt.
 }
-The subdirectory \textit{data} contains a separate file in the miniseed format \citep{ahern2012, ringler2015} for each shot position, where the file extension \textit{syn} to indicate that the shot files contain forward modeled seismic waveform data. 
+In particular, the subdirectory \textit{data} contains a separate file in the miniseed format \citep{ahern2012, ringler2015} for each shot position, where the file extension \textit{syn} indicates that the shot files contain forward modeled seismic waveform data. 
 The measurement protocol (protocol.txt) and the station coordinates provided as a csv file (station\_coords.csv) are also stored in this directory. The header of the measurement protocol contains the survey parameters, e.g., sampling rate, recording length, number of geophones and geophone spacing. Moreover, the protocol associates each shot file of the dataset with a specific location in the survey geometry with respect to the geophone positions, e.g.:
 \begin{footnotesize}
 \begin{verbatim}
@@ -444,7 +452,7 @@ The measurement protocol (protocol.txt) and the station coordinates provided as 
 %\newline
 %\includegraphics[width=.3\textwidth]{./figures/protocol.pdf}
 %\newline
-The auxiliary file info.txt provided in the dataset directory summarizes the parameters from the configuration file and information regarding the simulated systematic errors in the synthetic seismic waveform data:
+The auxiliary file info.txt exported to the dataset directory summarizes the parameters from the configuration file as well as information regarding the simulated systematic errors in the synthetic seismic waveform data, e.g.:
 \begin{footnotesize}
 \begin{verbatim}
 Number of geophones: 48
@@ -465,14 +473,14 @@ Wrong polarity geophone(s): 26
 %Synthetic traveltimes (\texttt{swm.create('traveltimes')}) are stored in the dataset directory as udf files with the file extension \textit{pck}, e.g., syn\_data\_tt.pck.
 %The file extension \textit{pck} is an abbreviation of the word 'pick' and refers to the first break traveltimes saved in the file.
 
-Figure~\ref{fig:syndataexample}b presents the seismic waveform data forward modeled for a shot point located in the center of the profile. The seismograms are shown as curves, whereas the strength of the amplitudes is added as color-coded information. In the seismograms we see clear first onsets along the entire profile, yet receivers 3 and 45 were modeled as broken geophones, i.e., the corresponding seismograms contain solely noise. Crosses overlaid on the valid seismograms at the respective first onset indicate the first break traveltimes $tt$ between the shot and the receiver. In addition to the missing first break traveltimes for the broken receivers, we manually added a systematic error, i.e., we set an erroneous traveltime for receiver 36.
+Figure~\ref{fig:syndataexample}b presents the seismic waveform data forward modeled for a shot point located in the center of the profile. The seismograms are shown as curves, whereas the strength of the amplitudes is added as color-coded information. In the seismograms we see clear first onsets along the entire profile, yet receivers 3 and 45 were modeled as broken geophones, i.e., the corresponding seismograms contain solely noise. Crosses overlaid on the valid seismograms at the respective first onset indicate the first break traveltimes $tt$ between the shot and the receiver. In addition to the missing first break traveltimes for the broken receivers, we manually added a systematic error, i.e., we set an erroneous traveltime for receiver 36, to demonstrate how such outliers can be identified in a so-called pseudosection.
 
 A pseudosection as presented in Figure~\ref{fig:syndataexample}c, illustrates apparent velocity ($v_{app}$) values computed as
 \begin{equation}
 	v_{app}=\frac{aoffset}{tt}\,,
 	\label{eq:vapp}
 \end{equation}
-with $aoffset$ referring to the absolute offset between shot and receiver. The $v_{app}$ values are plotted at pseudolocations, where the location along profile direction is defined by the midpoint of the corresponding shot-receiver pair and the pseudodepth is computed as $1/3$ of $aoffset$.
+where $aoffset$ refers to the absolute offset between shot and receiver. The $v_{app}$ values are plotted at pseudolocations, where the location along profile direction is defined by the midpoint of the corresponding shot-receiver pair and the pseudodepth is computed as $1/3$ of $aoffset$.
 As demonstrated in Figure~\ref{fig:syndataexample}c, a pseudosection allows for the identification of missing data (e.g., receiver 3 and 45) as well as systematic errors or outliers, i.e., velocities erroneously influenced by a single shot or receiver (see receiver 36). The main assumption here is that the pseudosection should reveal smooth transitions between lateral and vertical neighbors, considering that the data were collected with gradual changes in the position of the source (i.e., hammer blow) and the receiver (i.e., geophone). The pseudosection will reveal large variations in case of abrupt changes in the topography or the geometry of the array, yet this can be taken into account by the user during the identification of outliers and possible systematic errors.
 
 Based on pseudosections erroneous traveltimes can be identified and subsequently removed or corrected, which is a critical processing step prior to the inversion of the data. In particular, the inversion of first break traveltimes aims at resolving a model of the P-wave velocity of the subsurface materials. Since the inversion of geophysical data is not within the scope of the formikoj library we rely for this purpose on the modeling and inversion capabilities of pyGIMLi \citep{ruecker2017}. The default inversion framework of pyGIMLi uses a generalized Gauss-Newton method to solve the inversion problem through the minimization of an objective function given as:
@@ -510,7 +518,7 @@ The geometry file is a csv file that provides an abstract representation of the 
     \centering
     \begin{tabular}{clcl}
         \toprule
-        Col & \textbf{Content} & \textbf{Data type} & \textbf{Description} \\
+        \textbf{Col} & \textbf{Content} & \textbf{Data type} & \textbf{Description} \\
         \midrule
         1 & x coordinate & float & Station x coordinate, e.g., given in (m) \\ 
         2 & y coordinate & float & Station y coordinate, e.g., given in (m) \\ 
@@ -524,7 +532,8 @@ The geometry file is a csv file that provides an abstract representation of the 
     \end{tabular}
     \label{tab:geometry}
 \end{table}
-
+For the synthetic dataset considered in this study, the 2D station coordinates are provided in the geometry file, whereas the z coordinate is assumed to be \qty{0}{m} along the entire profile, as illustrated in Table~\ref{tab:syn_geometry}; thus, reflecting the lack of surface topography in the synthetic model (see Figure~\ref{fig:syndataexample}a). In the column \textbf{Geo} the geometry file contains the value 1 (True) for each station except the station located at \qty{24}{m} referring to the broken geophone modeled by the \texttt{SeismicWaveformModeler}. When compiling the geometry file we also need to take into account the missing shot at station 11, i.e., the station located at \qty{20}{m} along profile direction, and set the corresponding value to \num{-1}. 
+The column \textbf{1st Geo} indicates the first active geophone along the profile for each shot file, which for the synthetic dataset considered here is the geophone deployed at the first station along the entire profile. In particular, the column \textbf{1st Geo} allows the reproduction of roll-along survey geometries, where in the first segment the first active geophone is always the geophone at station 1. Considering 48 geophones deployed in each segment, and an overlap of \qty{50}{\%}, the first geophone for the consecutive segments would be 25, 49, 73, 97, and so on. 
 \begin{table}
    \caption{Excerpt from the geometry file describing the survey geometry of the synthetic dataset generated in this study.}
     \centering
@@ -537,7 +546,7 @@ The geometry file is a csv file that provides an abstract representation of the 
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
 		20.0 & 0.0 & 0.0 & 1 & -1 & 1 & 48 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-        74.0 & 0.0 & 0.0 & 0 & 1038 & 1 & 48 \\
+        24.0 & 0.0 & 0.0 & 0 & 1013 & 1 & 48 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
 		92.0 & 0.0 & 0.0 & 1 & 1047 & 1 & 48 \\
 		94.0 & 0.0 & 0.0 & 1 & 1048 & 1 & 48 \\
@@ -546,7 +555,7 @@ The geometry file is a csv file that provides an abstract representation of the 
     \label{tab:syn_geometry}
 \end{table}
 
-An instance of the \texttt{SeismicRefractionManager} can be created by providing the path to the working directory as parameter to the constructor. Based on the content of the working directory, the \texttt{SeismicRefractionManager} automatically decides whether (i) to start in the data preview mode (first break picking not possible), (ii) create a new project, or (iii) load an existing project from disk.
+An instance of the \texttt{SeismicRefractionManager} can be created by providing the path to the working directory as parameter to the constructor. Depending on the content of the working directory, the \texttt{SeismicRefractionManager} automatically decides whether (i) to start in the data preview mode (first break picking not possible), (ii) create a new project, or (iii) load an existing project from disk.
 %The data preview mode is primarily initiated if the provided working directory contains seismic shot files:
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/data_preview_mode.pdf}
@@ -603,7 +612,7 @@ srm.select(by='aoffset', num=6)
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
-INFO    : 90 traces selected
+INFO    : 88 traces selected
 \end{verbatim}
 \end{footnotesize}
 \begin{lstlisting}[language=Python, firstnumber=8]
@@ -612,7 +621,7 @@ srm.select(by='rin', num=10)
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
-INFO    : 24 traces selected
+INFO    : 48 traces selected
 \end{verbatim}
 \end{footnotesize}
 \begin{lstlisting}[language=Python, firstnumber=10]
@@ -621,7 +630,7 @@ srm.select(by='sin', num=23)
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
-INFO    : 24 traces selected
+INFO    : 48 traces selected
 \end{verbatim}
 \end{footnotesize}
 %\newline
@@ -661,11 +670,11 @@ INFO    : Applied bandpass filter (10.0 to 120.0 Hz)
 By default, filters are solely applied to the currently selected traces, yet setting the filter to hold on automatically filters all subsequently selected traces with the same settings:
 \begin{lstlisting}[language=Python, firstnumber=16]
 # Apply lowpass filter
-srm.filter(type='lowpass', freq=120, onhold=True)
+srm.filter(type='lowpass', freq=200, onhold=True)
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
-INFO    : Applied 120.0 Hz lowpass filter
+INFO    : Applied 200.0 Hz lowpass filter
 INFO    : Set filter hold on
 \end{verbatim}
 \end{footnotesize}
@@ -737,7 +746,7 @@ srm.picksets(do='export', name='pick')
 \end{lstlisting}
 \begin{footnotesize}
 \begin{verbatim}
-INFO    : Pickset 'pick' saved to pick_20230303T140447'
+INFO    : Pickset 'pick' saved to pick_20230303T140447.pck'
 \end{verbatim}
 \end{footnotesize}
 %\newline
@@ -819,12 +828,73 @@ INFO    : Pickset 'pick' saved to pick_20230303T140447'
 %%Accordingly, the traveltimes are stored in the 
 %project database; thus, making the traveltimes available for visualization and processing with existing functionalities or further custom implementations.
 
+\subsection{Expanding the capabilities of the formikoj library}
+Making the formikoj library publicly available under an open-source license 
+%Accordingly, the concept of the formikoj library 
+%and the \texttt{SeismicRefractionManager} 
+allows the addition of supplementary functionalities tailored for the specific requirements of the users.
+The concept of formikoj suggest that such custom extensions should be implemented either as internal methods or as functions in the utilities module, which are then executed through the \texttt{compute} method.% with a custom keyword.
+
+We illustrate this possibility for customization by implementing 
+%As an illustrative example, we implemented 
+a simplified version of an automatic first break picking algorithm based on the short- and long-time window average ratio (STA/LTA) method \citep{allen1978}, which determines the traveltimes following the energy ratio approach \citep[e.g.,][]{earle1994}. In particular, our implementation computes the envelope $E\left(t\right)$ of the seismogram $s\left(t\right)$ as \citep[e.g.,][]{duan2020}
+\begin{equation}
+	E(t)=\left(s\left(t\right)^2+\tilde{s}\left(t\right)\right)^{1/2}\,,
+	\label{eq:envelope}
+\end{equation}
+where $\tilde{s}\left(t\right)$ is the Hilbert transform of $s\left(t\right)$. The energy ratio $ER$ is then computed as $ER=STA/LTA$ with
+\begin{equation}
+	STA\left(i\right)=\frac{1}{n_{STA}}\sum_{j=i-n_{STA}}^{i}E\left(j\right)\,,
+	\label{eq:sta}
+\end{equation}
+and 
+\begin{equation}
+	LTA\left(i\right)=\frac{1}{n_{LTA}}\sum_{j=i-n_{STA}}^{i}E\left(j\right)\,,
+	\label{eq:lta}
+\end{equation}
+where $n_{STA}$ and $n_{LTA}$ refer to the number of data points in $E\left(t\right)$ considered for the short- and long-time windows, respectively. For this exemplary implementation we determine the first break traveltimes in the seismograms as the position of the maximum in the $ER$ function, which is automatically saved in the project database. 
+
+The autopicking algorithm is added to the \texttt{SeismicRefractionManager} in form of two internal methods \texttt{\_manage\_autopicking} and \texttt{\_compute\_autopicks}, respectively. To invoke the autopicking process we modified the \texttt{compute} method, which now accepts the custom-defined keyword \texttt{autopicking}. Additionally, the autopicking requires values to be passed for the parameters \texttt{pick} and \texttt{pickset}. The former accepts the values \texttt{all} or \texttt{cur} to determine first break traveltimes for all traces in the dataset or solely the currently selected traces, respectively. The latter defines the name of the picksets in which the automatically determined traveltimes should be saved to. A typical use case involves conducting the autopicking and exporting the determined traveltimes:
+\begin{lstlisting}[language=Python, firstnumber=24]
+# Automatically pick first break traveltimes
+srm.compute(do='autopicking', pick='all', pickset='autopicks')
+srm.picksets(do='export', name='autopicks')
+\end{lstlisting}
+\begin{footnotesize}
+\begin{verbatim}
+INFO    : Created new pickset 'autopicks'
+INFO    : Pickset 'autopicks' loaded
+INFO    : 'autopicks' set at active pickset
+Progress <==============================> 100.0% completed
+INFO    : Pickset 'autopicks' saved to autopicks_20230303T140834.pck
+\end{verbatim}
+\end{footnotesize}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/autopicking.pdf}
+%\newline
+%The second parameter defines whether traveltimes should be determined for 
+%automatic first break picking should be applied to 
+%the entire dataset (\texttt{all}) or solely for the currently selected traces (\texttt{cur}). The third parameter provides the name of the corresponding pickset in the % for the automatically determined first break traveltimes. 
+%Accordingly, the traveltimes are stored in the 
+%project database; thus, making the traveltimes available for visualization and processing with existing functionalities or further custom implementations.
+
+In Figure~\ref{fig:pickcomp}, we compare the automatically determined first break picks with the forward modeled traveltimes computed above to allow for a basic evaluation of autopicking quality. The inset plot in Figure~\ref{fig:pickcomp} presents the histogram of the autopicked traveltimes, which shows that three traveltimes should be considered outliers, and thus are removed from the dataset. After the outlier removal the correlation coefficient between forward modeled and autopicked traveltimes is \num{0.99} suggesting that the implemented autopicking algorithm performs well for the synthetic seismic waveform data. However, the observed deviation from the perfect correlation (i.e., the 1:1 line in Figure~\ref{fig:pickcomp}) indicates that autopicking and forward modeling algorithm might be sensitive to different seismic wave phases. Further improvements in terms of the autopicking process could incorporate, for example, machine learning approaches as the method proposed by \citet{duan2020}, which can be easily implemented as an additional functionality in the \texttt{SeismicRefractionManager}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{figures/pick_comparison.pdf}
+	\caption{Comparison of forward modeled synthetic and automatically picked first break traveltimes for the synthetic seismic waveform data created in this study.}
+	\label{fig:pickcomp}
+\end{figure}
+
 \section{Application to field data: Processing a 3D seismic refraction dataset}
 %\subsection{First break travel time picking for a 2D roll-along field data set: the Danube island example}
 
-The \texttt{SeismicRefractionManager} allows also the visualization and processing of data collected with a 3D survey layout. To illustrate these capabilities, we present in Figure~\ref{fig:map_sodalakes} the geometry of a 3D survey conducted in a soda lake located close to Vienna. The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
-The seismic survey aims to support the interpretation of the electrical and electromagnetic models obtained in a monitoring framework. 
-Accordingly, the survey geometry shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines. The seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of 2\,m between the geophones. Shots were generated with an 8\,kg sledgehammer at the geophone positions as well as at positions along the diagonals to obtain a sufficient coverage, as indicated in Figure~\ref{fig:map_sodalakes}.
+To demonstrate the applicability of the  \texttt{SeismicRefractionManager} for the processing of seismic refraction data collected in the field we consider a 3D seismic survey conducted in a soda lake located in the Nationalpark Neusiedler See--Seewinkel close to Vienna.
+The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
+The seismic survey aims to support the interpretation of electrical and electromagnetic models obtained in a monitoring framework.
+%The \texttt{SeismicRefractionManager} allows also the visualization and processing of data collected with a 3D survey layout. To illustrate these capabilities, we present in Figure~\ref{fig:map_sodalakes} the geometry of a 3D survey conducted in a soda lake located close to Vienna. The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
+%The seismic survey aims to support the interpretation of the electrical and electromagnetic models obtained in a monitoring framework. 
+Accordingly, the geometry of the seismic survey shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines. The seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of \qty{2}{m} between the geophones. Shots were generated with an \qty{8}{kg} sledgehammer at the geophone positions as well as at positions along the diagonals to obtain a sufficient coverage, as indicated in Figure~\ref{fig:map_sodalakes}.
 
 \begin{figure}
 	\centering
@@ -833,14 +903,8 @@ Accordingly, the survey geometry shown in Figure~\ref{fig:map_sodalakes} was spe
 	\label{fig:map_sodalakes}
 \end{figure}
 
-%The seismic data used in this example were collected at the Danube island (Vienna) in June 2021, using 48 geophones deployed with 2\,m spacing between them and shot locations located between the geophone positions. As illustrated in Figure~\ref{fig:map_danube}, the survey geometry refers to a roll-along geometry, i.e., the geophone spread was moved along a profile with 50\% overlap yielding a total of five segments. The objective of the survey was to define the contact between different sediments within the tertiary and quarternary deposits used to build the man-made Danube island. Additionally, the survey aimed to identify lateral changes that might indicate the position of a fault, which has been inferred from sediments recovered from drillings. 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=.75\textwidth]{./figures/map_danube.pdf}
-%	\caption{The Danube island field dataset was collected along a single line with a roll-along survey layout; the filled triangles indicate the direction of the measurements. The five segments have an overlap of 50\% to ensure an adequate data coverage along the entire profile.}
-%	\label{fig:map_danube}
-%\end{figure}
-
+As in case of the synthetic data set presented above, the geometry file contains the coordinates of the survey stations, yet for the soda lake dataset 3D coordinates we provided as illustrated in Table~\ref{tab:3d_geometry}. 
+Since geophones were not deployed at each survey station the column \textbf{Geo} contains the value 1 (True) for the first 96 stations and 0 (False) for the remaining \num{20} stations. 
 \begin{table}
    \caption{Excerpt from the 3D survey geometry file.}
     \centering
@@ -857,119 +921,23 @@ Accordingly, the survey geometry shown in Figure~\ref{fig:map_sodalakes} was spe
         40339.421 & 292402.681 & 120.0 & 1 & 1096 & 1 & 96 \\
 		40305.228 & 292445.050 & 120.0 & 0 & 1097 & 1 & 96 \\
         \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-        40265.415 & 292431.957 & 0 & 0 & 1115 & 1 & 96 \\
-		40255.453 & 292431.395 & 0 & 0 & 1116 & 1 & 96 \\
+        40265.415 & 292431.957 & 120.0 & 0 & 1115 & 1 & 96 \\
+		40255.453 & 292431.395 & 120.0 & 0 & 1116 & 1 & 96 \\
         \bottomrule
     \end{tabular}
     \label{tab:3d_geometry}
 \end{table}
-%\begin{table}[pos=h]
-%   \caption{Extract from the roll-along survey geometry file showing how the information regarding the first geophone assigns the traces in the shot files to the correct stations.}
-%    \centering
-%    \begin{tabular}{rrrcrrr}
-%        \toprule
-%        \textbf{x (m)} & \textbf{y (m)} & \textbf{z (m)} & \textbf{Geo} & \textbf{Shot} & \textbf{1st Geo} & \textbf{\# Geo} \\
-%        \midrule
-%        0.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-%        2.0 & 0.0 & 163.5 & 0 & 1001 & \textbf{1} & 48 \\
-%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-%        94.0 & 0 & 163.5 & 0 & 1024 & \textbf{1} & 48 \\
-%		96.0 & 0 & 163.5 & 1 & -1 & -1 & -1 \\
-%        98.0 & 0.0 & 163.5 & 0 & 1037 & \textbf{25} & 48 \\
-%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-%		194.0 & 0.0 & 163.5 & 0 & 1049 & \textbf{25} & 48 \\		
-%		196.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\        
-%        198.0 & 0.0 & 163.5 & 0 & 1073 & \textbf{49} & 48 \\
-%        200.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-%        202.0 & 0.0 & 163.5 & 0 & 1050 & \textbf{25} & 48 \\
-%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-%        286.0 & 0.0 & 163.5 & 0 & 1084 & \textbf{49} & 48 \\
-%        288.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-%        290.0 & 0.0 & 163.5 & 0 & 1097 & \textbf{73} & 48 \\
-%        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-%		386.0 & 0.0 & 163.5 & 0 & 1109 & \textbf{73} & 48 \\
-%        388.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-%		390.0 & 0.0 & 163.5 & 0 & 2025 & \textbf{97} & 48 \\
-%		\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-%		570.0 & 0.0 & 163.5 & 0 & 2048 & \textbf{97} & 48 \\		
-%		572.0 & 0.0 & 163.5 & 1 & -1 & -1 & -1 \\
-%        \bottomrule
-%    \end{tabular}
-%    \label{tab:rollalong_geometry}
-%\end{table}
-
-In the field, each segment was measured separately, yet for the processing all measurements are combined in a single profile. %, i.e., the stations of all segments are consecutively numbered.
-We can implement such measurement layout in a geometry file 
-%of the \texttt{SeismicRefractionManager} 
-as illustrated in Table~\ref{tab:rollalong_geometry}. %To describe a roll-along survey 
-%The key parameter is '1st Geo' as it indicates the first active geophone along the profile for each shot file. For the first segment in a roll-along survey geometry, the first active geophone is always geophone 1. Considering the number of geophones used in each segment, and an overlap of 50\%, the first geophone for segments two to five are 25, 49, 73 and 97, respectively.
-%By providing these values in the geometry file as shown in Table~\ref{tab:rollalong_geometry}, the \texttt{SeismicRefractionManager} can apply the geometry information in the project database.
-
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=.75\textwidth]{figures/danube_island_cos_lp120.pdf}
-%	\caption{The common offset stack computed for the Danube island dataset clearly showing a two-layered subsurface. The seismic velocities within the layer can be estimated from the gradient of the lines drawn along the corresponding first onsets of the seismic waves.}
-%	\label{fig:fieldcos}
-%\end{figure}
-
-Based on the shot files and the geometry file stored in the required directory structure the \texttt{SeismicRefractionManager} creates the project database.
-
-%A first illustration of the subsurface conditions can be obtained by computing a common offset stack (COS):
-%\newline
-%\includegraphics[width=.5\textwidth]{./figures/plotcos_danube.pdf}
-%\newline
-%The COS for the Danube island dataset presented in Figure~\ref{fig:fieldcos} shows first onsets for absolute offsets up to approximately 150\,m, which suggest a two-layered subsurface model. By using the velocity estimation functionality we can approximate the seismic velocity in the corresponding layers.
-
-%For the first break picking a set of traces is selected, filtered if necessary and visualized:
-%\newline
-%\includegraphics[width=.5\textwidth]{./figures/plotsin99_danube.pdf}
-%\newline
-%In this example, the trace data for SIN 99 are used, which refers to a shot position located in segment four. 
-%As can be seen in Figure~\ref{fig:rollalong_pickwindow}, the first onsets are easily identifiable despite the substantial seismic background noise at large offsets (RIN 73 to 90).
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=.75\textwidth]{figures/danube_island_sin99_lp120_picks_vd.pdf}
-%	\caption{Examplary seismic waveforms from the Danube island dataset shown for shot index number (SIN) 99 with a 120 Hz lowpass filter applied to suppress high frequency noise. The receiver index numbers (RIN) start at 73, thus indicating that the data were collected with a roll-along survey geometry.}
-%	\label{fig:rollalong_pickwindow}
-%\end{figure}
-%A pseudosection provides an illustration of the corresponding apparent seismic velocity values computed from the picked traveltimes and the distance between shots and geophones:
-%\newline
-%\includegraphics[width=.5\textwidth]{./figures/plotpseudosection_danube.pdf}
-
-%In a pseudosection, as presented in Figure~\ref{fig:rollalong_pseudosection} for the Danube island dataset, the apparent velocity values are assigned to pseudolocations, with the corresponding x- and z-coordinates determined as the midpoint and as $1/3$ of the absolute offset between the shot and geophone, respectively.
-%Accordingly, such plot allows for the identification of outliers in the data, e.g., stark velocity contrasts for adjacent points, or systematic errors, e.g., velocities erroneously influenced by a single shot or receiver. The main assumption here is that the pseudosection should reveal smooth transitions between lateral and vertical neighbors, considering that the data were collected with gradual changes in the position of the source (i.e., hammer blow) and the receiver (i.e., geophone). The pseudosection will reveal large variations in case of abrupt changes in the topography or the geometry of the array, yet this can be taken into account by the user 
-%%during the evaluation of the pseudosection aiming at 
-%during the identification of outliers and possible systematic errors.
-%For the Danube island dataset, the pseudosection suggests an increase in the seismic velocity along profile direction in deeper subsurface regions (i.e., larger pseudodepth). Such pattern could be related to a fault expected in this area of the Danube island, thus indicating that the geophysical survey was sufficiently designed to detect such feature.
-%%conducted in an appropriate location to detect the fault.
-%Moreover, the pseudosection presented in Figure~\ref{fig:rollalong_pseudosection} shows a low number of data points in the first segment of the Danube island survey. This lack of data points at large pseudodepths is due to a low number of picked traveltimes at large offsets, and thus might indicate a low signal-noise ratio.
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=.75\textwidth]{figures/rollalong_pseudosection.pdf}
-%	\caption{Pseudosection showing the apparent seismic velocities determined from the first break traveltimes obtained from the Danube island dataset and the corresponding absolute offset between the shot and receiver stations. The apparent velocity for each shot-receiver pair is illustrated at the corresponding midpoint and pseudodepth (1/3 of the absolute offset).}
-%	\label{fig:rollalong_pseudosection}
-%\end{figure}
-
-To review the data quality along the entire profile it is possible to visualize the picking percentage, i.e., the ratio of actually picked traveltimes and total number of SIN-RIN pairs:
-\newline
-\includegraphics[width=.5\textwidth]{./figures/plot_pickperc_danube.pdf}
-\newline
-Figure~\ref{fig:rollalong_pickperc} shows that the picking percentage is visualized separately for each SIN. In this way, a low picking percentage indicates shots affected by a low signal-to-noise ratio. For the Danube island dataset, the picking percentage is low in the first segment, which confirms the lack of datapoints observed in the pseudosection. Moreover, the picking percentage plot can be used to track the picking progress, for instance 
-if the traveltimes cannot be determined in one session or 
-to identify single shots that might have been forgotten during the first break picking. Accordingly, it is advisable to check the picking percentage prior to exporting the traveltimes for the inversion.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/rollalong_pickperc.pdf}
-	\caption{Picking percentage for each shot in the Danube island roll-along dataset. Low values in the first third of the dataset indicate a low signal-to-noise ratio in the seismograms hindering the picking of first break traveltimes for each shot-receiver pair.}
-	\label{fig:rollalong_pickperc}
-\end{figure}
-
-The geometry file contains the 3D coordinates for each shot or receiver station, and thus the\\ \texttt{SeismicRefractionManager} %infers the 3D survey layout and 
-automatically configures the project for 3D processing. 
-Figure~\ref{fig:3d_pickwindow} presents the seismic waveform data recorded for SIN 1, i.e., the shot position co-located with the first geophone (Station 01 in Figure~\ref{fig:map_sodalakes}). The data for RIN 1 to 48 appear familiar as the corresponding SIN-RIN layout refers to the one of conventional 2D profiles; whereas the seismic waveforms for RIN 49 to 96 show an entirely different pattern. To understand such visualization, we need to take into account that RIN 49 to 96 are deployed perpendicular to the direction of propagation of the wavefront originating from SIN 1. Accordingly, the observed curvature in the first onsets is due to the varying offset of the different SIN-RIN pairs.
-%Irrespective of the survey geometry, the first break traveltimes can be determined in the seismogram plot. In this particular example, the first onsets are easy to identify, thus allowing to set first break picks for almost all traces. 
-
+Based on the shot files and the geometry file stored in the required directory structure the \texttt{SeismicRefractionManager} creates the project database, automatically infers the 3D survey layout from the 3D survey geometry, and thus configures the project for 3D processing. Then we can select seismograms the same way as for the synthetic data presented above. For this example we select seismic waveform data recorded for SIN 1, i.e., the shot position co-located with the first geophone (Station 01 in Figure~\ref{fig:map_sodalakes}):
+\begin{lstlisting}[language=Python, firstnumber=10]
+# Select traces with receiver
+srm.select(by='sin', num=1)
+\end{lstlisting}
+\begin{footnotesize}
+\begin{verbatim}
+INFO    : 96 traces selected
+\end{verbatim}
+\end{footnotesize}
+In Figure~\ref{fig:3d_pickwindow}, we can see that the data for RIN 1 to 48 appear familiar as the corresponding SIN-RIN layout refers to the one of conventional 2D profiles; whereas the seismic waveforms for RIN 49 to 96 show an entirely different pattern. To understand such visualization, we need to take into account that RIN 49 to 96 are deployed perpendicular to the direction of propagation of the wavefront originating from SIN 1. Accordingly, the observed curvature in the first onsets is due to the varying offset of the different SIN-RIN pairs. Also for the 3D seismic refraction data the first break traveltimes can be determined either individually for each trace or by 
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/sodalakes_sin1_lp100_picks_vd.pdf}
@@ -977,11 +945,7 @@ Figure~\ref{fig:3d_pickwindow} presents the seismic waveform data recorded for S
 	\label{fig:3d_pickwindow}
 \end{figure}
 
-Due to the 3D survey geometry, a 2D pseudosection is not suitable 
-%we cannot use the conventional pseudosection 
-to illustrate the apparent velocity values obtained from the picked first break traveltimes. Hence, 
-%However, the project is configured for 3D processing so 
-the \texttt{SeismicRefractionManager} automatically switches to a 3D representation where the apparent velocity values are illustrated in an interactive 3D pseudosection. This plot can be rotated and the image section can be zoomed and panned allowing the user to easily investigate the data quality for 3D geometries. Figure~\ref{fig:3d_pseudosection} shows a screenshot of the 3D pseudosection for the salt lake dataset; yet, such screenshot cannot reveal the full capabilities implemented in the \texttt{SeismicRefractionManger} for the interactive analysis and visualization of 3D pseudosections.
+Due to the 3D survey geometry, a 2D pseudosection is not suitable for assessing the quality of the first break traveltimes. However, the \texttt{SeismicRefractionManager} project is configured for 3D processing, and thus the apparent velocity values are illustrated in an interactive 3D pseudosection. This plot can be rotated and the image section can be zoomed and panned allowing the user to easily investigate the data quality for 3D geometries. Figure~\ref{fig:3d_pseudosection} shows a screenshot of the 3D pseudosection for the salt lake dataset; yet, such screenshot cannot reveal the full capabilities implemented in the \texttt{SeismicRefractionManger} for the interactive analysis and visualization of 3D pseudosections.
 
 \begin{figure}
 	\centering
@@ -990,16 +954,41 @@ the \texttt{SeismicRefractionManager} automatically switches to a 3D representat
 	\label{fig:3d_pseudosection}
 \end{figure}
 
-Once the first break picking is finished, the corresponding pickset can be exported for the inversion.
-%Prior to the exporting of the first break traveltimes, it is advisable to have a look at the picking percentage to check for any missing data. As can be seen from Figure~\ref{fig:3d_pickperc}, the visualization of the picking percentage plot does not change due to the 3D survey, and thus can be read in the same way as in case of a 2D survey geometry.
-The inversion results and their interpretation are not the scope of this manuscript, yet Figures~\ref{fig:3d_pickwindow} and \ref{fig:3d_pseudosection} reveal the capabilities provided by the proposed framework for the visualization and processing of data collected in 3D survey geometries.
+To review the data quality for the entire dataset it is possible to visualize the picking percentage, i.e., the ratio of actually picked traveltimes and total number of SIN-RIN pairs:
+\begin{lstlisting}[language=Python, firstnumber=10]
+# Plot the picking percentage
+srm.plot(type='pickperc')
+\end{lstlisting}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plot_pickperc_danube.pdf}
+%\newline
+Figure~\ref{fig:3d_pickperc} presents the picking percentage visualized separately for each SIN. Accordingly, a low picking percentage indicates shots affected by a low signal-to-noise ratio, whereas clear first onsets yield a correspondingly high picking percentage. For the soda lake dataset we observe a consistently high picking percentage for all shot positions; thus, indicating a good data quality.
+%For the Danube island dataset, the picking percentage is low in the first segment, which confirms the lack of datapoints observed in the pseudosection. 
+Moreover, the picking percentage plot can be used to track the picking progress, for instance 
+if the traveltimes cannot be determined in one session or 
+to identify single shots that might have been forgotten during the first break picking. Accordingly, it is advisable to check the picking percentage prior to exporting the traveltimes for the inversion.
 
 %\begin{figure}
 %	\centering
-%	\includegraphics[width=.75\textwidth]{figures/3d_pickperc.pdf}
-%	\caption{Picking percentage for each shot in the soda lakes dataset indicating a high signal-to-noise ratio allowing for the picking of first break traveltimes for nearly all shot-receiver pairs.}
-%	\label{fig:3d_pickperc}
+%	\includegraphics[width=.75\textwidth]{figures/rollalong_pickperc.pdf}
+%	\caption{Picking percentage for each shot in the Danube island roll-along dataset. Low values in the first third of the dataset indicate a low signal-to-noise ratio in the seismograms hindering the picking of first break traveltimes for each shot-receiver pair.}
+%	\label{fig:rollalong_pickperc}
 %\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{figures/3d_pickperc.pdf}
+	\caption{Picking percentage for each shot in the soda lakes dataset indicating a high signal-to-noise ratio allowing for the picking of first break traveltimes for nearly all shot-receiver pairs.}
+	\label{fig:3d_pickperc}
+\end{figure}
+
+Once the first break picking is finished, the corresponding pickset can be exported for the inversion. We inverted the first break traveltimes with pyGIMLi and present the resolved 3D subsurface model in Figure~\ref{fig:3dinvres}. However, to facilitate the representation and interpretation of the seismic velocity distribution we decided to show selected slices through the 3D subsurface model. From this representation we can see, that the inversion solves for low seismic velocities (\num{600} to \qty{800}{ms^{-1}}) in the near-surface in the center of the investigated area, which corresponds to the still intact part of the soda lake, i.e., the part that is covered by water on a seasonal basis. Seismic velocity values above \qty{800}{ms^{-1}} are resolved at depth as well as outside of the soda lake. A more detailed interpretation is beyond the scope of this manuscript, yet the presented figures reveal the capabilities provided by the proposed framework for the visualization and processing of data collected in 3D survey geometries.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{figures/inv_l100_ae0.0035.png}
+	\caption{Subsurface model of the soda lake in terms of the seismic P-wave velocity sliced along the lines formed by the geophones. The solid curve indicates the shore line of the soda lake.}
+	\label{fig:3dinvres}
+\end{figure}
 
 \section{Conclusions and Outlook}
 
@@ -1007,9 +996,9 @@ We have presented formikoj, a flexible open-source library enabling the developm
 
 We demonstrated the capabilities of the formikoj framework to develop versatile and easily scalable classes for the modeling and processing of waveforms in seismic refraction surveys. The required interaction with the user is reduced to a minimum as crucial processing steps are automatized within the \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} based on efficient data input strategies, for instance the preparation and import of the geometry file or the keyboard-based interaction related to the first break picking. In this regard, the user controls the formikoj library by providing text-based commands preferably through an ipython shell to exploit the full interactive potential modeling and processing tools. However, applications of the formikoj library can also be automatized by implementing workflows in python scripts or jupyter notebooks.
 
-Based on three exemplary use cases, we illustrated the applicability of both the \texttt{SeismicWaveformModeler} and the \texttt{SeismicRefractionManager}. In the first use case, we showed the possibility to forward model seismic waveform data based on custom subsurface models and survey geometries with the \texttt{SeismicWaveformModeler}. Additionally, the resulting waveforms can be subjected to systematic and random noise sources. 
-The capabilities of the \texttt{SeismicRefractionManager} were demonstrated through the processing of field datasets collected in complex survey layout, namely a roll-along and a 3D geometry. 
-Moreover, we showed how the different data visualization options can assist during the data processing to ensure consistency in the first break traveltimes. In particular, we developed a visualization of the traveltimes by means of pseuodsections illustrating the corresponding apparent seismic velocities. Such plots allow for a quick identification of systematic errors and outliers in both 2D and 3D datasets.
+%Based on three exemplary use cases, we illustrated the applicability of both the \texttt{SeismicWaveformModeler} and the \texttt{SeismicRefractionManager}. In the first use case, we showed the possibility to forward model seismic waveform data based on custom subsurface models and survey geometries with the \texttt{SeismicWaveformModeler}. Additionally, the resulting waveforms can be subjected to systematic and random noise sources. 
+%The capabilities of the \texttt{SeismicRefractionManager} were demonstrated through the processing of field datasets collected in complex survey layout, namely a roll-along and a 3D geometry. 
+%Moreover, we showed how the different data visualization options can assist during the data processing to ensure consistency in the first break traveltimes. In particular, we developed a visualization of the traveltimes by means of pseuodsections illustrating the corresponding apparent seismic velocities. Such plots allow for a quick identification of systematic errors and outliers in both 2D and 3D datasets.
 
 By making the source code of the formikoj library available under the MIT license we intend to spark the development of further modeling and processing tools for various geophysical models based on this framework. Our further efforts will focus on implementing tools for other wave-based geophysical methods used in frame of our research activities, such as multi-channel analysis of (seismic) surface waves or magnetotelluric surveys. 
 

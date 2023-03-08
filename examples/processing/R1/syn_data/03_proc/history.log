@@ -94,3 +94,148 @@
 2023/03/03 18:20:18 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
 2023/03/03 18:20:23 INPUT    plot traveltimes
 2023/03/03 18:20:34 INPUT    plot traveltimes
+2023/03/07 17:29:41 INFO     Project information loaded
+2023/03/07 17:29:43 INFO     Read 47 files
+2023/03/07 17:29:43 INFO     Pickset 'picks' loaded
+2023/03/07 17:29:43 INFO     'picks' set as active pickset
+2023/03/07 17:29:47 INPUT    select sin 24
+2023/03/07 17:29:47 INFO     48 traces selected
+2023/03/07 17:29:47 AUTO     filter remove
+2023/03/07 17:29:47 INFO     No filter settings to remove
+2023/03/07 17:29:51 INPUT    plot 
+2023/03/07 17:39:59 INFO     Project database created
+2023/03/07 17:39:59 INFO     Read geometry information from file
+2023/03/07 17:39:59 INFO     Extracted receiver geometry
+2023/03/07 17:39:59 INFO     Extracted shot geometry
+2023/03/07 17:39:59 INFO     Applied geometry
+2023/03/07 17:39:59 INFO     Standard pickset 'picks' created
+2023/03/07 17:39:59 INFO     Pickset 'picks' loaded
+2023/03/07 17:39:59 INFO     'picks' set as active pickset
+2023/03/07 17:40:01 INFO     Read 47 files
+2023/03/07 17:40:04 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 17:40:04 INFO     Created new pickset 'pick'
+2023/03/07 17:40:04 INFO     Pickset 'pick' loaded
+2023/03/07 17:40:04 INFO     'pick' set as active pickset
+2023/03/07 17:40:04 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/07 17:40:10 INPUT    plot traveltimes
+2023/03/07 17:40:34 INPUT    select sin 24
+2023/03/07 17:40:34 INFO     48 traces selected
+2023/03/07 17:40:34 AUTO     filter remove
+2023/03/07 17:40:34 INFO     No filter settings to remove
+2023/03/07 17:40:37 INPUT    plot 
+2023/03/07 17:40:54 INPUT    filter lp 120
+2023/03/07 17:40:54 INFO     Applied 120.0 Hz lowpass filter
+2023/03/07 17:41:18 AUTO     select sin 23
+2023/03/07 17:41:18 INFO     48 traces selected
+2023/03/07 17:41:18 AUTO     filter remove
+2023/03/07 17:41:18 INFO     Filter settings removed
+2023/03/07 17:41:26 INPUT    filter lp 120
+2023/03/07 17:41:26 INFO     Applied 120.0 Hz lowpass filter
+2023/03/07 17:56:18 INPUT    picksets 
+2023/03/07 17:56:34 INPUT    picksets unload pick
+2023/03/07 17:56:34 ERROR    Cannot unload the active pickset
+2023/03/07 17:56:34 AUTO     select sin 23
+2023/03/07 17:56:34 INFO     48 traces selected
+2023/03/07 17:56:34 AUTO     filter remove
+2023/03/07 17:56:34 INFO     Filter settings removed
+2023/03/07 18:02:16 INPUT    picksets use picks
+2023/03/07 18:02:16 INFO     'picks' set as active pickset
+2023/03/07 18:02:22 INPUT    picksets unload pick
+2023/03/07 18:02:22 INFO     Pickset 'pick' removed from workflow
+2023/03/07 18:02:22 AUTO     select sin 23
+2023/03/07 18:02:22 INFO     48 traces selected
+2023/03/07 18:02:22 AUTO     filter remove
+2023/03/07 18:02:22 INFO     No filter settings to remove
+2023/03/07 18:02:32 INPUT    picksets delete pick
+2023/03/07 18:02:32 INFO     Pickset 'pick' deleted
+2023/03/07 18:02:37 INPUT    picksets 
+2023/03/07 18:02:50 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 18:03:20 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 18:03:20 INFO     Created new pickset 'pick'
+2023/03/07 18:03:20 INFO     Pickset 'pick' loaded
+2023/03/07 18:03:20 AUTO     select sin 23
+2023/03/07 18:03:20 INFO     48 traces selected
+2023/03/07 18:03:20 AUTO     filter remove
+2023/03/07 18:03:20 INFO     No filter settings to remove
+2023/03/07 18:03:20 INFO     'pick' set as active pickset
+2023/03/07 18:03:20 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/07 18:03:26 INPUT    plot traveltimes
+2023/03/07 18:05:02 INFO     Project database created
+2023/03/07 18:05:02 INFO     Read geometry information from file
+2023/03/07 18:05:02 INFO     Extracted receiver geometry
+2023/03/07 18:05:02 INFO     Extracted shot geometry
+2023/03/07 18:05:02 INFO     Applied geometry
+2023/03/07 18:05:02 INFO     Standard pickset 'picks' created
+2023/03/07 18:05:02 INFO     Pickset 'picks' loaded
+2023/03/07 18:05:02 INFO     'picks' set as active pickset
+2023/03/07 18:05:04 INFO     Read 47 files
+2023/03/07 18:05:07 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 18:05:07 ERROR    Number of picks to import exceeds the geometry based number of picks
+2023/03/07 18:08:17 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 18:08:17 INFO     Created new pickset 'pick'
+2023/03/07 18:08:17 INFO     Pickset 'pick' loaded
+2023/03/07 18:08:17 INFO     'pick' set as active pickset
+2023/03/07 18:08:17 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/07 18:08:20 INPUT    plot traveltimes
+2023/03/07 18:09:27 INFO     Project database created
+2023/03/07 18:09:27 INFO     Read geometry information from file
+2023/03/07 18:09:27 INFO     Extracted receiver geometry
+2023/03/07 18:09:27 INFO     Extracted shot geometry
+2023/03/07 18:09:27 INFO     Applied geometry
+2023/03/07 18:09:27 INFO     Standard pickset 'picks' created
+2023/03/07 18:09:27 INFO     Pickset 'picks' loaded
+2023/03/07 18:09:27 INFO     'picks' set as active pickset
+2023/03/07 18:09:29 INFO     Read 47 files
+2023/03/07 18:09:32 INPUT    picksets import syn_data_tt.pck pick
+2023/03/07 18:09:32 INFO     Created new pickset 'pick'
+2023/03/07 18:09:32 INFO     Pickset 'pick' loaded
+2023/03/07 18:09:32 INFO     'pick' set as active pickset
+2023/03/07 18:09:32 INFO     Imported 'syn_data_tt.pck' to pickset 'pick'
+2023/03/07 18:09:38 INPUT    select sin 23
+2023/03/07 18:09:38 INFO     48 traces selected
+2023/03/07 18:09:38 AUTO     filter remove
+2023/03/07 18:09:38 INFO     No filter settings to remove
+2023/03/07 18:09:41 INPUT    plot 
+2023/03/07 18:09:55 INPUT    filter lp 120
+2023/03/07 18:09:55 INFO     Applied 120.0 Hz lowpass filter
+2023/03/07 18:10:13 INPUT    picksets unload picks
+2023/03/07 18:10:13 INFO     Pickset 'picks' removed from workflow
+2023/03/07 18:10:13 AUTO     select sin 23
+2023/03/07 18:10:13 INFO     48 traces selected
+2023/03/07 18:10:13 AUTO     filter remove
+2023/03/07 18:10:13 INFO     Filter settings removed
+2023/03/07 18:10:16 INPUT    plot 
+2023/03/07 18:10:33 AUTO     select sin 24
+2023/03/07 18:10:33 INFO     48 traces selected
+2023/03/07 18:10:33 AUTO     filter remove
+2023/03/07 18:10:33 INFO     No filter settings to remove
+2023/03/07 18:10:40 INPUT    filter lp 120
+2023/03/07 18:10:40 INFO     Applied 120.0 Hz lowpass filter
+2023/03/07 18:11:20 AUTO     select sin 23
+2023/03/07 18:11:20 INFO     48 traces selected
+2023/03/07 18:11:20 AUTO     filter remove
+2023/03/07 18:11:20 INFO     Filter settings removed
+2023/03/07 18:11:21 AUTO     select sin 22
+2023/03/07 18:11:21 INFO     48 traces selected
+2023/03/07 18:11:21 AUTO     filter remove
+2023/03/07 18:11:21 INFO     No filter settings to remove
+2023/03/07 18:11:23 AUTO     select sin 23
+2023/03/07 18:11:23 INFO     48 traces selected
+2023/03/07 18:11:23 AUTO     filter remove
+2023/03/07 18:11:23 INFO     No filter settings to remove
+2023/03/07 18:11:27 INPUT    filter lp 120
+2023/03/07 18:11:27 INFO     Applied 120.0 Hz lowpass filter
+2023/03/07 18:11:31 INPUT    filter lp 150
+2023/03/07 18:11:31 INFO     Applied 150.0 Hz lowpass filter
+2023/03/07 18:11:38 INPUT    filter lp 200
+2023/03/07 18:11:38 INFO     Applied 200.0 Hz lowpass filter
+2023/03/07 18:11:48 INPUT    filter hold on
+2023/03/07 18:11:48 INFO     Set filter hold on
+2023/03/07 18:24:14 INPUT    select aoffset 6
+2023/03/07 18:24:14 INFO     88 traces selected
+2023/03/07 18:24:14 AUTO     filter lp 200
+2023/03/07 18:24:14 INFO     Applied 200.0 Hz lowpass filter
+2023/03/07 20:34:09 INPUT    select sin 1
+2023/03/07 20:34:09 INFO     48 traces selected
+2023/03/07 20:34:09 AUTO     filter lp 200
+2023/03/07 20:34:09 INFO     Applied 200.0 Hz lowpass filter
