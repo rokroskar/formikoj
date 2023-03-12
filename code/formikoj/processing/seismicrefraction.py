@@ -649,14 +649,18 @@ class SeismicRefractionManager(MethodManager):
         
         # ~ self._load_picks()
 
-    def _parse_compute_params(self, options):
+    def _parse_compute_params(self, do, options):
         """Check the basic validity of the compute parameters and return them
         as numpy array.
         
         Parameters
         ----------
-        options: str, default ''
-            Options for different computations.
+        do: str
+            The string has to contain a valid keyword ('cos', 'autopick',
+            'geometry') to call the respective methods.
+            
+        options:
+            Necessary keyword arguments for the respective compute action.
         
         Returns
         -------
@@ -664,119 +668,148 @@ class SeismicRefractionManager(MethodManager):
             Parameters deciding which plot method to use.
         """
         
-        if not isinstance(options, str):
+        if not isinstance(do, str):
             self._logger.error('Parameter of datatype str expected')
             return 0
             
-        if options == "":
-            self._logger.critical('No compute command provided')
-            return 0
+        # ~ if options == "":
+            # ~ self._logger.critical('No compute command provided')
+            # ~ return 0
         
-        option = options.lower().rstrip()
-        params = options.split(" ")    
+        # ~ option = options.lower().rstrip()
+        # ~ params = options.split(" ")    
         
-        if params[0] not in COMPUTE_KEYWORDS:
+        if do not in COMPUTE_KEYWORDS:
             self._logger.error('Invalid keyword given')
             return 0
         
-        if params[0] == "autopick":
-            if params[1] not in ["all", "cur"]:
-                self._logger.error('Invalid autopick option')
+        if do == "autopick":
+            if not ('pick' in options.keys() and 'pickset' in options.keys()):
+                self._logger.error(
+                    'Insufficient ``autopicking`` parameters provided')
+                return 0
+                    
+            if options['pick'] not in ["all", "cur"]:
+                self._logger.error('Invalid autopicking option provided')
                 return 0
             
-            if len(params) != 3:
-                self._logger.error('Insufficient number of parameters')
+            # ~ if len(params) != 3:
+                # ~ self._logger.error('Insufficient number of parameters')
         
-        return params
+        return 1
 
-    def compute(self, options):
+    def compute(self, do, **options):
         """Perform various computations based on the available data.
         
         Parameters
         ----------
-        options: str
+        do: str
             The string has to contain a valid keyword ('cos', 'autopick',
             'geometry') to call the respective methods.
+            
+        options:
+            Necessary keyword arguments for the respective compute action.
+            
         """
         
-        self._logger.input('compute ' + options)
+        # ~ self._logger.input('compute ' + options)
+        self._logger.input('compute: %s ' % (do) + str(options))
         
-        params = self._parse_compute_params(options)
-        if params == 0: return
+        # ~ params = self._parse_compute_params(options)
+        if not self._parse_compute_params(do, options): return
         
-        if params[0] == 'autopick':
-            self._manage_autopicking(params[1::])
-        elif params[0] == 'geometry':
+        if do == 'autopicking':
+            self._manage_autopicking([options['pick'], options['pickset']])
+        elif deo == 'geometry':
             self._read_geometry()
             self._apply_geometry()
             if self._data == None: self._read_data()
-        elif params[0] == 'cos':
+        elif do == 'cos':
             self._compute_cos()
 
-    def _parse_filter_params(self, options):
+    def _parse_filter_params(self, type, options):
         """Check the basic validity of the plot parameters and return them
         as numpy array.
         
         Parameters
         ----------
-        options: str, default ''
-            Options for plotting.
+        type: str
+            Parameters used for filtering the trace data. The string has to
+            contain a valid keyword ('lp', 'hp', 'bp', 'bs', 'remove') at the 
+            beginning followed by the required parameters.
+            TODO: describe parameters for each keyword.
+            
+        options: 
+            Necessary keyword arguments for the respective filter (e.g., 
+            ``freqmin=1.0``, ``freqmax=20.0`` for ``"bandpass"``) as well as
+            other filter options (e.g., ``onhold=True`` or ``auto=True``)
         
         Returns
         -------
-        params: numpy array
-            Parameter deciding which plot method to use.
+        state: bool
+            ``True`` if the sanity check was successful, ``False`` otherwise.
         """
         
-        if not isinstance(options, str):
+        if not isinstance(type, str):
             self._logger.error('Parameter of datatype str expected')
             return 0
-            
-        if options == "":
-            self._logger.error('No filter criteria provided')
-            return 0
-        
-        option = options.lower().rstrip()
-        params = options.split(" ")
-        
-        if params[0] not in FILTER_KEYWORDS:
-            self._logger.error('Invalid keyword given')
-            return 0
-            
-        if params[0] in ["lp", "hp", "3pf", "hold"]:
-            if len(params) != 2:
-                self._logger.error('Insufficient number of filter parameters')
-                return 0
-            
-        if params[0] in ["bp", "bs"]:
-            if len(params) != 3:
-                self._logger.error('Insufficient number of filter parameters')
-                return 0
-        
-        if params[0] in FILTER_KEYWORDS[0:4]:
-            for p in params[1::]:
-                try:
-                    float(p)
-                except: 
-                    self._logger.error('Filter parameters need to be numeric')
-                    return 0
-        
-        return params
 
-    def filter(self, options, auto=False):
+        type = type.lower()
+
+        if type not in FILTER_KEYWORDS:
+            self._logger.error('Invalid keyword given')
+            return 0            
+
+        # ~ if options ==  {}:
+            # ~ self._logger.error('No filter criteria provided')
+            # ~ return 0
+            
+        keys = [k.lower() for k in options.keys()]
+        
+        if type in ["lp", "hp"]:
+            if 'freq' not in keys:
+                self._logger.error('Insufficient filter parameters provided')
+                return 0
+                
+            if not isinstance(options['freq'], (int, float)):
+                self._logger.error('Filter frequency must be numerical')
+        
+        if type in ["bp", "bs"]:
+            if not ('freqmin' in keys and 'freqmax' in keys):
+                self._logger.error('Insufficient filter parameters provided')
+                return 0
+                
+            if not isinstance(options['freqmin'], (int, float)):
+                self._logger.error('Filter frequency must be numerical')
+                
+            if not isinstance(options['freqmax'], (int, float)):
+                self._logger.error('Filter frequency must be numerical')
+        
+        # ~ if params[0] in FILTER_KEYWORDS[0:4]:
+            # ~ for p in params[1::]:
+                # ~ try:
+                    # ~ float(p)
+                # ~ except: 
+                    # ~ self._logger.error('Filter parameters need to be numeric')
+                    # ~ return 0
+        
+        return 1
+
+    def filter(self, type, **options):
         """Filter the currently selected trace data.
         
         Parameters
         ----------
-        options: str
+        type: str
             Parameters used for filtering the trace data. The string has to
-            contain a valid keyword ('lp', 'hp', 'bp', 'bs',
-            '3pf', 'hold', 'remove') at the beginning followed by the 
-            required parameters.
+            contain a valid keyword ('lp', 'hp', 'bp', 'bs', 'remove') at the 
+            beginning followed by the required parameters.
             TODO: describe parameters for each keyword.
-        
-        auto: bool
-            True if filter method was invoked automatically.
+            
+        options: 
+            Necessary keyword arguments for the respective filter (e.g., 
+            ``freqmin=1.0``, ``freqmax=20.0`` for ``"bandpass"``) as well as
+            other filter options (e.g., ``onhold=True`` or ``auto=True``)
             
         Examples
         --------
@@ -785,77 +818,68 @@ class SeismicRefractionManager(MethodManager):
         >>> srm.filter('filter lp 120')
         """
         
-        if auto:
-            self._logger.auto('filter ' + options)
-        else:
-            self._logger.input('filter ' + options)
-        
+        # ~ params = self._parse_filter_params(type, options)
+        if not self._parse_filter_params(type, options): return
+
         if not self._check_processing_ready():
             return
             
         if not self._check_plotting_ready():
-            return
+            return        
         
-        params = self._parse_filter_params(options)
-        if params == 0: return
+        if 'auto' in options.keys():
+            auto = options['auto']
+        else: auto = False
         
-        if params[0] in ['bp','bs']:
+        if auto:
+            self._logger.auto('filter: %s ' % (type) + str(options))
+        else:
+            self._logger.input('filter: %s ' % (type) + str(options))
+        
+        if type in ['bp','bs']:
             # determine filter type
-            ft = 'bandpass' if params[0] == 'bp' \
+            ft = 'bandpass' if type == 'bp' \
                 else 'bandstop'
                 
-            # get min and max frequency
-            freqs = np.array([float(params[1]), float(params[2])])
-            freqmin = np.min(freqs)
-            freqmax = np.max(freqs)
+            # ~ # get min and max frequency
+            # ~ freqs = np.array([float(params[1]), float(params[2])])
+            # ~ freqmin = np.min(freqs)
+            # ~ freqmax = np.max(freqs)
             
             # apply filter
             if self._pst != None:
                 self._st = self._pst.copy()
             self._st.filter(ft,
-                            freqmin = freqmin,
-                            freqmax = freqmax,
+                            freqmin = options['freqmin'],
+                            freqmax = options['freqmax'],
                             corners = 2,
                             zerophase = True)
-            self._filtered = ' '.join(params).upper()
+            # ~ self._filtered = ' '.join(params).upper()
+            self._filtered = ft.upper() + ' %.1f %.1f' % (options['freqmin'],
+                                                          options['freqmax'])
             logmsg = 'Applied %s filter (%.1f to %.1f Hz)' % \
-                (ft, freqmin, freqmax)
+                (ft, options['freqmin'], options['freqmax'])
             
-        elif params[0] in ['hp','lp']:
+        elif type in ['hp','lp']:
             # determine filter type
-            ft = 'highpass' if params[0] == 'hp' \
+            ft = 'highpass' if type == 'hp' \
                 else 'lowpass'
                 
-            # get min and max frequency
-            freq = float(params[1])
+            # ~ # get min and max frequency
+            # ~ freq = float(params[1])
             
             # apply filter
             if self._pst != None:
                 self._st = self._pst.copy()
             self._st.filter(ft,
-                            freq = freq,
+                            freq = options['freq'],
                             corners = 2,
                             zerophase = True)
-            self._filtered = " ".join(params).upper()
-            logmsg = 'Applied %.1f Hz %s filter' % (freq, ft)
+            # ~ self._filtered = " ".join(params).upper()
+            self._filtered = ft.upper() + ' %.1f' % (options['freq'])
+            logmsg = 'Applied %.1f Hz %s filter' % (options['freq'], ft)
             
-        elif params[0] == 'hold':
-            if self._filtered != "":
-                if params[1] == 'on':
-                    self._filterhold = True
-                elif params[1] == 'off':
-                    self._filterhold = False
-                else:
-                    self._logger.error('Unknown filter option \'%s\'' % 
-                        (params[1]))
-                    return
-                logmsg = 'Set filter hold %s' % (params[1])
-                
-            else:
-                self._logger.error('No filter parameters provided')
-                return
-            
-        elif params[0] == 'remove':
+        elif type == 'remove':
             if self._filtered != '':
                 self._st = self._pst.copy()
                 self._filtered = ''
@@ -863,20 +887,34 @@ class SeismicRefractionManager(MethodManager):
                 logmsg = 'Filter settings removed'
             else:
                 logmsg = 'No filter settings to remove'
-                    
-        elif params[0] == '3pf':
-            if self._pst != None:
-                self._st = self._pst.copy()
-            for tr in self._st:
-                tr.data = threepointfilter(tr.data, int(params[1]))
-            self._filtered = " ".join(params).upper()
-            logmsg = '3-point filter recursively applied' \
-                     ' %d times' % (int(params[1]))
-            
+        
         if auto: 
             self._logger.autoinfo(logmsg)
         else:
             self._logger.info(logmsg)
+                    
+        # ~ elif params[0] == '3pf':
+            # ~ if self._pst != None:
+                # ~ self._st = self._pst.copy()
+            # ~ for tr in self._st:
+                # ~ tr.data = threepointfilter(tr.data, int(params[1]))
+            # ~ self._filtered = " ".join(params).upper()
+            # ~ logmsg = '3-point filter recursively applied' \
+                     # ~ ' %d times' % (int(params[1]))
+                     
+        if 'onhold' in options.keys():
+            if self._filtered != "":
+                
+                if isinstance(options['onhold'], bool):
+                    self._filterhold = options['onhold']
+                else:
+                    self._logger.error(
+                        'Value for filter hold must be of type bool')
+
+                logmsg = 'Set filter hold %s' % (
+                    'on' if self._filterhold else 'off')
+                    
+                self._logger.info(logmsg)
             
         if self._ax is not None:
             self._ax.cla()
@@ -1341,77 +1379,92 @@ class SeismicRefractionManager(MethodManager):
         if self._selected != "":
             self.select(self._selected.lower(), auto=True)
 
-    def _parse_pickset_params(self, options):
+    def _parse_pickset_params(self, do, options):
         """Check the basic validity of the picksets parameters and return them
         as numpy array.
         
         Parameters
         ----------
-        options: str, default ''
-            Options for accessing the picksets.
+        do: str
+            Parameters used for working with picksets. The string has to
+            contain a valid keyword ('create', 'load', 'unload', 'rename',
+            'use', 'copy', 'rename','export', 'import')
+        options: 
+            Necessary keyword arguments for the respective pickset method.
         
         Returns
         -------
-        params: numpy array
-            Parameters for further processing.
+        state: bool
+            ``True`` if the sanity check was successful, ``False`` otherwise.
         """
             
-        if not isinstance(options, str):
+        if not isinstance(do, str):
             self._logger.error('Parameter of datatype str expected')
-            return []
+            return 0
             
-        if options == "":
-            return np.array([""])
+        if do != "":
+            if 'name' not in options.keys():
+                self._logger.error('No pickset name(s) provided')
+                return 0
+            
+        # ~ if options == "":
+            # ~ return np.array([""])
         
-        options = options.lower().rstrip()    
-        params = options.split(" ")
+        # ~ options = options.lower().rstrip()    
+        # ~ params = options.split(" ")
         
-        if params[0] not in PICKSET_KEYWORDS:
+        if do not in PICKSET_KEYWORDS:
             self._logger.error('Invalid keyword given')
-            return []
+            return 0
             
-        return params
+        return 1
 
-    def picksets(self, options=""):
+    def picksets(self, do='', **options):
         """Work with and manipulate picksets.
         
         Parameters:
-        options: str
+        -----------
+        do: str
             Parameters used for working with picksets. The string has to
             contain a valid keyword ('create', 'load', 'unload', 'rename',
-            'use', 'copy', 'rename','export', 'import') at the beginning
-            followed by the required parameters.
+            'use', 'copy', 'rename','export', 'import')
+        options: 
+            Necessary keyword arguments for the respective pickset method.
             TODO: describe parameters for each keyword.
         """
         
-        self._logger.input('picksets ' + options)
+        self._logger.input('picksets : %s ' % (do) + str(options))
         
         if not self._check_processing_ready():
             return
-            
-        params = self._parse_pickset_params(options)
-        if len(params) == 0: return 
         
-        if params[0] == "":
+        if do == "":
             self._print_picksets_info()
-        elif params[0] == 'load':
-            self._load_pickset(params[1::])
-        elif params[0] == 'create':
-            self._create_pickset(params[1::])
-        elif params[0] == 'unload':
-            self._unload_pickset(params[1::])
-        elif params[0] == 'delete':
-            self._delete_pickset(params[1::])
-        elif params[0] == 'copy':
-            self._copy_pickset(params[1::])
-        elif params[0] == 'rename':
-            self._rename_pickset(params[1::])
-        elif params[0] == 'use':
-            self._activate_pickset(params[1::])
-        elif params[0] == 'export':
-            self._export_pickset(params[1::])
-        elif params[0] == 'import':
-            self._import_pickset(params[1::])
+            return
+        
+        # ~ params = self._parse_pickset_params(do, options)
+        if not self._parse_pickset_params(do, options): return 
+
+        if do== 'load':
+            # ~ self._load_pickset(params[1::])
+            self._load_pickset(options['name'].split(' '))
+        elif do == 'create':
+            self._create_pickset(options['name'].split(' '))
+        elif do == 'unload':
+            self._unload_pickset(options['name'].split(' '))
+        elif do == 'delete':
+            self._delete_pickset(options['name'].split(' '))
+        elif do == 'copy':
+            self._copy_pickset(options['name'].split(' '))
+        elif do == 'rename':
+            self._rename_pickset(options['name'].split(' '))
+        elif do == 'use':
+            print(options['name'].split(' '))
+            self._activate_pickset(options['name'].split(' '))
+        elif do == 'export':
+            self._export_pickset(options['name'].split(' '))
+        elif do == 'import':
+            self._import_pickset(options['name'].split(' '))
 
     def _plot_pickpercentage(self, **kwargs):
         """Plot the picking progress in the active pickset.
@@ -2615,13 +2668,13 @@ class SeismicRefractionManager(MethodManager):
         
         self._plot_seismograms()
 
-    def _parse_plot_params(self, options):
+    def _parse_plot_params(self, type):
         """Check the basic validity of the plot parameters and return them
         as numpy array.
         
         Parameters
         ----------
-        options: str, default ''
+        type: str, default ''
             Options for plotting.
         
         Returns
@@ -2630,15 +2683,15 @@ class SeismicRefractionManager(MethodManager):
             Parameter deciding which plot method to use.
         """
         
-        if not isinstance(options, str):
+        if not isinstance(type, str):
             self._looger.error('Parameter of datatype str expected')
             return 0
             
-        if options == "":
+        if type == "":
             return ""
             
-        option = options.lower().rstrip()
-        params = options.split(" ")
+        option = type.lower().rstrip()
+        params = type.split(" ")
         
         if len(params) > 1:
             self._logger.critical('More than one plot option provided')
@@ -2650,12 +2703,12 @@ class SeismicRefractionManager(MethodManager):
         
         return params[0]
 
-    def plot(self, options='', **kwargs):
+    def plot(self, type='', **kwargs):
         """Plot different visualizations of the data.
         
         Parameters
         ----------
-        options: str
+        type: str
             Parameters defining which visualization to plot. An empty string
             ('') will plot the currently selected traces. Other valid keywords
             are 'traveltimes', 'pseudosection', 'pickperc', 'spectrum'.
@@ -2665,9 +2718,9 @@ class SeismicRefractionManager(MethodManager):
             the matplotlib, e.g., 'fontsize', 'color' etc.
         """
         
-        self._logger.input('plot ' + options)
+        self._logger.input('plot ' + type)
 
-        param = self._parse_plot_params(options)
+        param = self._parse_plot_params(type)
         if param == 0: return
         
         # set matplotlib keywords
@@ -2804,14 +2857,17 @@ class SeismicRefractionManager(MethodManager):
         self._st.sort(['channel'])
         self._xlabel = 'SIN'
 
-    def _parse_select_condition(self, condition):
+    def _parse_select_condition(self, by, num):
         """Check the basic validity of the select condition and return 
         the parameters as numpy array.
         
         Parameters
         ----------
-        condition: str
+        by: str
             Condition for trace selection.
+        
+        num: int/float
+            Numerical value to select.
             
         Returns
         -------
@@ -2820,45 +2876,52 @@ class SeismicRefractionManager(MethodManager):
         """
         
         # check the data type
-        if isinstance(condition, str):
-            condition = condition.lower().rstrip()
-            params = condition.split(" ")
+        if isinstance(by, str):
+            by = by.lower().rstrip()
         else:
-            self._logger.error('Parameter of datatype str expected')
+            self._logger.error('Select \'by\' of datatype str expected')
             return 0
             
-        # check the number of arguments
-        if len(params) != 2:
-            self._logger.error('Insufficient number of parameters')
+        if not (isinstance(num, int) or isinstance(num, float)):
+            self._logger.error('Select \'num\' of datatype int/float expected')
             return 0
+            
+        # ~ # check the number of arguments
+        # ~ if len(params) != 2:
+            # ~ self._logger.error('Insufficient number of parameters')
+            # ~ return 0
         
         # check if valid keyword is provided
-        if params[0] not in SELECT_KEYWORDS:
+        if by not in SELECT_KEYWORDS:
             self._logger.error('Invalid keyword given')
             return 0
         
-        # check if second parameter is a numerical value
-        try:
-            float(params[1])
-        except ValueError:
-            self._logger.error('Second parameter needs to be a ' \
-                'numerical value')
-            return 0
+        # ~ # check if second parameter is a numerical value
+        # ~ try:
+            # ~ float(params[1])
+        # ~ except ValueError:
+            # ~ self._logger.error('Second parameter needs to be a ' \
+                # ~ 'numerical value')
+            # ~ return 0
         
-        return params
+        # ~ return params
+        return (by, num)
 
-    def select(self, condition, auto=False):
+    def select(self, by, num, auto=False):
         """Select traces based and make the data accessible for 
         filtering and picking.
         
         Parameters
         ----------
-        condition: str
+        by: str
             Condition for trace selection. The string has to contain
-            'sin', 'rin' or 'aoffset' followed by a numerical value.
+            'sin', 'rin' or 'aoffset'.
             'sin', 'rin', 'aoffset' refer to the shot index number
             (SIN), the receiver index number (RIN) and the absolute
             offset, respectively.
+            
+        num: int/float
+            Numerical value to select.
             
         auto: bool
             True if select method was invoked automatically.
@@ -2867,18 +2930,18 @@ class SeismicRefractionManager(MethodManager):
         --------
         >>> from useis import SeismicRefractionManager
         >>> srm = SeismicRefractionManager(<project_directory>)
-        >>> srm.select('sin 3')
+        >>> srm.select(by='sin', num=3)
             
         """
         
+        params = self._parse_select_condition(by, num)
+        if not params: return
         if auto:
-            self._logger.auto('select ' + condition)
+            self._logger.auto('select ' + by + ' %.1f' % (num))
         else:
-            self._logger.input('select ' + condition)
+            self._logger.input('select ' + by + ' %.1f' % (num))
         if not self._check_processing_ready():
             return
-        params = self._parse_select_condition(condition)
-        if params == 0: return
         
         self._actssns = np.array([])
         self._actrsns = np.array([])
@@ -2905,7 +2968,7 @@ class SeismicRefractionManager(MethodManager):
         self._title = ''
         self._mode = ''
         self._cos = False
-        self._selected = ' '.join(params).upper()
+        self._selected = by.upper() + ' %.1f' % (num)
         if self._procmode == PROC_MODES.inactive:
             self._procmode = PROC_MODES.pick
         
@@ -2918,4 +2981,4 @@ class SeismicRefractionManager(MethodManager):
             if self._filterhold and self._filtered != '':
                 self.filter(self._filtered.lower(), auto=True)
             else:
-                self.filter('remove', auto=True)
+                self.filter(type='remove', auto=True)

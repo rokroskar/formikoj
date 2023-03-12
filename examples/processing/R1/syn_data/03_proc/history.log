@@ -239,3 +239,256 @@
 2023/03/07 20:34:09 INFO     48 traces selected
 2023/03/07 20:34:09 AUTO     filter lp 200
 2023/03/07 20:34:09 INFO     Applied 200.0 Hz lowpass filter
+2023/03/12 12:24:06 INFO     Project information loaded
+2023/03/12 12:24:08 INFO     Read 47 files
+2023/03/12 12:24:08 INFO     Pickset 'picks' loaded
+2023/03/12 12:24:08 INFO     'picks' set as active pickset
+2023/03/12 12:24:19 INPUT    select sin 3.0
+2023/03/12 12:24:42 INFO     Project information loaded
+2023/03/12 12:24:44 INFO     Read 47 files
+2023/03/12 12:24:44 INFO     Pickset 'picks' loaded
+2023/03/12 12:24:44 INFO     'picks' set as active pickset
+2023/03/12 12:24:46 INPUT    select sin 3.0
+2023/03/12 12:24:46 INFO     48 traces selected
+2023/03/12 12:25:38 INFO     Project information loaded
+2023/03/12 12:25:40 INFO     Read 47 files
+2023/03/12 12:25:40 INFO     Pickset 'picks' loaded
+2023/03/12 12:25:40 INFO     'picks' set as active pickset
+2023/03/12 12:25:43 INPUT    select sin 3.0
+2023/03/12 12:25:43 INFO     48 traces selected
+2023/03/12 12:25:43 AUTO     filter remove
+2023/03/12 12:25:43 INFO     No filter settings to remove
+2023/03/12 12:28:31 INFO     Project information loaded
+2023/03/12 12:28:32 INFO     Read 47 files
+2023/03/12 12:28:32 INFO     Pickset 'picks' loaded
+2023/03/12 12:28:32 INFO     'picks' set as active pickset
+2023/03/12 12:28:34 ERROR    Select 'num' of datatype int/float expected
+2023/03/12 12:29:41 INFO     Project information loaded
+2023/03/12 12:29:43 INFO     Read 47 files
+2023/03/12 12:29:43 INFO     Pickset 'picks' loaded
+2023/03/12 12:29:43 INFO     'picks' set as active pickset
+2023/03/12 12:29:45 ERROR    Select 'num' of datatype int/float expected
+2023/03/12 12:29:51 ERROR    Select 'by' of datatype str expected
+2023/03/12 12:30:01 INPUT    select sin 3.0
+2023/03/12 12:30:01 INFO     48 traces selected
+2023/03/12 12:30:01 AUTO     filter remove
+2023/03/12 12:30:01 INFO     No filter settings to remove
+2023/03/12 12:32:08 INFO     Project information loaded
+2023/03/12 12:32:10 INFO     Read 47 files
+2023/03/12 12:32:10 INFO     Pickset 'picks' loaded
+2023/03/12 12:32:10 INFO     'picks' set as active pickset
+2023/03/12 12:32:11 INPUT    select sin 3.0
+2023/03/12 12:32:11 INFO     48 traces selected
+2023/03/12 12:32:11 AUTO     filter remove
+2023/03/12 12:32:11 INFO     No filter settings to remove
+2023/03/12 12:32:15 INPUT    plot 
+2023/03/12 12:32:35 INFO     Project information loaded
+2023/03/12 12:32:37 INFO     Read 47 files
+2023/03/12 12:32:37 INFO     Pickset 'picks' loaded
+2023/03/12 12:32:37 INFO     'picks' set as active pickset
+2023/03/12 12:32:40 INPUT    select sin 3.0
+2023/03/12 12:32:40 INFO     48 traces selected
+2023/03/12 12:32:40 AUTO     filter remove
+2023/03/12 12:32:40 INFO     No filter settings to remove
+2023/03/12 12:32:46 INPUT    plot 
+2023/03/12 12:33:09 INPUT    plot traveltimes
+2023/03/12 12:34:36 INFO     Project information loaded
+2023/03/12 12:34:38 INFO     Read 47 files
+2023/03/12 12:34:38 INFO     Pickset 'picks' loaded
+2023/03/12 12:34:38 INFO     'picks' set as active pickset
+2023/03/12 12:34:39 INPUT    select sin 3.0
+2023/03/12 12:34:39 INFO     48 traces selected
+2023/03/12 12:34:54 INFO     Project information loaded
+2023/03/12 12:34:56 INFO     Read 47 files
+2023/03/12 12:34:56 INFO     Pickset 'picks' loaded
+2023/03/12 12:34:56 INFO     'picks' set as active pickset
+2023/03/12 12:34:57 INPUT    select sin 3.0
+2023/03/12 12:34:57 INFO     48 traces selected
+2023/03/12 12:35:17 INFO     Project information loaded
+2023/03/12 12:35:19 INFO     Read 47 files
+2023/03/12 12:35:19 INFO     Pickset 'picks' loaded
+2023/03/12 12:35:19 INFO     'picks' set as active pickset
+2023/03/12 12:35:20 INPUT    select sin 3.0
+2023/03/12 12:35:20 INFO     48 traces selected
+2023/03/12 12:35:20 AUTO     filter remove
+2023/03/12 12:35:20 INFO     No filter settings to remove
+2023/03/12 12:35:23 INPUT    plot 
+2023/03/12 12:47:08 INFO     Project information loaded
+2023/03/12 12:47:10 INFO     Read 47 files
+2023/03/12 12:47:10 INFO     Pickset 'picks' loaded
+2023/03/12 12:47:10 INFO     'picks' set as active pickset
+2023/03/12 12:47:11 INPUT    select sin 3.0
+2023/03/12 12:47:11 INFO     48 traces selected
+2023/03/12 12:55:30 INFO     Project information loaded
+2023/03/12 12:55:31 INFO     Read 47 files
+2023/03/12 12:55:31 INFO     Pickset 'picks' loaded
+2023/03/12 12:55:31 INFO     'picks' set as active pickset
+2023/03/12 12:55:33 INPUT    select sin 3.0
+2023/03/12 12:55:33 INFO     48 traces selected
+2023/03/12 13:00:17 INFO     Project information loaded
+2023/03/12 13:00:19 INFO     Read 47 files
+2023/03/12 13:00:19 INFO     Pickset 'picks' loaded
+2023/03/12 13:00:19 INFO     'picks' set as active pickset
+2023/03/12 13:00:20 INPUT    select sin 3.0
+2023/03/12 13:00:20 INFO     48 traces selected
+2023/03/12 13:30:12 INFO     Project information loaded
+2023/03/12 13:30:14 INFO     Read 47 files
+2023/03/12 13:30:14 INFO     Pickset 'picks' loaded
+2023/03/12 13:30:14 INFO     'picks' set as active pickset
+2023/03/12 13:30:15 INPUT    select sin 3.0
+2023/03/12 13:30:15 INFO     48 traces selected
+2023/03/12 13:30:48 INFO     Project information loaded
+2023/03/12 13:30:50 INFO     Read 47 files
+2023/03/12 13:30:50 INFO     Pickset 'picks' loaded
+2023/03/12 13:30:50 INFO     'picks' set as active pickset
+2023/03/12 13:30:52 INPUT    select sin 3.0
+2023/03/12 13:30:52 INFO     48 traces selected
+2023/03/12 13:33:05 INFO     Project information loaded
+2023/03/12 13:33:07 INFO     Read 47 files
+2023/03/12 13:33:07 INFO     Pickset 'picks' loaded
+2023/03/12 13:33:07 INFO     'picks' set as active pickset
+2023/03/12 13:33:08 INPUT    select sin 3.0
+2023/03/12 13:33:08 INFO     48 traces selected
+2023/03/12 13:33:08 AUTO     filter: remove {'auto': True}
+2023/03/12 13:33:08 INFO     No filter settings to remove
+2023/03/12 13:33:12 ERROR    Invalid keyword given
+2023/03/12 13:33:40 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:34:19 INFO     Project information loaded
+2023/03/12 13:34:21 INFO     Read 47 files
+2023/03/12 13:34:21 INFO     Pickset 'picks' loaded
+2023/03/12 13:34:21 INFO     'picks' set as active pickset
+2023/03/12 13:34:22 INPUT    select sin 3.0
+2023/03/12 13:34:22 INFO     48 traces selected
+2023/03/12 13:34:22 AUTO     filter: remove {'auto': True}
+2023/03/12 13:34:22 INFO     No filter settings to remove
+2023/03/12 13:34:26 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:36:20 INFO     Project information loaded
+2023/03/12 13:36:22 INFO     Read 47 files
+2023/03/12 13:36:22 INFO     Pickset 'picks' loaded
+2023/03/12 13:36:22 INFO     'picks' set as active pickset
+2023/03/12 13:36:24 INPUT    select sin 3.0
+2023/03/12 13:36:24 INFO     48 traces selected
+2023/03/12 13:36:24 AUTO     filter: remove {'auto': True}
+2023/03/12 13:36:24 INFO     No filter settings to remove
+2023/03/12 13:36:27 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:36:27 INFO     Applied bandpass filter (10.0 to 120.0 Hz)
+2023/03/12 13:36:45 INFO     Project information loaded
+2023/03/12 13:36:47 INFO     Read 47 files
+2023/03/12 13:36:47 INFO     Pickset 'picks' loaded
+2023/03/12 13:36:47 INFO     'picks' set as active pickset
+2023/03/12 13:36:48 INPUT    select sin 3.0
+2023/03/12 13:36:48 INFO     48 traces selected
+2023/03/12 13:36:48 AUTO     filter: remove {'auto': True}
+2023/03/12 13:36:48 INFO     No filter settings to remove
+2023/03/12 13:36:52 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:36:52 INFO     Applied bandpass filter (10.0 to 120.0 Hz)
+2023/03/12 13:36:52 INFO     Set filter hold on
+2023/03/12 13:36:57 INPUT    plot 
+2023/03/12 13:37:09 ERROR    No filter criteria provided
+2023/03/12 13:38:26 INFO     Project information loaded
+2023/03/12 13:38:28 INFO     Read 47 files
+2023/03/12 13:38:28 INFO     Pickset 'picks' loaded
+2023/03/12 13:38:28 INFO     'picks' set as active pickset
+2023/03/12 13:38:30 INPUT    select sin 3.0
+2023/03/12 13:38:30 INFO     48 traces selected
+2023/03/12 13:38:30 AUTO     filter: remove {'auto': True}
+2023/03/12 13:38:30 INFO     No filter settings to remove
+2023/03/12 13:38:33 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:38:33 INFO     Applied bandpass filter (10.0 to 120.0 Hz)
+2023/03/12 13:38:33 INFO     Set filter hold on
+2023/03/12 13:38:36 INPUT    filter: remove {}
+2023/03/12 13:38:36 INFO     Filter settings removed
+2023/03/12 13:38:43 INPUT    plot 
+2023/03/12 13:38:47 INPUT    filter: bp {'freqmin': 10, 'freqmax': 120, 'onhold': True}
+2023/03/12 13:38:47 INFO     Applied bandpass filter (10.0 to 120.0 Hz)
+2023/03/12 13:38:47 INFO     Set filter hold on
+2023/03/12 13:38:51 INPUT    filter: remove {}
+2023/03/12 13:38:51 INFO     Filter settings removed
+2023/03/12 13:39:05 ERROR    Insufficient filter parameters provided
+2023/03/12 14:03:26 INFO     Project information loaded
+2023/03/12 14:03:28 INFO     Read 47 files
+2023/03/12 14:03:28 INFO     Pickset 'picks' loaded
+2023/03/12 14:03:28 INFO     'picks' set as active pickset
+2023/03/12 14:03:51 INPUT    compute: autopicking {'pick': 'cur', 'pickset': 'test'}
+2023/03/12 14:04:43 INFO     Project information loaded
+2023/03/12 14:04:45 INFO     Read 47 files
+2023/03/12 14:04:45 INFO     Pickset 'picks' loaded
+2023/03/12 14:04:45 INFO     'picks' set as active pickset
+2023/03/12 14:04:47 INPUT    compute: autopicking {'pick': 'cur', 'pickset': 'test'}
+2023/03/12 14:04:47 ERROR    Invalid keyword given
+2023/03/12 14:05:21 INFO     Project information loaded
+2023/03/12 14:05:23 INFO     Read 47 files
+2023/03/12 14:05:23 INFO     Pickset 'picks' loaded
+2023/03/12 14:05:23 INFO     'picks' set as active pickset
+2023/03/12 14:05:25 INPUT    compute: autopicking {'pick': 'cur', 'pickset': 'test'}
+2023/03/12 14:05:25 INFO     Created new pickset 'test'
+2023/03/12 14:05:25 INFO     Pickset 'test' loaded
+2023/03/12 14:05:25 INFO     'test' set as active pickset
+2023/03/12 14:05:25 ERROR    No data selected
+2023/03/12 14:05:47 INPUT    compute: autopicking {'pick': 'all', 'pickset': 'test'}
+2023/03/12 14:05:47 INFO     'test' set as active pickset
+2023/03/12 14:20:19 INFO     Project information loaded
+2023/03/12 14:20:21 INFO     Read 47 files
+2023/03/12 14:20:21 INFO     Pickset 'picks' loaded
+2023/03/12 14:20:21 INFO     'picks' set as active pickset
+2023/03/12 14:21:15 INFO     Project information loaded
+2023/03/12 14:21:17 INFO     Read 47 files
+2023/03/12 14:21:17 INFO     Pickset 'picks' loaded
+2023/03/12 14:21:17 INFO     'picks' set as active pickset
+2023/03/12 14:21:20 INPUT    picksets :  {}
+2023/03/12 14:21:20 ERROR    Parameter of datatype str expected
+2023/03/12 14:21:43 INFO     Project information loaded
+2023/03/12 14:21:45 INFO     Read 47 files
+2023/03/12 14:21:45 INFO     Pickset 'picks' loaded
+2023/03/12 14:21:45 INFO     'picks' set as active pickset
+2023/03/12 14:21:48 INPUT    picksets :  {}
+2023/03/12 14:29:27 INFO     Project information loaded
+2023/03/12 14:29:29 INFO     Read 47 files
+2023/03/12 14:29:29 INFO     Pickset 'picks' loaded
+2023/03/12 14:29:29 INFO     'picks' set as active pickset
+2023/03/12 14:29:39 INPUT    picksets :  {}
+2023/03/12 14:30:03 INPUT    picksets : use {'name': 'pick test'}
+2023/03/12 14:31:10 INFO     Project information loaded
+2023/03/12 14:31:12 INFO     Read 47 files
+2023/03/12 14:31:12 INFO     Pickset 'picks' loaded
+2023/03/12 14:31:12 INFO     'picks' set as active pickset
+2023/03/12 14:31:16 INPUT    picksets : use {'name': 'pick test'}
+2023/03/12 14:31:16 ERROR    Parameter of datatype str expected
+2023/03/12 14:31:40 INFO     Project information loaded
+2023/03/12 14:31:42 INFO     Read 47 files
+2023/03/12 14:31:42 INFO     Pickset 'picks' loaded
+2023/03/12 14:31:42 INFO     'picks' set as active pickset
+2023/03/12 14:31:45 INPUT    picksets : use {'name': 'pick test'}
+2023/03/12 14:31:45 ERROR    Insufficient number of arguments
+2023/03/12 14:32:22 INPUT    picksets : use {'name': 'pick'}
+2023/03/12 14:32:22 ERROR    Insufficient number of arguments
+2023/03/12 14:32:55 INFO     Project information loaded
+2023/03/12 14:32:57 INFO     Read 47 files
+2023/03/12 14:32:57 INFO     Pickset 'picks' loaded
+2023/03/12 14:32:57 INFO     'picks' set as active pickset
+2023/03/12 14:32:59 INPUT    picksets : use {'name': 'pick'}
+2023/03/12 14:32:59 ERROR    Insufficient number of arguments
+2023/03/12 14:34:34 INFO     Project information loaded
+2023/03/12 14:34:36 INFO     Read 47 files
+2023/03/12 14:34:36 INFO     Pickset 'picks' loaded
+2023/03/12 14:34:36 INFO     'picks' set as active pickset
+2023/03/12 14:34:38 INPUT    picksets : use {'name': 'pick'}
+2023/03/12 14:34:38 ERROR    Insufficient number of arguments
+2023/03/12 14:35:04 INFO     Project information loaded
+2023/03/12 14:35:06 INFO     Read 47 files
+2023/03/12 14:35:06 INFO     Pickset 'picks' loaded
+2023/03/12 14:35:06 INFO     'picks' set as active pickset
+2023/03/12 14:35:07 INPUT    picksets : use {'name': 'pick'}
+2023/03/12 14:35:07 ERROR    Insufficient number of arguments
+2023/03/12 14:36:42 INFO     Project information loaded
+2023/03/12 14:36:44 INFO     Read 47 files
+2023/03/12 14:36:44 INFO     Pickset 'picks' loaded
+2023/03/12 14:36:44 INFO     'picks' set as active pickset
+2023/03/12 14:36:45 INPUT    picksets : use {'name': 'pick'}
+2023/03/12 14:36:45 INFO     Pickset 'pick' loaded
+2023/03/12 14:36:45 INFO     'pick' set as active pickset
+2023/03/12 14:37:31 INPUT    picksets : copy {'name': 'pick new'}
+2023/03/12 14:37:31 INFO     Created new pickset 'new'
+2023/03/12 14:37:31 INFO     Pickset 'new' loaded
+2023/03/12 14:37:31 INFO     'new' set as active pickset
+2023/03/12 14:37:31 INFO     Copied pickset 'pick' to 'new'

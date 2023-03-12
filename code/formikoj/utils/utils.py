@@ -43,7 +43,7 @@ class nt_scrollmodes(NamedTuple):
     zoom: int = 0
     amplitude: int = 1
     
-COMPUTE_KEYWORDS = ["cos", "autopick", "geometry"]
+COMPUTE_KEYWORDS = ["cos", "autopicking", "geometry"]
 FILTER_KEYWORDS = ["lp", "hp", "bp", "bs", "3pf",
                    "hold", "remove"]
 PLOT_KEYWORDS = ["traveltimes", "pseudosection", "pickperc", "spectrum"]
