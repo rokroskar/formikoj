@@ -25,7 +25,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=.75\textwidth]{figures/synthetic_data_example.pdf}
-\caption{Synthetic seismic data generated with the \texttt{SeismicWaveformModeler}: \\(a) Two-layered subsurface model without topography characterized by a distinct anomaly in the center. Triangles along the surface indicate the positions of geophones. \\(b) Synthetic seismic waveform data computed from the subsurface model for a shot point (star-shaped symbol) located in the center of the profile. \\(c) Pseudosection illustrating the apparent velocity computed from the seismic travel times based on the survey geometry. \\(d) Subsurface model of the seismic P-wave velocity distribution obtained through the inversion of the synthetic P-wave travel times.}
+\caption{Synthetic seismic data generated with the \texttt{SeismicWaveformModeler}: \\(a) Two-layered subsurface model without topography characterized by a distinct anomaly in the center. Triangles along the surface indicate the positions of geophones. \\(b) Synthetic seismic waveform data computed from the subsurface model for a shot point (star-shaped symbol) located in the center of the profile. \\(c) Pseudosection illustrating the apparent velocity computed from the seismic traveltimes based on the survey geometry. \\(d) Subsurface model of the seismic P-wave velocity distribution obtained through the inversion of the synthetic P-wave traveltimes.}
 \label{fig:syndataexample}
 \end{figure}
 \efloatseparator
@@ -49,7 +49,7 @@
 \begin{figure}
 \centering
 \includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
-\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise, which can be omitted through the application of corresponding frequency filtering.}
+\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise allowing for the definition of corresponding frequency filter settings.}
 \label{fig:spectrum}
 \end{figure}
 \efloatseparator
@@ -121,6 +121,6 @@
 \begin{figure}
 \centering
 \includegraphics[width=.75\textwidth]{figures/inv_l100_ae0.0035.png}
-\caption{Subsurface model of the soda lake in terms of the seismic P-wave velocity sliced along the lines formed by the geophones. The solid curve indicates the shore line of the soda lake.}
+\caption{Subsurface model of the soda lake in terms of the seismic P-wave velocity. (a) 3D representation of orthogonal slices through the resolved subsurface model. (b) 2D representation of the NE--SW slice. (c) 2D representation of the NW--SE slice.}
 \label{fig:3dinvres}
 \end{figure}

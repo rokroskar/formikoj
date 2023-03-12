@@ -71,30 +71,32 @@
 \author[1]{Adrián {Flores Orozco}}[orcid=0000-0003-0905-3718] 
 \credit{Conceptualization of the library, preparation of the manuscript}
 
-\address[1]{Research Unit Geophysics, Department of Geodesy and Geoinformation, TU Wien}
+\address[1]{Research Unit of Geophysics, Department of Geodesy and Geoinformation, TU Wien}
 
 \begin{abstract}
 We introduce here the open-source library formikoj, which provides a flexible framework for managing and processing geophysical data collected in environmental and engineering investigations. To account for the substantial changes regarding the market shares of operating systems within the last two decades, the library is specifically implemented and tested for cross-plattform usage.
-We illustrate the applicability of the formikoj library to forward-model seismic refraction waveform data with the \texttt{SeismicWaveformModeler} based on a custom subsurface model and survey geometry. 
-Moreover, we present two case studies from seismic refraction tomography field measurements to exemplify the wide range of possibilities provided by the formikoj library for the processing of real data. In particular, we explore different visualization of the seismic traveltime readings to enhance their consistency prior to the inversion. 
-The low-level access provided by our library aims at giving the users the possibility to implement particular modeling, visualization and processing tools specifically designed for their objectives or other geophysical methods.
+We illustrate the applicability of the formikoj library for the forward modeling of seismic refraction waveform data with the \texttt{SeismicWaveformModeler} based on a custom subsurface model and survey geometry. We use these synthetic seismic data set to demonstrate the fundamental seismic refraction processing capabilities of the \texttt{SeismicRefractionManager}; thus, illustrating the ability to combine modeling and processing tasks in a single workflow.
+Based on a 3D field dataset we present the available range of possibilities provided by the formikoj library for the processing of seismic refraction survey data. In particular, we explore different visualization techniques of the seismic traveltime readings to enhance their consistency prior to the inversion with the third-party library pyGIMLi. 
+The low-level access provided by the formikoj library aims at enabling users to implement novel modeling, visualization and processing tools specifically designed for their objectives as well as other geophysical methods.
 \end{abstract}
  
 \begin{coverletter}
 
-Dear Editors-in-Chief,
-\newline
- 
-we are submitting our manuscript "formikoj: A flexible library for data management and processing in geophysics - Application for seismic refraction data", which we consider is a suitable contribution for Computers \& Geosciences. We confirm that the submission follows all the requirements and includes all the items of the submission checklist.  
-\newline
- 
-The manuscript presents the open-source python library formikoj for managing and processing geophysical data collected in environmental and engineering investigations. formikoj was specifically implemented for multi-platform usage to allow the efficient collaboration and exchange of data between different partners in research projects and academia. In this regard, we believe that this library aids in providing reproducible data and results as well as establishing and maintaining good research practices. Accordingly, we consider this manuscript relevant to the audience of Computers \& Geosciences, and in general for geoscientists and practitioners working with geophysical methods.
+Dear Editor-in-Chief, dear reviewers
 \newline
 
-We provide the source codes in a public repository with details listed in the section "Code availability".
+thank you very much for the positive evaluation of our manuscript as well as for providing numerous constructive comments and suggestions for improvement. In the revised version of our manuscript "formikoj: A flexible library for data management and processing in geophysics - Application for seismic refraction data", we have attempted to implement every suggestion and address all comments. 
+\newline
+ 
+In particular, we present theoretical details regarding the considered and implement methodologies, provide a self-contained synthetic study demonstrating the validity of the forward modeled seismic waveform data, and the fundamental processing capabilities of the proposed library for seismic refraction data. Moreover, we discuss a single field data application in order to provide a more concise demonstration of the library functionalities with regard to the processing of real seismic survey data.
+%The manuscript presents the open-source python library formikoj for managing and processing geophysical data collected in environmental and engineering investigations. formikoj was specifically implemented for multi-platform usage to allow the efficient collaboration and exchange of data between different partners in research projects and academia. In this regard, we believe that this library aids in providing reproducible data and results as well as establishing and maintaining good research practices.
+%We appreciate that the editor granted us the opportunity to resubmit an enhanced version of our manuscript as we consider that the revised manuscript provides an improved presentation of the formikoj library.
 \newline
 
-We look forward to your decision.
+Moreover, we modified the library according to the suggestions provided by the reviewers and provide the revised source codes in a public repository with details listed in the section "Code availability".
+\newline
+
+We hope that our revisions and replies alleviate the concerns of the reviewers and that you find our study suitable for publication in Computers \& Geosciences. We look forward to your decision.
 \newline
 
 Yours sincerely,
@@ -102,7 +104,7 @@ Yours sincerely,
 
 Matthias Steiner and Adrián Flores Orozco
 
-Research Unit Geophysics, Department of Geodesy and Geoinformation, TU Wien; matthias.steiner@geo.tuwien.ac.at
+Research Unit of Geophysics, Department of Geodesy and Geoinformation, TU Wien; matthias.steiner@geo.tuwien.ac.at
 \newline
 
 \end{coverletter}
@@ -130,10 +132,10 @@ geophysical data processing \sep seismic refraction \sep first break picking \se
 
 The acquisition of spatially quasi-continuous data in a non-invasive manner renders geophysical methods suitable for engineering and environmental investigations \citep[e.g.,][]{parsekian2015, nguyen2018, romero2019}.
 %Several studies have demonstrated the successful application of geophysical methods, for instance, to evaluate groundwater remediation techniques \citep[e.g.,][]{floresorozco2015}, as well as for the investigation of landfills \citep[e.g.,][]{nguyen2018, steiner2022}, soil structure \citep[e.g.,][]{romero2019}, or the critical zone \citep[e.g.,][]{parsekian2015}. 
-However, the processing of geophysical data often relies on commercial software solutions and the associated licensing costs might render their use prohibitively expensive, which might be the case for academic projects or institutions.
-The most popular packages are Res2DInv\footnote{https://www.geometrics.com/software/res2dinv/, last accessed on \today} for electrical methods, Halliburton Landmark SeisSpace ProMAX\footnote{https://www.landmark.solutions/SeisSpace-ProMAX, last accessed on \today} or ParkSeis \footnote{https://www.parkseismic.com/parkseis/, last accessed on \today} for seismic methods, or ReflexW\footnote{https://www.sandmeier-geo.de/reflexw.html, last accessed on \today} for ground-penetrating radar and seismic methods.
+However, the processing of geophysical data often relies on commercial software solutions and the associated licensing costs might render their use prohibitively expensive, which might be the case for academic projects or institutions, and even for teaching in developing countries.
+%The most popular packages are Res2DInv\footnote{https://www.geometrics.com/software/res2dinv/, last accessed on \today} for electrical methods, Halliburton Landmark SeisSpace ProMAX\footnote{https://www.landmark.solutions/SeisSpace-ProMAX, last accessed on \today} or ParkSeis \footnote{https://www.parkseismic.com/parkseis/, last accessed on \today} for seismic methods, or ReflexW\footnote{https://www.sandmeier-geo.de/reflexw.html, last accessed on \today} for ground-penetrating radar and seismic methods.
 %, or the Zond\footnote{http://zond-geo.com/english/zond-software/, last accessed on \today} processing tools for various geophysical methods including seismic, gravimetric and electromagnetic data. 
-A common limitation of the aforementioned software solutions refers to their specific platform requirements mainly related to the type and version of the operating system; moreover, the possibility to adapt the code are limited if possible at all. Considering the substantial changes regarding the market shares of operating systems within the last two decades, platform-specific software packages are becoming particularly obstructive for academic research and teaching.
+A common limitation of existing software solutions refers to their specific platform requirements mainly related to the type and version of the operating system; moreover, the possibility to adapt the code are limited if possible at all. Considering the substantial changes regarding the market shares of operating systems within the last two decades, platform-specific software packages are becoming particularly obstructive for academic research and teaching.
 The increasing popularity of the Python programming language led to the development of various cross-platform open-source software packages for processing, modeling and inverting geophysical data. Available packages can focus on specific geophysical methods, for instance, ResIPy \citep{blanchy2020} for electrical data, GPRPy \citep{plattner2020} for ground-penetrating radar data, or ObsPy \citep{beyreuther2010} and Pyrocko \citep{heimann2017} for seismological data. Other packages provide frameworks for the inversion and permit the inclusion of forward models for different geophysical methods, e.g., SimPEG \citep{cockett2015}, Fatiando a Terra \citep{uieda2013} or pyGIMLi \citep{ruecker2017}. 
 
 The seismic refraction tomography (SRT) is a standard technique in environmental and engineering applications. Often applied together with other geophysical methods, the SRT is routinely used, e.g., in 
@@ -144,16 +146,14 @@ Accordingly, these seismic processing solutions may not be suited for small-scal
 ReflexW overcomes such limitations by providing processing tools specifically designed for near-surface investigations at substantially lower costs. In terms of licensing costs, 
 %the developers of 
 \citet{stockwell1999} went a step further by making the Seismic Unix framework available entirely free of charge; whereas \citet{guedes2022} recently presented RefraPy, a python processing tool for seismic refraction data. 
-Implemented in python, RefraPy is potentially suitable for cross-platform usage, yet 
-\citet{guedes2022} 
-developed and tested 
+Implemented in python, RefraPy is potentially suitable for cross-platform usage, yet \citet{guedes2022} developed and tested 
 %RefraPy 
-solely for Windows operating systems. Moreover, RefraPy does not offer the possibility to generate synthetic seismic waveform data, as required for survey design, as well as teaching and interpretation purposes.
+solely for Windows operating systems. Moreover, RefraPy does not offer the possibility to generate synthetic seismic waveform data, as required for survey design, as well as for teaching and interpretation purposes, testing of research hypotheses, evaluating the accuracy of different measurement configurations or inversion strategies.
 
 The formikoj library presented here is an open-source framework for creating synthetic datasets, as well as for managing and processing numerical and field data independently from the operating system and without licensing costs; thus, overcoming limitations associated to existing solutions. The design of the library follows the multi-method concept of pyGIMLi and SimPEG, which allows for the implementation of custom designed tools for different geophysical methods. 
 The usage of transparent file formats, e.g., the unified data format (udf\footnote{http://resistivity.net/bert/data\_format.html, last accessed on \today}), and data management concepts (SQLite database) within the formikoj framework facilitates a simple data exchange between partners in research projects and academia, which is required to guarantee the repeatability of results and good research practices.
-Considering the diverse applications of the SR method we demonstrate the applicability of the proposed library based on tools implemented within the formikoj framework for the modeling and processing seismic waveform data. In particular, we present a carefully designed synthetic study highlighting the capabilities of the formikoj library for the modeling and processing of 2D seismic refraction datasets. Based on a 3D field dataset we illustrate that the formikoj library also allows for the processing of complex survey geometries, where the obtained first break traveltimes can be inverted with third party open-source libraries to solve for 3D subsurface models expressed in terms of the seismic P-wave velocity.
-%In particular, we present here a series of illustrative use cases based on the formikoj library referring to (i) the modeling of synthetic seismic refraction (SR) waveform data, (ii) the processing of a 2D SR field dataset collected with a roll-along survey geometry, and (iii) the processing of a 3D SR field data set. 
+Considering the diverse applications of the SRT method we demonstrate the applicability of the proposed library based on tools implemented within the formikoj framework for the modeling and processing seismic waveform data. In particular, we present a carefully designed synthetic study highlighting the capabilities of the formikoj library for the forward modeling and processing of 2D seismic refraction datasets. Based on a 3D field dataset we illustrate that the formikoj library also allows for the processing of complex survey geometries, where the obtained first break traveltimes can be inverted with third party open-source libraries to solve for 3D subsurface models expressed in terms of the seismic P-wave velocity.
+%In particular, we present here a series of illustrative use cases based on the formikoj library referring to (i) the modeling of synthetic seismic refraction (SR) waveform data, (ii) the processing of a 2D SR field dataset collected with a roll-along survey geometry, and (iii) the processing of a 3D SR field dataset. 
 
 \section{Design and structure of the \texttt{formikoj} library}
 
@@ -164,10 +164,9 @@ As illustrated in Figure~\ref{fig:scheme}, the formikoj library comprises a mode
 	\caption{Fundamental use case illustrating the modeling of seismic refraction data within the formikoj ecosystem.}
 	\label{fig:scheme}
 \end{figure}
+The formikoj library provides a well thought out data management concept based on the SQLite database engine that does not require a separate server process \footnote{https://www.sqlite.org/index.html, last accessed on \today}. In particular, the information for each project, such as survey geometry and first break traveltimes, are stored in a SQLite database file. Using such an application file format facilitates the cross-platform design of the formikoj library, and provides fast I/O operations through concise SQL queries. The portability of the application file allows for an easy exchange of projects between partners across institutions relying on different IT infrastructures. Accordingly, the formikoj library aims at providing a transparent and customizable framework for the collaborative design of reproducible workflows. The comprehensive usage of clear error and log messages aims at supporting the user throughout the modeling and processing workflows. A meticulous exception handling ensures that the data stored in the SQLite project database is not corrupted in case of erroneous input. Moreover, documenting the user input and the respective responses of the formikoj library with the python logging module provides a timestamped command history that further enhances the transparency and repeatability of the conducted workflows.
 
-The formikoj library provides a well thought out data management concept based on the SQLite database engine that does not require \footnote{https://www.sqlite.org/index.html, last accessed on \today}. In particular, the information for each (processing) project, such as survey geometry and first break travel times, are stored in a SQLite database file. Using this application file format facilitates the cross-platform design of the formikoj library, and provides fast I/O operations through concise SQL queries. The portability of the application file allows for an easy exchange of projects between partners across institutions with different IT infrastructures. Accordingly, the formikoj library aims at providing a transparent and customizable framework for the collaborative design of reproducible workflows.
-
-In this manuscript, we present the application of the formikoj library for the modeling and processing of seismic refraction data based on the fundamental use cases presented in Figure~\ref{fig:modworkflow} and \ref{fig:procworkflow}, respectively.
+We present the application of the formikoj library for the modeling and processing of seismic refraction data based on the fundamental use cases presented in Figure~\ref{fig:modworkflow} and Figure~\ref{fig:procworkflow}, respectively.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{figures/workflow_modeling-crop.pdf}
@@ -180,11 +179,14 @@ In this manuscript, we present the application of the formikoj library for the m
 	\caption{Typical formikoj workflow for the picking of first break traveltimes from seismic waveform data.}
 	\label{fig:procworkflow}
 \end{figure}
-These flow charts illustrate the corresponding workflows as well as the required interactions between the user, the formikoj library and third-party packages. As can be seen from Figures~\ref{fig:modworkflow} and \ref{fig:procworkflow}, the formikoj library acts as an interface between the user and more complex functionalities of third-party libraries, such as pyGIMLi for modeling and inversion of seismic refraction data.
-The \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} classes implement these fundamental use cases, yet their actual capabilities are continuously expanded, e.g., to address specific modeling or processing requirements as well as to enhance the user experience.
-Similar to RefraPy, these classes are built upon the functionalities of existing packages such as ObsPy for the processing of seismological data \citep[][]{beyreuther2010} and pyGIMLi for the modeling and inversion of different geophysical data \citep{ruecker2017}. Other important third party dependencies refer to NumPy \citep{harris2020} and Pandas \citep{mckinney2010} for general data handling, as well as matplotlib \citep{hunter2007} and PyVista \citep{sullivan2019} for data visualization. In the current version, we implemented and tested formikoj primarily on Linux machines, yet the library has been successfully tested and used on all major operating systems, i.e., Linux, MacOS and Windows.
+These flow charts illustrate the corresponding workflows as well as the required interactions between the user, the formikoj library and third-party packages. As can be seen from Figure~\ref{fig:modworkflow} and Figure~\ref{fig:procworkflow}, the formikoj library acts as an interface between the user and more complex functionalities of third-party libraries, such as pyGIMLi for modeling and inversion of seismic refraction data.
+The \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} classes implement these fundamental use cases, yet their actual capabilities are continuously expanded, e.g., to address specific modeling or processing requirements as well as to enhance the user experience. To avoid redundancies in the implementation we built these classes 
+%Similar to RefraPy, these classes are built 
+upon the functionalities of existing packages such as ObsPy for the processing of seismological data \citep[][]{beyreuther2010} and pyGIMLi for the modeling and inversion of different geophysical data \citep{ruecker2017}. Other important third party dependencies refer to NumPy \citep{harris2020} and Pandas \citep{mckinney2010} for general data handling, as well as matplotlib \citep{hunter2007} and PyVista \citep{sullivan2019} for data visualization.
 
-The comprehensive usage of clear error and log messages aims at supporting the user throughout the modeling and processing workflows. A meticulous exception handling ensures that the data stored in the SQLite project database is not corrupted in case of erroneous input. Moreover, documenting the user input and the respective responses of the formikoj library with the python logging module provides a timestamped command history that further enhances the transparency and repeatability of the conducted workflows. 
+The formikoj library is primarily developed on machines running Linux Mint \num{20} or Kubuntu \num{22}.\num{04}, respectively. Testing of the library refers to carrying out the fundamental use cases for modeling and processing of seismic refraction data presented in Figure~\ref{fig:modworkflow} and \ref{fig:procworkflow}. To ensure the cross-platform applicability of the formikoj library we test these fundamental use cases also on machines running on Windows \num{10}, Windows \num{11} as well as macOS versions \num{12} and \num{13}.
+%In the current version, we implemented and tested formikoj primarily on Linux machines, yet the library has been successfully tested and used on all major operating systems, i.e., Linux, MacOS and Windows.
+ 
 %\section{Exemplary use cases}
 
 \subsection{Generation of seismic waveform data for synthetic subsurface models}
@@ -192,7 +194,7 @@ The comprehensive usage of clear error and log messages aims at supporting the u
 
 The SR method exploits the ground motion recorded by sensors installed in the surface (e.g., geophones) to characterize the propagation of seismic waves generated at well known locations (i.e., shot stations). 
 The visualization of the ground motion as function of time yields a so-called seismogram for each geophone position.
-Accordingly, the \texttt{SeismicWaveformModeler} class provides a flexible way to generate synthetic seismic waveform data either in a python script, interactively in a jupyter notebook or an ipython shell.
+Accordingly, the \texttt{SeismicWaveformModeler} class provides a flexible way to generate synthetic seismic waveform data for P-wave refraction modeling either in a python script, interactively in a jupyter notebook or an ipython shell.
 To create an instance of the class the user provides the absolute or relative path to the working directory as parameter to the constructor:
 \begin{lstlisting}[language=Python]
 # Import the SeismicWaveformModeler from the formikoj library
@@ -268,16 +270,18 @@ traveltimes:
 \end{footnotesize}
 
 In this exemplary configuration, the first block (\texttt{wavelet}) contains the parameterization of the base wavelet, which controls the modeling of the seismic waveforms (see Table~\ref{tab:config}).
-The second block (\texttt{model}) contains information regarding the synthetic subsurface model. Here, the user can define simple models with all layers considered to be parallel to the surface topography, which is inferred from the station geometry provided in the measurement scheme. The seismic velocity values for the different model regions (\texttt{velmap}) and the corresponding thickness of the different layers (\texttt{layers}) have to be explicitly defined in the configuration file. The remaining parameters (\texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}) refer to the properties of the mesh that is eventually used for the forward modeling of the seismic waveform data and corresponding first break travel times (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
+The second block (\texttt{model}) contains information regarding the synthetic subsurface model. Here, the user can define simple models with all layers considered to be parallel to the surface topography, which is inferred from the station geometry provided in the measurement scheme. The seismic velocity values for the different model regions (\texttt{velmap}) and the corresponding thickness of the different geological units (\texttt{layers}) have to be explicitly defined in the configuration file. The remaining parameters (\texttt{quality}, \texttt{area}, \texttt{smooth} and \texttt{sec\_nodes}) refer to the properties of the mesh that is eventually used for the forward modeling of the seismic waveform data and corresponding first break traveltimes (we refer to the respective pyGIMLi resources\footnote{https://www.pygimli.org/pygimliapi/\_generated/pygimli.meshtools.html\#pygimli.meshtools.createMesh, last accessed \today} for further information).
 In the third block of the exemplary configuration file (\texttt{dataset}), the user can set specific names for the datasets to be created (the number of datasets is automatically determined), or set the number of datasets to be created and the dataset names are automatically generated with the prefix \textit{dataset\_}.
 The remaining parameters provided in the \texttt{dataset} block control the random error (\texttt{noise} and \texttt{noise\_level}) as well as systematic errors (\texttt{missing\_shots}, \texttt{broken\_geophones} and \texttt{wrong\_polarity}) in the modeled seismic waveform data (see Table~\ref{tab:config} for a detailed description).
 The number and position of the shot and geophone stations affected by the systematic errors are randomly chosen with a maximum of \qty{5}{\%} of the total number of stations in order to avoid a high number of invalid trace data.
-The parameters in the final block of the configuration file (\texttt{traveltimes}) the user defines values for the absolute error ($e_{abs}$) and the relative error ($e_{rel}$) considered for the forward modeling of the corresponding first break traveltimes (see Table~\ref{tab:config}). In particular, the error is estimated as
+The final block of the configuration file (\texttt{traveltimes}) contains data-error parameters for both the absolute error ($e_{abs}$) and the relative error ($e_{rel}$) defined by the user. The data error model is then estimated as
+
 \begin{equation}
 	\vecmat{e} = e_{abs} + \vecmat{d}\,e_{rel}\,, 
 	\label{eq:esterr}
 \end{equation}
-where $\vecmat{d}$ denotes the forward modeled data not affected by noise, i.e., here the first break travel times obtained through the Dijkstra algorithm \citep{dijkstra1959}. These computed error values are subsequently added to the data to obtain the noisy data as
+where $\vecmat{d}$ denotes the forward modeled data not affected by noise, i.e., here the first break traveltimes obtained through the Dijkstra algorithm \citep{dijkstra1959}. These computed error values are subsequently added to the data to obtain the noisy data as
+
 \begin{equation}
 	\vecmat{d_{noise}}=\vecmat{d}\left(1 + \vecmat{e}\right)\,.
 	\label{eq:noisydata}
@@ -388,7 +392,7 @@ INFO    : Wavelet created
 [++++++++++++++ 100% ++++++++++++++] 2048 of 2048 complete
       ...
 [++++++++++++++ 100% ++++++++++++++] 2048 of 2048 complete
-INFO    : Dataset 'syn_data' created
+INFO    : Dataset 'syn\_data' created
 \end{verbatim}
 \end{footnotesize}
 %\newline
@@ -398,10 +402,11 @@ As can be seen from the log messages, the \texttt{SeismicWaveformModeler} first 
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/synthetic_data_example.pdf}
-	\caption{Synthetic seismic data generated with the \texttt{SeismicWaveformModeler}: \\(a) Two-layered subsurface model without topography characterized by a distinct anomaly in the center. Triangles along the surface indicate the positions of geophones. \\(b) Synthetic seismic waveform data computed from the subsurface model for a shot point (star-shaped symbol) located in the center of the profile. \\(c) Pseudosection illustrating the apparent velocity computed from the seismic travel times based on the survey geometry. \\(d) Subsurface model of the seismic P-wave velocity distribution obtained through the inversion of the synthetic P-wave travel times.}
+	\caption{Synthetic seismic data generated with the \texttt{SeismicWaveformModeler}: \\(a) Two-layered subsurface model without topography characterized by a distinct anomaly in the center. Triangles along the surface indicate the positions of geophones. \\(b) Synthetic seismic waveform data computed from the subsurface model for a shot point (star-shaped symbol) located in the center of the profile. \\(c) Pseudosection illustrating the apparent velocity computed from the seismic traveltimes based on the survey geometry. \\(d) Subsurface model of the seismic P-wave velocity distribution obtained through the inversion of the synthetic P-wave traveltimes.}
 	\label{fig:syndataexample}
 \end{figure}
 The third step refers to the generation of a Ricker wavelet through the pyGIMLi function \texttt{ricker} as
+
 \begin{equation}
 	u = \left(1-2\pi^2f^2t^2\right)e^{-\pi^2f^2\left(t-t_0\right)^2}\,
 	\label{eq:ricker}
@@ -412,11 +417,13 @@ based on the wavelet properties provided in the configuration file. In Equation~
 %	\frac{\partial^2 u}{\partial t^2} = \nabla\cdot\nabla u
 %    \label{eq:solvepeq}
 %\end{equation}
-Subsequently, mesh, velocity model and Ricker wavelet are used to solve the pressure wave equation for each shot station defined in the measurement scheme with the pyGIMLi function \texttt{solvePressureWave}:
-\begin{equation}
-	\frac{\partial^2u}{\partial t^2}=\nabla\cdot\left(D\nabla c\right)
-\end{equation}
-The resultant seismograms are extracted at the corresponding geophone stations, gathered for each shot position in an obspy \texttt{Stream} object and saved in the output directory (\textit{out}) as shown here:
+Based on the mesh, the velocity model and the Ricker wavelet we use pyGIMLi 
+%function \texttt{solvePressureWave}
+to solve the pressure wave equation for each shot station defined in the measurement scheme.
+%\begin{equation}
+%	\frac{\partial^2u}{\partial t^2}=\nabla\cdot\left(D\nabla c\right)
+%\end{equation}
+The resultant seismograms are extracted at the corresponding geophone stations, gathered for each shot position in an ObsPy \texttt{Stream} object and saved in the output directory (\textit{out}) as shown here:
 \dirtree{%
 .1 working\_directory.
 .2 in.
@@ -475,7 +482,8 @@ Wrong polarity geophone(s): 26
 
 Figure~\ref{fig:syndataexample}b presents the seismic waveform data forward modeled for a shot point located in the center of the profile. The seismograms are shown as curves, whereas the strength of the amplitudes is added as color-coded information. In the seismograms we see clear first onsets along the entire profile, yet receivers 3 and 45 were modeled as broken geophones, i.e., the corresponding seismograms contain solely noise. Crosses overlaid on the valid seismograms at the respective first onset indicate the first break traveltimes $tt$ between the shot and the receiver. In addition to the missing first break traveltimes for the broken receivers, we manually added a systematic error, i.e., we set an erroneous traveltime for receiver 36, to demonstrate how such outliers can be identified in a so-called pseudosection.
 
-A pseudosection as presented in Figure~\ref{fig:syndataexample}c, illustrates apparent velocity ($v_{app}$) values computed as
+Pseudosections are a useful tool for the analysis of the data quality by presenting the data based on the positions of shots and receivers. Such a visualization allows for the detection of outliers and their spatial distribution as necessary to understand possible sources of error. In case of the SRT, a pseudosection as presented in Figure~\ref{fig:syndataexample}c, illustrates apparent velocity ($v_{app}$) values computed as
+
 \begin{equation}
 	v_{app}=\frac{aoffset}{tt}\,,
 	\label{eq:vapp}
@@ -483,22 +491,34 @@ A pseudosection as presented in Figure~\ref{fig:syndataexample}c, illustrates ap
 where $aoffset$ refers to the absolute offset between shot and receiver. The $v_{app}$ values are plotted at pseudolocations, where the location along profile direction is defined by the midpoint of the corresponding shot-receiver pair and the pseudodepth is computed as $1/3$ of $aoffset$.
 As demonstrated in Figure~\ref{fig:syndataexample}c, a pseudosection allows for the identification of missing data (e.g., receiver 3 and 45) as well as systematic errors or outliers, i.e., velocities erroneously influenced by a single shot or receiver (see receiver 36). The main assumption here is that the pseudosection should reveal smooth transitions between lateral and vertical neighbors, considering that the data were collected with gradual changes in the position of the source (i.e., hammer blow) and the receiver (i.e., geophone). The pseudosection will reveal large variations in case of abrupt changes in the topography or the geometry of the array, yet this can be taken into account by the user during the identification of outliers and possible systematic errors.
 
-Based on pseudosections erroneous traveltimes can be identified and subsequently removed or corrected, which is a critical processing step prior to the inversion of the data. In particular, the inversion of first break traveltimes aims at resolving a model of the P-wave velocity of the subsurface materials. Since the inversion of geophysical data is not within the scope of the formikoj library we rely for this purpose on the modeling and inversion capabilities of pyGIMLi \citep{ruecker2017}. The default inversion framework of pyGIMLi uses a generalized Gauss-Newton method to solve the inversion problem through the minimization of an objective function given as:
-\begin{equation}
-	\Psi\left(\vecmat{m}\right)=\Psi_d\left(\vecmat{m}\right)+\lambda\Psi_m\left(\vecmat{m}\right)\,.
-	\label{eq:mm_objfctind}
-\end{equation}
-The first term on the right-hand side of Equation\ref{eq:mm_objfctind} refers to the data misfit, whereas the second term denotes represents the model constraints, i.e., the regularization. The regularization parameter $\lambda$ controls the influence of the regularization term on the inversion process.
+Based on pseudosections erroneous traveltimes can be identified and subsequently removed or corrected, which is a critical processing step prior to the inversion of the data. The inversion of first break traveltimes aims at resolving a model of the P-wave velocity of the subsurface materials, where systematic errors in the data would lead to the creation of artifacts in the imaging results or hinder the convergence of the inversion.
+%Since the inversion of geophysical data is not within the scope of the formikoj library we rely for this purpose on the modeling and inversion capabilities of pyGIMLi \citep{ruecker2017}.
+Considering the multitude of available inversion frameworks we do not include a new inversion strategy in the formikoj library. Instead the processed data can be exported in any format required for the use of commercial inversion algorithms, or can be linked directly to other open-source libraries. In our case, we refer to the modeling and inversion capabilities of pyGIMLi \citep{ruecker2017}.
+%The default inversion framework of 
+pyGIMLi uses a generalized Gauss-Newton method to solve the inversion problem through the minimization of an objective function given as:
 
-The inversion of the synthetic first break traveltimes considered here resolves the subsurface model presented in Figure~\ref{fig:syndataexample}d. To aid in the evaluation of this inversion result we superimposed the known interfaces between the different subsurface unit of the synthetic model. As can be seen from this plot, the imaging result resolves the fundamental structural features  and reflects the P-wave velocity distribution of the synthetic subsurface model. Deviations from the true velocity model are due to the smoothness-constraint inversion scheme applied by pyGIMLi. To obtain sharper contrasts between the different subsurface units in the imaging result structural constraints could be incorporated in the inversion, e.g., as demonstrated by \citep{steiner2021}. Nonetheless, we consider Figure~\ref{fig:syndataexample} to demonstrate the applicability of the \texttt{SeismicWaveformModeler} class for generating synthetic seismic waveform data to be used in numerical P-wave refraction seismic investigations.
+\begin{equation}
+	\parallel\vecmat{W}_d\left(\mathcal{F}\left(\vecmat{m}\right)-\vecmat{d}\right)\parallel_2^2+\lambda\parallel\vecmat{W}_m\left(\vecmat{m}-\vecmat{m}_0\right)\parallel_2^2\rightarrow\textrm{min}
+	\label{eq:objfct}
+\end{equation}
+%\begin{equation}
+%	\Psi\left(\vecmat{m}\right)=\Psi_d\left(\vecmat{m}\right)+\lambda\Psi_m\left(\vecmat{m}\right)\,.
+%	\label{eq:mm_objfctind}
+%\end{equation}
+The first term on the right-hand side of Equation~\ref{eq:objfct} refers to the data misfit. $\vecmat{W}_d$ is the data weighting matrix holding the reciprocals of the data errors, $\vecmat{d}$ denotes the data vector holding the input data (first break traveltimes), $\vecmat{m}$ is the model vector representing the target parameter (seismic P-wave velocity values), and $\mathcal{F}\left(\vecmat{m}\right)$ is the model response.
+The second term denotes represents the regularization, where $\vecmat{W}_m$ and $\vecmat{m}_0$ are the model constraint matrix and the reference model, respectively. The regularization parameter $\lambda$ balances the influence of the data misfit and the regularization term on the inversion process.
+
+The inversion of the synthetic first break traveltimes considered here resolves the subsurface model presented in Figure~\ref{fig:syndataexample}d, which is given in terms of the spatial variations of the seismic P-wave velocity, i.e., reflecting the associated lateral and vertical variations. Depending on the survey geometry the inversion can resolve subsurface models in both 2D or 3D. 
+To aid in the evaluation of this inversion result we superimposed the known interfaces between the different subsurface unit of the synthetic model. As can be seen from this plot, the imaging result resolves the fundamental structural features  and reflects the P-wave velocity distribution of the synthetic subsurface model. Deviations from the true velocity model are due to the smoothness-constraint inversion scheme applied by pyGIMLi. To obtain sharper contrasts between the different subsurface units in the imaging result structural constraints could be incorporated in the inversion, e.g., as demonstrated by \citep{steiner2021}; yet, the exploration of different inversion strategies is beyond the scope of this study. We consider Figure~\ref{fig:syndataexample} to demonstrate the applicability of the \texttt{SeismicWaveformModeler} class for generating synthetic seismic waveform data to be used in numerical P-wave refraction seismic investigations.
 
 \subsection{Processing of seismic refraction datasets}
 %: the \texttt{SeismicRefractionManager}}
 
-The SR method is based on the measurement of the traveltimes of seismic waves determined from the the first onset of the seismic energy recorded by geophones. In the SRT, the inversion of traveltimes gathered from tens to hundreds of seismograms permits the computation of variations in the seismic velocities in an imaging framework. Measuring the traveltimes in seismograms (i.e., first break picking) is commonly done manually (or semi-automatically) in an iterative process. The signal-to-noise ratio in the recorded seismograms substantially influences the quality of the traveltimes picked in the seismograms, and thus a proper enhancement of the perceptibility of the first onsets is crucial.
-Accordingly, the \texttt{SeismicRefractionManager} class provides functionalities that permit the processing of seismic waveform data for a refraction seismic analysis. These functionalities involve the reading of seismic waveform data, combining the data with information about the survey geometry, processing of the waveforms as well as the picking of first break traveltimes. Since the first break picking is a highly interactive process, the \texttt{SeismicRefractionManager} is designed primarily for usage from within an ipython shell.
+The seismic refraction (SR) method is based on the measurement of the traveltimes of seismic waves determined from the the first onset of the seismic energy recorded by geophones. In the SRT, the inversion of traveltimes gathered from tens to hundreds of seismograms permits the computation of variations in the seismic velocities in an imaging framework. Measuring the traveltimes in seismograms (i.e., first break picking) is commonly done manually (or semi-automatically) in an iterative process. The signal-to-noise ratio in the recorded seismograms substantially influences the quality of the traveltimes picked in the seismograms, and thus the seismic velocity model obtained through the inversion. Accordingly, a proper enhancement of the perceptibility of the first onsets is crucial.
 
-For the demonstration of the fundamental \texttt{SeismicRefractionManager} capabilities we consider the synthetic seismic data created with the \texttt{SeismicWaveformModeler} above. This allows us to show that both classes can be combined in subsequent workflows, and to present the forward modeled seismic waveform data, the synthetic first break traveltimes as well as the seismic P-wave velocity model obtained through the inversion of these traveltimes. 
+The \texttt{SeismicRefractionManager} class provides functionalities that permit the processing of seismic waveform data for a refraction seismic analysis. These functionalities involve the reading of seismic waveform data, combining the data with information about the survey geometry, processing of the waveforms as well as the picking of first break traveltimes. Since the first break picking is a highly interactive process, the \texttt{SeismicRefractionManager} is designed primarily for usage from within an ipython shell. The first break traveltimes determined with the\\ \texttt{SeismicRefractionManager} represent the input data, e.g., for the \texttt{TravelTimeManager} of pyGIMLi \citep{ruecker2017}. This is particularly relevant as the \texttt{TravelTimeManager} provides an inversion framework for first break traveltimes, yet not a framework for the processing of seismic waveform data.
+For the demonstration of the fundamental \texttt{SeismicRefractionManager} capabilities we consider the synthetic seismic data created with the\\ \texttt{SeismicWaveformModeler} above, which illustrates that both classes can be combined in subsequent workflows. 
+%Moreover, to present the forward modeled seismic waveform data, the synthetic first break traveltimes as well as the seismic P-wave velocity model obtained through the inversion of these traveltimes. 
 
 \subsubsection{Compiling the survey information and creating a project}
 
@@ -636,25 +656,19 @@ INFO    : 48 traces selected
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/select.pdf}
 
-For the currently selected trace data the frequency spectrum can be computed and visualized through the \texttt{plot} method:
+Figure~\ref{fig:spectrum} shows the frequency spectrum of the currently selected traces, which can be computed and visualized through the \texttt{plot} method:
 \begin{lstlisting}[language=Python, firstnumber=12]
 # Plot the frequency spectrum
 srm.plot(type='spectrum')
 \end{lstlisting}
-%\newline
-%\includegraphics[width=.5\textwidth]{./figures/plot_spectrum.pdf}
-%\newline
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
-	\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise, which can be omitted through the application of corresponding frequency filtering.}
-	\label{fig:spectrum}
-\end{figure}
-Examining a frequency spectrum as shown in Figure~\ref{fig:spectrum} provides information regarding the dominating signal frequencies. Discriminating signal and noise frequency ranges is critical for the selection of adequate filter types and settings in order to enhance the signal-to-noise ratio of the seismograms. 
-%A frequency spectrum  allows for discriminating the dominating signal frequencies from those associated to the background noise, which is critical for the definition of adequate filter settings.
-Filters can be applied to the currently selected traces 
-%To improve the signal-to-noise ratio it is possible to apply filters on the selected traces 
-through the \texttt{filter} method, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
+The \texttt{SeismicRefractionManager} resolves the frequency spectrum by computing the stacking the power spectral density ($psd$) of the seismograms $s\left(t\right)$ as
+
+\begin{equation}
+	psd=10\log_{10}\left(\frac{\lvert \textrm{fft}\left(s\left(t\right)\right)\rvert^2}{N}\right)\,,
+\end{equation}
+where $\textrm{fft}$ refers to the fast fourier transformation (FFT) and $N$ is the number of the considered seismograms.
+The frequency spectrum provides information regarding the amplitudes associated to different frequencies in the seismograms, which can be use for the identification of the dominating frequencies as required for the selection and application of adequate filters such as lowpass, highpass, bandpass and bandstop implemented in ObsPy \citep{beyreuther2010}.
+To enhance the signal-to-noise ratio of the seismograms the user can apply the respective filters through the \texttt{filter} method, which utilizes the frequency filters implemented in the ObsPy package \citep[lowpass, highpass, bandpass and bandstop;][]{beyreuther2010}, e.g.:
 \begin{lstlisting}[language=Python, firstnumber=14]
 # Apply bandpass filter
 srm.filter(type='bandpass', freqmin=10, freqmax=120)
@@ -664,10 +678,27 @@ srm.filter(type='bandpass', freqmin=10, freqmax=120)
 INFO    : Applied bandpass filter (10.0 to 120.0 Hz)
 \end{verbatim}
 \end{footnotesize}
+%For the currently selected trace data the frequency spectrum can be computed and visualized through the \texttt{plot} method:
+%\begin{lstlisting}[language=Python, firstnumber=12]
+%# Plot the frequency spectrum
+%srm.plot(type='spectrum')
+%\end{lstlisting}
+%\newline
+%\includegraphics[width=.5\textwidth]{./figures/plot_spectrum.pdf}
+%\newline
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{figures/spectrum.pdf}
+	\caption{The frequency spectrum illustrates the frequency content of the currently selected traces, which allows for the identification of frequency ranges associated to noise allowing for the definition of corresponding frequency filter settings.}
+	\label{fig:spectrum}
+\end{figure}
+%A frequency spectrum  allows for discriminating the dominating signal frequencies from those associated to the background noise, which is critical for the definition of adequate filter settings.
+%Filters can be applied to the currently selected traces 
+%To improve the signal-to-noise ratio it is possible to apply filters on the selected traces 
 %\newline
 %\includegraphics[width=.5\textwidth]{./figures/filter.pdf}
 %\newline
-By default, filters are solely applied to the currently selected traces, yet setting the filter to hold on automatically filters all subsequently selected traces with the same settings:
+In this example, the filter is solely applied to the currently selected traces, yet setting the parameter \texttt{onhold} as \texttt{True} automatically filters all subsequently selected traces with the same filter settings, e.g.:
 \begin{lstlisting}[language=Python, firstnumber=16]
 # Apply lowpass filter
 srm.filter(type='lowpass', freq=200, onhold=True)
@@ -695,9 +726,10 @@ By default, the seismogram plot visualizes the seismic waveforms in a combinatio
 	\caption{The seismogram plot presents the currently selected traces along the x axis, where the sort order is determined through the geometry. The corresponding trace data are illustrated as a function of time along the y axis (solid curves), with positive and negative amplitudes depicted in blue and red, respectively. The selection criterion and the applied filter are shown in the upper left corner of the plot. Green crosses refer to the picked traveltimes stored in the currently active pickset.}
 	\label{fig:srm_intro}
 \end{figure}
-
 The active processing mode and data scaling mode are reported together with the traveltime at the current cursor position in the status bar of the seismogram plot window (see Figure~\ref{fig:statusbar_intro}).
-The initial processing mode is 'Fb pick', i.e., first break picking is possible. The user can switch between the different modes by pressing specific keys on the keyboard. The 'm' key activates the trace mute mode ('Trc mute'), which allows to set the amplitude of a trace to zero by clicking with the left mouse button; clicking again on the same trace restores the amplitude information. The trace reverse mode ('Trc rev') is activated by pressing the 'r' key and enables the user to toggle the polarity of a trace by clicking on it with the left mouse button. 
+The initial processing mode is 'Fb pick', i.e., first break picking is possible. Additional modes, accessible through the keyboard, allow for an enhanced visualization of the seismograms, e.g., associated to broken geophones or seismograms with wrong polarity. 
+%The user can switch between the different modes by pressing specific keys on the keyboard.
+The 'm' key activates the trace mute mode ('Trc mute'), which allows to set the amplitude of a trace to zero by clicking with the left mouse button; clicking again on the same trace restores the amplitude information. The trace reverse mode ('Trc rev') is activated by pressing the 'r' key and enables the user to toggle the polarity of a trace by clicking on it with the left mouse button. 
 The default data scaling mode is 'Zoom', which allows the scaling of the y-axis by turning the mouse wheel. By pressing the 'a' key the amplitude scaling mode ('Amp scal') is activated. Turning the mouse wheel increases or decreases the amplitudes of the traces currently shown in the seismogram plot, and thus might help to enhance the perceptibility of the first onsets.
 By pressing the key of the currently active mode again, the \texttt{SeismicRefractionManager} returns to the default mode; yet, the different modes can be activated in any arbitrary order (as illustrated in Figure~\ref{fig:statusbar_intro}).
 \begin{figure}
@@ -838,23 +870,26 @@ The concept of formikoj suggest that such custom extensions should be implemente
 We illustrate this possibility for customization by implementing 
 %As an illustrative example, we implemented 
 a simplified version of an automatic first break picking algorithm based on the short- and long-time window average ratio (STA/LTA) method \citep{allen1978}, which determines the traveltimes following the energy ratio approach \citep[e.g.,][]{earle1994}. In particular, our implementation computes the envelope $E\left(t\right)$ of the seismogram $s\left(t\right)$ as \citep[e.g.,][]{duan2020}
+
 \begin{equation}
 	E(t)=\left(s\left(t\right)^2+\tilde{s}\left(t\right)\right)^{1/2}\,,
 	\label{eq:envelope}
 \end{equation}
 where $\tilde{s}\left(t\right)$ is the Hilbert transform of $s\left(t\right)$. The energy ratio $ER$ is then computed as $ER=STA/LTA$ with
+
 \begin{equation}
 	STA\left(i\right)=\frac{1}{n_{STA}}\sum_{j=i-n_{STA}}^{i}E\left(j\right)\,,
 	\label{eq:sta}
 \end{equation}
 and 
+
 \begin{equation}
 	LTA\left(i\right)=\frac{1}{n_{LTA}}\sum_{j=i-n_{STA}}^{i}E\left(j\right)\,,
 	\label{eq:lta}
 \end{equation}
 where $n_{STA}$ and $n_{LTA}$ refer to the number of data points in $E\left(t\right)$ considered for the short- and long-time windows, respectively. For this exemplary implementation we determine the first break traveltimes in the seismograms as the position of the maximum in the $ER$ function, which is automatically saved in the project database. 
 
-The autopicking algorithm is added to the \texttt{SeismicRefractionManager} in form of two internal methods \texttt{\_manage\_autopicking} and \texttt{\_compute\_autopicks}, respectively. To invoke the autopicking process we modified the \texttt{compute} method, which now accepts the custom-defined keyword \texttt{autopicking}. Additionally, the autopicking requires values to be passed for the parameters \texttt{pick} and \texttt{pickset}. The former accepts the values \texttt{all} or \texttt{cur} to determine first break traveltimes for all traces in the dataset or solely the currently selected traces, respectively. The latter defines the name of the picksets in which the automatically determined traveltimes should be saved to. A typical use case involves conducting the autopicking and exporting the determined traveltimes:
+The autopicking algorithm is added to the \texttt{SeismicRefractionManager} in form of two internal methods\\ \texttt{\_manage\_autopicking} and \texttt{\_compute\_autopicks}, respectively. To invoke the autopicking process we modified the \texttt{compute} method, which now accepts the custom-defined keyword \texttt{autopicking}. Additionally, the autopicking requires values to be passed for the parameters \texttt{pick} and \texttt{pickset}. The former accepts the values \texttt{all} or \texttt{cur} to determine first break traveltimes for all traces in the dataset or solely the currently selected traces, respectively. The latter defines the name of the picksets in which the automatically determined traveltimes should be saved to. A typical use case involves conducting the autopicking and exporting the determined traveltimes:
 \begin{lstlisting}[language=Python, firstnumber=24]
 # Automatically pick first break traveltimes
 srm.compute(do='autopicking', pick='all', pickset='autopicks')
@@ -878,7 +913,7 @@ INFO    : Pickset 'autopicks' saved to autopicks_20230303T140834.pck
 %Accordingly, the traveltimes are stored in the 
 %project database; thus, making the traveltimes available for visualization and processing with existing functionalities or further custom implementations.
 
-In Figure~\ref{fig:pickcomp}, we compare the automatically determined first break picks with the forward modeled traveltimes computed above to allow for a basic evaluation of autopicking quality. The inset plot in Figure~\ref{fig:pickcomp} presents the histogram of the autopicked traveltimes, which shows that three traveltimes should be considered outliers, and thus are removed from the dataset. After the outlier removal the correlation coefficient between forward modeled and autopicked traveltimes is \num{0.99} suggesting that the implemented autopicking algorithm performs well for the synthetic seismic waveform data. However, the observed deviation from the perfect correlation (i.e., the 1:1 line in Figure~\ref{fig:pickcomp}) indicates that autopicking and forward modeling algorithm might be sensitive to different seismic wave phases. Further improvements in terms of the autopicking process could incorporate, for example, machine learning approaches as the method proposed by \citet{duan2020}, which can be easily implemented as an additional functionality in the \texttt{SeismicRefractionManager}.
+In Figure~\ref{fig:pickcomp}, we compare the automatically determined first break picks with the forward modeled traveltimes computed above to allow for a basic evaluation of autopicking performance. The inset plot in Figure~\ref{fig:pickcomp} presents the histogram of the autopicked traveltimes, which shows that three traveltimes should be considered outliers, and thus are removed from the dataset. After the outlier removal the correlation coefficient between forward modeled and autopicked traveltimes is \num{0.99} suggesting that the implemented autopicking algorithm performs well for the synthetic seismic waveform data. However, the observed deviation from the perfect correlation (i.e., the 1:1 line in Figure~\ref{fig:pickcomp}) indicates that autopicking and forward modeling algorithm might be sensitive to different seismic wave phases. Further improvements in terms of the autopicking process could incorporate, for example, machine learning approaches as the method proposed by \citet{duan2020}, which can be easily implemented as an additional functionality in the \texttt{SeismicRefractionManager}. We point out here, that following the same procedure, the user can implement further autopicking algorithms as well as other data processing strategies and have a simple framework for the evaluation of their performance through the analysis of synthetic data (e.g., clean and contaminated with Gaussian noise).
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/pick_comparison.pdf}
@@ -887,14 +922,19 @@ In Figure~\ref{fig:pickcomp}, we compare the automatically determined first brea
 \end{figure}
 
 \section{Application to field data: Processing a 3D seismic refraction dataset}
-%\subsection{First break travel time picking for a 2D roll-along field data set: the Danube island example}
+%\subsection{First break traveltime picking for a 2D roll-along field dataset: the Danube island example}
 
-To demonstrate the applicability of the  \texttt{SeismicRefractionManager} for the processing of seismic refraction data collected in the field we consider a 3D seismic survey conducted in a soda lake located in the Nationalpark Neusiedler See--Seewinkel close to Vienna.
-The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
-The seismic survey aims to support the interpretation of electrical and electromagnetic models obtained in a monitoring framework.
+To demonstrate the applicability of the  \texttt{SeismicRefractionManager} for the processing of real field data, we present here the analysis and inversion inversion results for a seismic refraction survey
+%data collected in the field we consider a 3D seismic survey 
+conducted in a soda lake located in the Nationalpark Neusiedler See--Seewinkel close to Vienna.
+%The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm depth) with a high clay and salt content.
+The seismic survey aims at solving for the geometry of the confined aquifer below this soda lake with the required information referring to the thickness of the aquifer and the depth of the groundwater table.
+%to support the interpretation of electrical and electromagnetic models obtained in a monitoring framework.
 %The \texttt{SeismicRefractionManager} allows also the visualization and processing of data collected with a 3D survey layout. To illustrate these capabilities, we present in Figure~\ref{fig:map_sodalakes} the geometry of a 3D survey conducted in a soda lake located close to Vienna. The soda lake corresponds to quarternary sediments where capillary forces have developed a low permeable layer close to the surface (between 50 and 100 cm) with a high clay and salt content.
 %The seismic survey aims to support the interpretation of the electrical and electromagnetic models obtained in a monitoring framework. 
-Accordingly, the geometry of the seismic survey shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines. The seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of \qty{2}{m} between the geophones. Shots were generated with an \qty{8}{kg} sledgehammer at the geophone positions as well as at positions along the diagonals to obtain a sufficient coverage, as indicated in Figure~\ref{fig:map_sodalakes}.
+%Accordingly, the geometry of the seismic survey shown in Figure~\ref{fig:map_sodalakes} was specified by previously conducted electrical measurements with electrodes arranged along two perpendicular lines.
+As presented in Figure~\ref{fig:map_sodalakes}, the seismic data were collected with 48 geophones deployed along the North-East to South-West oriented line, and 48 geophones along the North-West to South-East oriented line, with a spacing of \qty{2}{m} between the geophones. Shots were generated with an \qty{8}{kg} sledgehammer at the geophone positions as well as at positions along the diagonals to obtain a sufficient coverage.
+%, as indicated in Figure~\ref{fig:map_sodalakes}.
 
 \begin{figure}
 	\centering
@@ -903,7 +943,7 @@ Accordingly, the geometry of the seismic survey shown in Figure~\ref{fig:map_sod
 	\label{fig:map_sodalakes}
 \end{figure}
 
-As in case of the synthetic data set presented above, the geometry file contains the coordinates of the survey stations, yet for the soda lake dataset 3D coordinates we provided as illustrated in Table~\ref{tab:3d_geometry}. 
+As in case of the synthetic dataset presented above, the geometry file contains the coordinates of the survey stations, yet for the soda lake dataset 3D coordinates we provided as illustrated in Table~\ref{tab:3d_geometry}. 
 Since geophones were not deployed at each survey station the column \textbf{Geo} contains the value 1 (True) for the first 96 stations and 0 (False) for the remaining \num{20} stations. 
 \begin{table}
    \caption{Excerpt from the 3D survey geometry file.}
@@ -937,7 +977,8 @@ srm.select(by='sin', num=1)
 INFO    : 96 traces selected
 \end{verbatim}
 \end{footnotesize}
-In Figure~\ref{fig:3d_pickwindow}, we can see that the data for RIN 1 to 48 appear familiar as the corresponding SIN-RIN layout refers to the one of conventional 2D profiles; whereas the seismic waveforms for RIN 49 to 96 show an entirely different pattern. To understand such visualization, we need to take into account that RIN 49 to 96 are deployed perpendicular to the direction of propagation of the wavefront originating from SIN 1. Accordingly, the observed curvature in the first onsets is due to the varying offset of the different SIN-RIN pairs. Also for the 3D seismic refraction data the first break traveltimes can be determined either individually for each trace or by 
+In Figure~\ref{fig:3d_pickwindow}, we can see that the data for RIN 1 to 48 appear familiar as the corresponding SIN-RIN layout refers to the one of conventional 2D profiles; whereas the seismic waveforms for RIN 49 to 96 show an entirely different pattern. To understand such visualization, we need to take into account that RIN 49 to 96 are deployed perpendicular to the direction of propagation of the wavefront originating from SIN 1. Accordingly, the observed curvature in the first onsets is due to the varying offset of the different SIN-RIN pairs.
+%Also for the 3D seismic refraction data the first break traveltimes can be determined either individually for each trace or by 
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/sodalakes_sin1_lp100_picks_vd.pdf}
@@ -964,9 +1005,7 @@ srm.plot(type='pickperc')
 %\newline
 Figure~\ref{fig:3d_pickperc} presents the picking percentage visualized separately for each SIN. Accordingly, a low picking percentage indicates shots affected by a low signal-to-noise ratio, whereas clear first onsets yield a correspondingly high picking percentage. For the soda lake dataset we observe a consistently high picking percentage for all shot positions; thus, indicating a good data quality.
 %For the Danube island dataset, the picking percentage is low in the first segment, which confirms the lack of datapoints observed in the pseudosection. 
-Moreover, the picking percentage plot can be used to track the picking progress, for instance 
-if the traveltimes cannot be determined in one session or 
-to identify single shots that might have been forgotten during the first break picking. Accordingly, it is advisable to check the picking percentage prior to exporting the traveltimes for the inversion.
+Moreover, the picking percentage plot can be used to track the picking progress, for instance, in case the traveltimes cannot be determined in frame of one session or to identify single shots that might have been forgotten during the first break picking. Accordingly, it is advisable to check the picking percentage prior to exporting the traveltimes for the inversion.
 
 %\begin{figure}
 %	\centering
@@ -981,12 +1020,13 @@ to identify single shots that might have been forgotten during the first break p
 	\label{fig:3d_pickperc}
 \end{figure}
 
-Once the first break picking is finished, the corresponding pickset can be exported for the inversion. We inverted the first break traveltimes with pyGIMLi and present the resolved 3D subsurface model in Figure~\ref{fig:3dinvres}. However, to facilitate the representation and interpretation of the seismic velocity distribution we decided to show selected slices through the 3D subsurface model. From this representation we can see, that the inversion solves for low seismic velocities (\num{600} to \qty{800}{ms^{-1}}) in the near-surface in the center of the investigated area, which corresponds to the still intact part of the soda lake, i.e., the part that is covered by water on a seasonal basis. Seismic velocity values above \qty{800}{ms^{-1}} are resolved at depth as well as outside of the soda lake. A more detailed interpretation is beyond the scope of this manuscript, yet the presented figures reveal the capabilities provided by the proposed framework for the visualization and processing of data collected in 3D survey geometries.
+Once the first break picking is finished, the corresponding pickset can be exported for the inversion. We inverted the first break traveltimes with pyGIMLi and present the resolved 3D subsurface model in Figure~\ref{fig:3dinvres}a. From this representation we can see, that the inversion solves for low seismic velocities (\num{600} to \qty{800}{ms^{-1}}) in the near-surface in the center of the investigated area, which corresponds to the still intact part of the soda lake, i.e., the part that is covered by water on a seasonal basis. Seismic velocity values above \qty{800}{ms^{-1}} are resolved at depth as well as outside of the soda lake.
+To facilitate the interpretation of the resolved seismic velocity distribution in terms of the aquifer geometry we show the two vertical slices in Figure~\ref{fig:3dinvres}b and c, respectively. In particular, we relate seismic velocity values $>\,$\qty{800}{ms^{-1}} to the transition from the unsaturated to the saturated zone due to the higher seismic velocity of water ($\approx\,$\qty{1500}{ms^{-1}}) compared to air ($\approx\,$\qty{340}{ms^{-1}}) filling the pore space. Accordingly, our 3D subsurface model indicates the depth of the groundwater table at a depth of approximately \qty{8}{m}. A more detailed interpretation is beyond the scope of this manuscript, yet the presented figures reveal the capabilities provided by the proposed framework for the visualization and processing of data collected in 3D survey geometries.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{figures/inv_l100_ae0.0035.png}
-	\caption{Subsurface model of the soda lake in terms of the seismic P-wave velocity sliced along the lines formed by the geophones. The solid curve indicates the shore line of the soda lake.}
+	\caption{Subsurface model of the soda lake in terms of the seismic P-wave velocity. (a) 3D representation of orthogonal slices through the resolved subsurface model. (b) 2D representation of the NE--SW slice. (c) 2D representation of the NW--SE slice.}
 	\label{fig:3dinvres}
 \end{figure}
 
@@ -994,7 +1034,9 @@ Once the first break picking is finished, the corresponding pickset can be expor
 
 We have presented formikoj, a flexible open-source library enabling the development of modeling and processing tools for geophysical data. Implemented in python and tested on all major operating systems (Linux/Unix, MacOS, Windows), formikoj is suitable for multi- and cross-platform applications; thus, allowing collaboration between users free from licensing costs and platform requirements.
 
-We demonstrated the capabilities of the formikoj framework to develop versatile and easily scalable classes for the modeling and processing of waveforms in seismic refraction surveys. The required interaction with the user is reduced to a minimum as crucial processing steps are automatized within the \texttt{SeismicWaveformModeler} and \texttt{SeismicRefractionManager} based on efficient data input strategies, for instance the preparation and import of the geometry file or the keyboard-based interaction related to the first break picking. In this regard, the user controls the formikoj library by providing text-based commands preferably through an ipython shell to exploit the full interactive potential modeling and processing tools. However, applications of the formikoj library can also be automatized by implementing workflows in python scripts or jupyter notebooks.
+We demonstrated the capabilities of the formikoj framework to develop versatile and easily scalable classes for the modeling and processing of waveforms in seismic refraction surveys. By standardizing the data input in combination with a thorough sanity check aims at reducing the risk of corrupting the information stored in the project database.
+%The required interaction with the user is reduced to a minimum as 
+Moreover, crucial processing steps are automatized within the \texttt{SeismicWaveformModeler} and the\\ \texttt{SeismicRefractionManager} classes facilitated by efficient data input strategies, for instance the preparation and import of the geometry file or the keyboard-based interaction related to the first break picking. In this regard, the user controls the formikoj library by providing text-based commands preferably through an ipython shell to exploit the full interactive potential modeling and processing tools. However, applications of the formikoj library can also be automatized by implementing workflows in python scripts or jupyter notebooks.
 
 %Based on three exemplary use cases, we illustrated the applicability of both the \texttt{SeismicWaveformModeler} and the \texttt{SeismicRefractionManager}. In the first use case, we showed the possibility to forward model seismic waveform data based on custom subsurface models and survey geometries with the \texttt{SeismicWaveformModeler}. Additionally, the resulting waveforms can be subjected to systematic and random noise sources. 
 %The capabilities of the \texttt{SeismicRefractionManager} were demonstrated through the processing of field datasets collected in complex survey layout, namely a roll-along and a 3D geometry. 
@@ -1005,7 +1047,7 @@ By making the source code of the formikoj library available under the MIT licens
 \section{Acknowledgments}
 
 %The authors acknowledge TU Wien Bibliothek for financial support through its Open Access Funding Programme.
-The authors are grateful to Nathalie Roser and Lukas Aigner for benchmarking the formikoj library against established software packages in frame of their research activities. Furthermore, we would like to thank Clemens Moser, Martin Mayr, Vinzenz Schichl and Harald Pammer for their constructive comments during first tests of the formikoj framework as well as for their help during the seismic surveys.
+The authors are grateful to Nathalie Roser and Lukas Aigner for using and testing the formikoj library in frame of their research activities, and for providing valuable suggestions for improvement. Furthermore, we would like to thank Clemens Moser, Martin Mayr, Vinzenz Schichl and Harald Pammer for their constructive comments during first tests of the formikoj framework as well as for their help during the seismic surveys.
 
 \newpage
 
@@ -1023,11 +1065,11 @@ Software required: Anaconda/Miniconda recommended
 
 Total program and dataset size: 250 MB
 
-The source codes and exemplary data sets are available for downloading at the link:
+The source codes and exemplary datasets are available for downloading at the link:
 
 https://git.geo.tuwien.ac.at/msteine1/formikoj.git
 
-The orthophotos used in Figures~\ref{fig:map_danube} and \ref{fig:map_sodalakes} were published by geoland.at under a CC BY 4.0 license.
+The orthophoto used in Figure~\ref{fig:map_sodalakes} was published by geoland.at under a CC BY 4.0 license.
 
 \appendix
 
