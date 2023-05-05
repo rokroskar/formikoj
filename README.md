@@ -18,14 +18,14 @@ changes regarding the market shares of operating systems within the last two
 decades, the library is specifically implemented and tested for 
 cross-plattform usage.
 
-![Graphical abstract](./manuscript/figures/graphical_abstract/grpabs.svg)
+![Graphical abstract](./manuscript/graphical_abstract.svg)
 
 ## Structure of this repository
 
 The source code of the formikoj library is in the `code` folder.
 Data and information to reproduce the exemplary use cases presented in the 
 manuscript are provided in the `examples` folder. 
-The sources for the manuscript text are in  the `manuscript` folder.
+The pdf and graphical abstract of the manuscript are in the `manuscript` folder.
 See the `README.md` files in each directory for a full description.
 
 ## Getting the code
