@@ -278,10 +278,10 @@ ax[3, 0].set_ylabel('Depth (m)')
 
 ax[1, 1].set_visible(False)
 
-ax[0, 0].set_title('a)', loc='left')
-ax[1, 0].set_title('b)', loc='left')
-ax[2, 0].set_title('c)', loc='left')
-ax[3, 0].set_title('d)', loc='left')
+ax[0, 0].set_title('(a)', loc='left')
+ax[1, 0].set_title('(b)', loc='left')
+ax[2, 0].set_title('(c)', loc='left')
+ax[3, 0].set_title('(d)', loc='left')
 
 plt.tight_layout()
 # ~ plt.show()
