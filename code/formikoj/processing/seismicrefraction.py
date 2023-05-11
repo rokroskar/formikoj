@@ -2076,10 +2076,6 @@ class SeismicRefractionManager(MethodManager):
                              FROM receivers"""
                     rins = self.slh.read_data(cmd).to_numpy()
                     
-                    print(newin)
-                    print(rins.min())
-                    print(rins.max())
-                    
                     if newin < rins.min(): newin = rins.max()
                     elif newin > rins.max(): newin = rins.min()
                 
