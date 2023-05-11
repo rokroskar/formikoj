@@ -2084,7 +2084,8 @@ class SeismicRefractionManager(MethodManager):
                 
                 if not self._pvd:
                     self._save_picks()
-                self.select(by + " " + str(int(newin)), auto=True)
+                # ~ self.select(by + " " + str(int(newin)), auto=True)
+                self.select(by=by, num=int(newin), auto=True)
                 
                 self._pickscatter = None
                 self._picklineplot = None
