@@ -2999,6 +2999,18 @@ class SeismicRefractionManager(MethodManager):
         self._pst = self._st.copy()
         if len(self._st) > 0:
             if self._filterhold and self._filtered != '':
-                self.filter(self._filtered.lower(), auto=True)
+                fparams = self._filtered.lower().split(' ')
+                if len(fparams) == 2:
+                    self.filter(type=fparams[0],
+                                freq=float(fparams[1]),
+                                onhold=self._filterhold,
+                                auto=True)
+                else:
+                    self.filter(type=fparams[0],
+                                freqmin=float(fparams[1]),
+                                freqmax=float(fparams[2]),
+                                onhold=self._filterhold,
+                                auto=True)
+                # ~ self.filter(self._filtered.lower(), auto=True)
             else:
                 self.filter(type='remove', auto=True)
