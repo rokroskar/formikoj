@@ -513,7 +513,8 @@ class SeismicRefractionManager(MethodManager):
             
             for i, uao in enumerate(self._aoffs):
                 # select traces with given absolute offset
-                self.select('aoffset %d' % (uao), auto=True)
+                self.select(by='aoffset', num=uao, auto=True)
+                # ~ self.select('aoffset %d' % (uao), auto=True)
             
                 tmp = self._st.copy()
                 if len(tmp) > 1:
@@ -720,7 +721,7 @@ class SeismicRefractionManager(MethodManager):
         
         if do == 'autopicking':
             self._manage_autopicking([options['pick'], options['pickset']])
-        elif deo == 'geometry':
+        elif do == 'geometry':
             self._read_geometry()
             self._apply_geometry()
             if self._data == None: self._read_data()
