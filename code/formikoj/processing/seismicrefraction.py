@@ -783,7 +783,7 @@ class SeismicRefractionManager(MethodManager):
         --------
         >>> from useis import SeismicRefractionManager
         >>> srm = SeismicRefractionManager(<project_directory>)
-        >>> srm.filter('filter lp 120')
+        >>> srm.filter(type='lp', freq=120)
         """
         
         if not self._parse_filter_params(type, options): return
