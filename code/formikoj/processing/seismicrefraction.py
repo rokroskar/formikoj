@@ -766,7 +766,7 @@ class SeismicRefractionManager(MethodManager):
             
         keys = [k.lower() for k in options.keys()]
         
-        if type in ["lp", "hp"]:
+        if type in ["lp", "hp", "lowpass", "highpass"]:
             if 'freq' not in keys:
                 self._logger.error('Insufficient filter parameters provided')
                 return 0
@@ -774,7 +774,7 @@ class SeismicRefractionManager(MethodManager):
             if not isinstance(options['freq'], (int, float)):
                 self._logger.error('Filter frequency must be numerical')
         
-        if type in ["bp", "bs"]:
+        if type in ["bp", "bs", "bandpass", "bandstop"]:
             if not ('freqmin' in keys and 'freqmax' in keys):
                 self._logger.error('Insufficient filter parameters provided')
                 return 0
@@ -836,10 +836,13 @@ class SeismicRefractionManager(MethodManager):
         else:
             self._logger.input('filter: %s ' % (type) + str(options))
         
-        if type in ['bp','bs']:
+        if type in ['bandpass','bandstop', 'bp', 'bs']:
             # determine filter type
-            ft = 'bandpass' if type == 'bp' \
-                else 'bandstop'
+            if type == 'bp': ft = 'bandpass'
+            elif type == 'bs': ft = 'bandstop'
+            else: ft = type
+            # ~ ft = 'bandpass' if type == 'bp' \
+                # ~ else 'bandstop'
                 
             # ~ # get min and max frequency
             # ~ freqs = np.array([float(params[1]), float(params[2])])
@@ -860,10 +863,13 @@ class SeismicRefractionManager(MethodManager):
             logmsg = 'Applied %s filter (%.1f to %.1f Hz)' % \
                 (ft, options['freqmin'], options['freqmax'])
             
-        elif type in ['hp','lp']:
+        elif type in ['highpass','lowpass', 'hp', 'lp']:
             # determine filter type
-            ft = 'highpass' if type == 'hp' \
-                else 'lowpass'
+            if type == 'hp': ft = 'highpass'
+            elif type == 'lp': ft = 'lowpass'
+            else: ft = type
+            # ~ ft = 'highpass' if type == 'hp' \
+                # ~ else 'lowpass'
                 
             # ~ # get min and max frequency
             # ~ freq = float(params[1])
@@ -913,8 +919,9 @@ class SeismicRefractionManager(MethodManager):
 
                 logmsg = 'Set filter hold %s' % (
                     'on' if self._filterhold else 'off')
-                    
-                self._logger.info(logmsg)
+                
+                if auto: self._logger.autoinfo(logmsg)
+                else: self._logger.info(logmsg)
             
         if self._ax is not None:
             self._ax.cla()
@@ -2035,7 +2042,19 @@ class SeismicRefractionManager(MethodManager):
                 
                 # apply filter
                 if self._filterhold and self._filtered != "":
-                    self.filter(self._filtered.lower(), auto=True)
+                    fparams = self._filtered.lower().split(' ')
+                    if len(fparams) == 2:
+                        self.filter(type=fparams[0],
+                                    freq=float(fparams[1]),
+                                    onhold=self._filterhold,
+                                    auto=True)
+                    else:
+                        self.filter(type=fparams[0],
+                                    freqmin=float(fparams[1]),
+                                    freqmax=float(fparams[2]),
+                                    onhold=self._filterhold,
+                                    auto=True)
+                    # ~ self.filter(self._filtered.lower(), auto=True)
                 else:
                     self.filter('remove', auto=True)
                     

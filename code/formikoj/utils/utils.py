@@ -44,8 +44,10 @@ class nt_scrollmodes(NamedTuple):
     amplitude: int = 1
     
 COMPUTE_KEYWORDS = ["cos", "autopicking", "geometry"]
-FILTER_KEYWORDS = ["lp", "hp", "bp", "bs", "3pf",
-                   "hold", "remove"]
+FILTER_KEYWORDS = ["lp", "hp", "bp", "bs", #"3pf",
+                   "lowpass", "highpass",
+                   "bandpass", "bandstop",
+                   "hold", "remove",]
 PLOT_KEYWORDS = ["traveltimes", "pseudosection", "pickperc", "spectrum"]
 PICKSET_KEYWORDS = ["create", "load", "unload", "rename", "use", "delete",
                     "copy", "rename", 
