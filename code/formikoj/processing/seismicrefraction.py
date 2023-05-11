@@ -28,7 +28,6 @@ class SeismicRefractionManager(MethodManager):
         # data preview mode
         filelist, self._ftype, self._syndata = get_filelist(self._workdir)
         if filelist != '':
-            # ~ self._logger = create_logger('useis.SeismicRefractionManager',
             self._logger = create_logger(self._workdir,
                              os.path.join(self._workdir,
                                           self._logfile))
@@ -514,7 +513,6 @@ class SeismicRefractionManager(MethodManager):
             for i, uao in enumerate(self._aoffs):
                 # select traces with given absolute offset
                 self.select(by='aoffset', num=uao, auto=True)
-                # ~ self.select('aoffset %d' % (uao), auto=True)
             
                 tmp = self._st.copy()
                 if len(tmp) > 1:
@@ -578,11 +576,6 @@ class SeismicRefractionManager(MethodManager):
                 
                 # compute envelope of trace data
                 env = envelope(tr.data)
-                
-                # smooth the envelope with a boxcar function
-                # ~ bc = boxcar(int((tr.stats.npts) * gate_length))
-                # ~ # bc = boxcar(int((tr.stats.npts - 1) * .1))
-                # ~ env = np.convolve(env, bc, mode='same')
                 
                 # compute energy ratio in overlapping windows
                 er = []
@@ -648,8 +641,6 @@ class SeismicRefractionManager(MethodManager):
             print('')
             self._st = None
         
-        # ~ self._load_picks()
-
     def _parse_compute_params(self, do, options):
         """Check the basic validity of the compute parameters and return them
         as numpy array.
@@ -673,13 +664,6 @@ class SeismicRefractionManager(MethodManager):
             self._logger.error('Parameter of datatype str expected')
             return 0
             
-        # ~ if options == "":
-            # ~ self._logger.critical('No compute command provided')
-            # ~ return 0
-        
-        # ~ option = options.lower().rstrip()
-        # ~ params = options.split(" ")    
-        
         if do not in COMPUTE_KEYWORDS:
             self._logger.error('Invalid keyword given')
             return 0
@@ -693,9 +677,6 @@ class SeismicRefractionManager(MethodManager):
             if options['pick'] not in ["all", "cur"]:
                 self._logger.error('Invalid autopicking option provided')
                 return 0
-            
-            # ~ if len(params) != 3:
-                # ~ self._logger.error('Insufficient number of parameters')
         
         return 1
 
@@ -713,10 +694,8 @@ class SeismicRefractionManager(MethodManager):
             
         """
         
-        # ~ self._logger.input('compute ' + options)
         self._logger.input('compute: %s ' % (do) + str(options))
         
-        # ~ params = self._parse_compute_params(options)
         if not self._parse_compute_params(do, options): return
         
         if do == 'autopicking':
@@ -760,10 +739,6 @@ class SeismicRefractionManager(MethodManager):
         if type not in FILTER_KEYWORDS:
             self._logger.error('Invalid keyword given')
             return 0            
-
-        # ~ if options ==  {}:
-            # ~ self._logger.error('No filter criteria provided')
-            # ~ return 0
             
         keys = [k.lower() for k in options.keys()]
         
@@ -785,14 +760,6 @@ class SeismicRefractionManager(MethodManager):
                 
             if not isinstance(options['freqmax'], (int, float)):
                 self._logger.error('Filter frequency must be numerical')
-        
-        # ~ if params[0] in FILTER_KEYWORDS[0:4]:
-            # ~ for p in params[1::]:
-                # ~ try:
-                    # ~ float(p)
-                # ~ except: 
-                    # ~ self._logger.error('Filter parameters need to be numeric')
-                    # ~ return 0
         
         return 1
 
@@ -819,7 +786,6 @@ class SeismicRefractionManager(MethodManager):
         >>> srm.filter('filter lp 120')
         """
         
-        # ~ params = self._parse_filter_params(type, options)
         if not self._parse_filter_params(type, options): return
 
         if not self._check_processing_ready():
@@ -842,13 +808,6 @@ class SeismicRefractionManager(MethodManager):
             if type == 'bp': ft = 'bandpass'
             elif type == 'bs': ft = 'bandstop'
             else: ft = type
-            # ~ ft = 'bandpass' if type == 'bp' \
-                # ~ else 'bandstop'
-                
-            # ~ # get min and max frequency
-            # ~ freqs = np.array([float(params[1]), float(params[2])])
-            # ~ freqmin = np.min(freqs)
-            # ~ freqmax = np.max(freqs)
             
             # apply filter
             if self._pst != None:
@@ -858,7 +817,6 @@ class SeismicRefractionManager(MethodManager):
                             freqmax = options['freqmax'],
                             corners = 2,
                             zerophase = True)
-            # ~ self._filtered = ' '.join(params).upper()
             self._filtered = ft.upper() + ' %.1f %.1f' % (options['freqmin'],
                                                           options['freqmax'])
             logmsg = 'Applied %s filter (%.1f to %.1f Hz)' % \
@@ -869,11 +827,6 @@ class SeismicRefractionManager(MethodManager):
             if type == 'hp': ft = 'highpass'
             elif type == 'lp': ft = 'lowpass'
             else: ft = type
-            # ~ ft = 'highpass' if type == 'hp' \
-                # ~ else 'lowpass'
-                
-            # ~ # get min and max frequency
-            # ~ freq = float(params[1])
             
             # apply filter
             if self._pst != None:
@@ -882,7 +835,6 @@ class SeismicRefractionManager(MethodManager):
                             freq = options['freq'],
                             corners = 2,
                             zerophase = True)
-            # ~ self._filtered = " ".join(params).upper()
             self._filtered = ft.upper() + ' %.1f' % (options['freq'])
             logmsg = 'Applied %.1f Hz %s filter' % (options['freq'], ft)
             
@@ -900,15 +852,6 @@ class SeismicRefractionManager(MethodManager):
         else:
             self._logger.info(logmsg)
                     
-        # ~ elif params[0] == '3pf':
-            # ~ if self._pst != None:
-                # ~ self._st = self._pst.copy()
-            # ~ for tr in self._st:
-                # ~ tr.data = threepointfilter(tr.data, int(params[1]))
-            # ~ self._filtered = " ".join(params).upper()
-            # ~ logmsg = '3-point filter recursively applied' \
-                     # ~ ' %d times' % (int(params[1]))
-                     
         if 'onhold' in options.keys():
             if self._filtered != "":
                 
@@ -1277,7 +1220,7 @@ class SeismicRefractionManager(MethodManager):
             else:
                 self._logger.warn('Pickset \'%s\' does not exist' % (p))
         
-        # Seems to work but looks like a quite complicated solution...
+        # seems to work but looks like a quite complicated solution...
         if self._selected != "":
             if not self._filterhold:
                 self._filterhold = True
@@ -1414,12 +1357,6 @@ class SeismicRefractionManager(MethodManager):
             if 'name' not in options.keys():
                 self._logger.error('No pickset name(s) provided')
                 return 0
-            
-        # ~ if options == "":
-            # ~ return np.array([""])
-        
-        # ~ options = options.lower().rstrip()    
-        # ~ params = options.split(" ")
         
         if do not in PICKSET_KEYWORDS:
             self._logger.error('Invalid keyword given')
@@ -1450,11 +1387,9 @@ class SeismicRefractionManager(MethodManager):
             self._print_picksets_info()
             return
         
-        # ~ params = self._parse_pickset_params(do, options)
         if not self._parse_pickset_params(do, options): return 
 
         if do== 'load':
-            # ~ self._load_pickset(params[1::])
             self._load_pickset(options['name'].split(' '))
         elif do == 'create':
             self._create_pickset(options['name'].split(' '))
@@ -2902,26 +2837,12 @@ class SeismicRefractionManager(MethodManager):
         if not (isinstance(num, int) or isinstance(num, float)):
             self._logger.error('Select \'num\' of datatype int/float expected')
             return 0
-            
-        # ~ # check the number of arguments
-        # ~ if len(params) != 2:
-            # ~ self._logger.error('Insufficient number of parameters')
-            # ~ return 0
         
         # check if valid keyword is provided
         if by not in SELECT_KEYWORDS:
             self._logger.error('Invalid keyword given')
             return 0
-        
-        # ~ # check if second parameter is a numerical value
-        # ~ try:
-            # ~ float(params[1])
-        # ~ except ValueError:
-            # ~ self._logger.error('Second parameter needs to be a ' \
-                # ~ 'numerical value')
-            # ~ return 0
-        
-        # ~ return params
+
         return (by, num)
 
     def select(self, by, num, auto=False):
@@ -3008,6 +2929,5 @@ class SeismicRefractionManager(MethodManager):
                                 freqmax=float(fparams[2]),
                                 onhold=self._filterhold,
                                 auto=True)
-                # ~ self.filter(self._filtered.lower(), auto=True)
             else:
                 self.filter(type='remove', auto=True)
