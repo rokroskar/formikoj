@@ -1494,6 +1494,7 @@ class SeismicRefractionManager(MethodManager):
         self._check_processing_ready()
         
         ps = kwargs.pop('point_size', 13)
+        s = kwargs.pop('s', 40)
         
         # set colormap
         cmap = kwargs.pop('cmap', kwargs.pop('cMap', 'Spectral_r'))
@@ -1604,7 +1605,7 @@ class SeismicRefractionManager(MethodManager):
             for i in np.arange(np.max(cnt)) + 1:
                 scat = self._vaax.scatter(psec.iloc[idx[cnt == i]]['mp_x'],
                                     psec.iloc[idx[cnt == i]]['pd'],
-                                    c=psec.iloc[idx[cnt==i]]['vapp'], s=40,
+                                    c=psec.iloc[idx[cnt==i]]['vapp'], s=s,
                                     cmap=cmap,
                                     norm=norm,
                                     **kwargs)
@@ -1617,7 +1618,7 @@ class SeismicRefractionManager(MethodManager):
                             
                     self._vaax.scatter(psec.iloc[mi]['mp_x'], 
                                        psec.iloc[mi]['pd'],
-                                 c=psec.iloc[mi]['vapp'], s=40 / i ** 3,
+                                 c=psec.iloc[mi]['vapp'], s=s / i ** 3,
                                  cmap=cmap, 
                                  norm=norm,
                                  **kwargs)
