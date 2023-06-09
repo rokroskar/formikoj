@@ -1220,13 +1220,18 @@ class SeismicRefractionManager(MethodManager):
             else:
                 self._logger.warn('Pickset \'%s\' does not exist' % (p))
         
-        # seems to work but looks like a quite complicated solution...
         if self._selected != "":
-            if not self._filterhold:
-                self._filterhold = True
-                self.select(self._selected.lower(), auto=True)
-                self._filterhold = False
-            else: self.select(self._selected.lower(), auto=True)
+            by = (self._selected.split(" ")[0]).lower()
+            curin = float(self._selected.split(" ")[1])
+            self.select(by=by, num=curin, auto=True)
+        
+        # ~ # seems to work but looks like a quite complicated solution...
+        # ~ if self._selected != "":
+            # ~ if not self._filterhold:
+                # ~ self._filterhold = True
+                # ~ self.select(self._selected.lower(), auto=True)
+                # ~ self._filterhold = False
+            # ~ else: self.select(self._selected.lower(), auto=True)
 
     def _print_picksets_info(self):
         """Print information about all picksets saved in the project file."""
