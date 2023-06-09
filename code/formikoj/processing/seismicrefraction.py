@@ -232,8 +232,8 @@ class SeismicRefractionManager(MethodManager):
         if self._data == None:
             self._logger.error('Data not loaded')
             return 0
-        
-        if not self._geomapp and not self._pvd:
+
+        if not (self._geomapp and self._pvd):
             self._logger.error('Geometry not applied')
             return 0
         
@@ -2884,6 +2884,7 @@ class SeismicRefractionManager(MethodManager):
             self._logger.auto('select ' + by + ' %.1f' % (num))
         else:
             self._logger.input('select ' + by + ' %.1f' % (num))
+        
         if not self._check_processing_ready():
             return
         

@@ -4,7 +4,7 @@ by
 Matthias Steiner and Adrián Flores Orozco
 
 
-![formikoj logo](../media/logo/formikoj_logo.svg "formikoj logo")
+![formikoj logo](./media/logo/formikoj_logo.svg "formikoj logo")
 
 [![Python: 3.7](https://img.shields.io/badge/Python-3.7-blue.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT%20License-green)](LICENSE.md)
@@ -33,9 +33,9 @@ See the `README.md` files in each directory for a full description.
 You can download a copy of all the files in this repository by cloning the
 [git](https://git-scm.com/) repository:
 
-    git clone https://git.geo.tuwien.ac.at/msteine1/formikoj.git
+    git clone https://github.com/geophilik/formikoj 
 
-or [download a zip archive](https://git.geo.tuwien.ac.at/msteine1/formikoj/-/archive/main/formikoj-main.zip).
+or [download a zip archive](https://github.com/geophilik/formikoj/archive/refs/heads/main.zip).
 
 ## Dependencies
 
