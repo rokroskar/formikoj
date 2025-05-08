@@ -1,7 +1,7 @@
 name: fmk
 channels:
     - conda-forge
-    - defaults
+    - nodefaults
     - gimli
 dependencies:
     - pygimli=1.3
